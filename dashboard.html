@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JAS — Ticket Sales Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+  /* ── Variables ─────────────────────────────────────────────── */
+  :root {
+    --bg:       #0d0d0e;
+    --surface:  #161618;
+    --border:   #262628;
+    --border2:  #2e2e32;
+    --muted:    #4a4a50;
+    --text:     #e8e8ea;
+    --sub:      #888890;
+    --gold:     #c9a84c;
+    --gold2:    #e8c87a;
+    --green:    #4caf7e;
+    --yellow:   #d4a843;
+    --red:      #d45c4c;
+    --blue:     #5c9ed4;
+    --mono:     'DM Mono', monospace;
+    --display:  'Playfair Display', serif;
+    --sans:     'DM Sans', sans-serif;
+  }
+
+  /* ── Reset ──────────────────────────────────────────────────── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 14px; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── Noise texture overlay ──────────────────────────────────── */
+  body::before {
+    content: '';
+    position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+    opacity: 0.03;
+  }
+
+  /* ── Layout ──────────────────────────────────────────────────── */
+  .shell { position: relative; z-index: 1; max-width: 1400px; margin: 0 auto; padding: 0 24px 48px; }
+
+  /* ── Header ─────────────────────────────────────────────────── */
+  header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding: 36px 0 28px;
+    border-bottom: 1px solid var(--border);
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .header-left h1 {
+    font-family: var(--display);
+    font-size: 2.2rem;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    line-height: 1;
+  }
+  .header-left h1 span { color: var(--gold); }
+  .header-left p {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--sub);
+    margin-top: 6px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .header-right { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+
+  .meta {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--sub);
+    letter-spacing: 0.04em;
+    text-align: right;
+  }
+  .meta strong { color: var(--gold); display: block; font-size: 0.78rem; }
+
+  /* ── Refresh button ──────────────────────────────────────────── */
+  .btn-refresh {
+    display: flex; align-items: center; gap: 8px;
+    background: none;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    padding: 9px 18px;
+    border-radius: 4px;
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+  }
+  .btn-refresh:hover { background: var(--gold); color: var(--bg); }
+  .btn-refresh:disabled { opacity: 0.4; cursor: default; }
+  .btn-refresh svg { width: 14px; height: 14px; }
+  .btn-refresh.spinning svg { animation: spin 0.8s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ── Summary cards ───────────────────────────────────────────── */
+  .summary-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 12px;
+    margin: 28px 0;
+  }
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 18px 20px;
+    position: relative;
+    overflow: hidden;
+  }
+  .card::after {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  }
+  .card.sold::after     { background: var(--red); }
+  .card.reserved::after { background: var(--yellow); }
+  .card.locked::after   { background: var(--muted); }
+  .card.available::after{ background: var(--green); }
+  .card.events::after   { background: var(--blue); }
+
+  .card-label {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--sub);
+    margin-bottom: 8px;
+  }
+  .card-value {
+    font-family: var(--display);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1;
+  }
+  .card-sub {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    color: var(--sub);
+    margin-top: 6px;
+  }
+
+  /* ── Error / status bar ──────────────────────────────────────── */
+  .status-bar {
+    display: none;
+    background: #2a1515;
+    border: 1px solid #5c2020;
+    border-radius: 4px;
+    padding: 10px 16px;
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: #e07070;
+    margin-bottom: 16px;
+  }
+  .status-bar.visible { display: block; }
+
+  /* ── Loading skeleton ────────────────────────────────────────── */
+  .skeleton-row {
+    height: 52px;
+    background: linear-gradient(90deg, var(--surface) 25%, var(--border) 50%, var(--surface) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.4s infinite;
+    border-radius: 4px;
+    margin-bottom: 4px;
+  }
+  @keyframes shimmer { to { background-position: -200% 0; } }
+
+  /* ── Table ───────────────────────────────────────────────────── */
+  .table-wrap {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  table { width: 100%; border-collapse: collapse; }
+  thead tr { background: var(--surface); }
+  thead th {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--sub);
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+    white-space: nowrap;
+  }
+  thead th.num { text-align: right; }
+
+  tbody tr.instance-row {
+    cursor: pointer;
+    transition: background 0.1s;
+    border-bottom: 1px solid var(--border);
+  }
+  tbody tr.instance-row:hover { background: rgba(201,168,76,0.04); }
+  tbody tr.instance-row.expanded { background: rgba(201,168,76,0.06); border-bottom: none; }
+
+  tbody td {
+    padding: 13px 16px;
+    vertical-align: middle;
+  }
+  tbody td.num {
+    text-align: right;
+    font-family: var(--mono);
+    font-size: 0.82rem;
+  }
+
+  .event-name {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text);
+  }
+  .event-date {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--sub);
+    margin-top: 3px;
+  }
+
+  .expand-icon {
+    display: inline-block;
+    width: 18px; height: 18px;
+    border: 1px solid var(--border2);
+    border-radius: 3px;
+    text-align: center;
+    line-height: 16px;
+    font-size: 0.75rem;
+    color: var(--sub);
+    margin-right: 10px;
+    vertical-align: middle;
+    flex-shrink: 0;
+    transition: border-color 0.15s, color 0.15s;
+  }
+  tr.instance-row:hover .expand-icon { border-color: var(--gold); color: var(--gold); }
+  tr.instance-row.expanded .expand-icon { border-color: var(--gold); color: var(--gold); background: rgba(201,168,76,0.12); }
+
+  /* ── Progress bar ────────────────────────────────────────────── */
+  .prog-wrap { width: 100%; display: flex; align-items: center; gap: 8px; }
+  .prog-bar {
+    flex: 1; height: 5px; border-radius: 2px;
+    background: var(--border2);
+    overflow: hidden;
+    min-width: 60px;
+  }
+  .prog-fill {
+    height: 100%; border-radius: 2px;
+    transition: width 0.4s ease;
+  }
+  .prog-fill.green  { background: var(--green); }
+  .prog-fill.yellow { background: var(--yellow); }
+  .prog-fill.red    { background: var(--red); }
+  .prog-pct {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    width: 36px;
+    text-align: right;
+    flex-shrink: 0;
+  }
+  .prog-pct.green  { color: var(--green); }
+  .prog-pct.yellow { color: var(--yellow); }
+  .prog-pct.red    { color: var(--red); }
+
+  /* ── Pill badges ─────────────────────────────────────────────── */
+  .badge {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.06em;
+    padding: 2px 7px;
+    border-radius: 10px;
+    border: 1px solid transparent;
+  }
+  .badge.on-sale  { border-color: #4caf7e55; color: var(--green); background: #4caf7e12; }
+  .badge.off-sale { border-color: var(--border2); color: var(--muted); }
+
+  /* Number colors */
+  .n-sold { color: var(--red); }
+  .n-res  { color: var(--yellow); }
+  .n-lock { color: var(--muted); }
+  .n-avail{ color: var(--green); }
+
+  /* ── Area drilldown row ──────────────────────────────────────── */
+  tr.area-detail-row { display: none; }
+  tr.area-detail-row.visible { display: table-row; }
+  tr.area-detail-row td {
+    padding: 0 0 0 0;
+    border-bottom: 1px solid var(--border);
+    background: #101012;
+  }
+
+  .area-panel {
+    padding: 16px 24px 20px 48px;
+  }
+  .area-panel h4 {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--sub);
+    margin-bottom: 14px;
+  }
+  .area-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 10px;
+  }
+  .area-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 14px 16px;
+  }
+  .area-card-name {
+    font-size: 0.82rem;
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+  .area-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 6px;
+    margin-bottom: 10px;
+  }
+  .area-stat { text-align: center; }
+  .area-stat-val {
+    font-family: var(--mono);
+    font-size: 1rem;
+    font-weight: 500;
+    display: block;
+  }
+  .area-stat-lbl {
+    font-family: var(--mono);
+    font-size: 0.58rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--sub);
+    display: block;
+    margin-top: 2px;
+  }
+
+  .lock-list { margin-top: 10px; }
+  .lock-item {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 5px 0;
+    border-top: 1px solid var(--border);
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--sub);
+  }
+  .lock-item span:last-child { color: var(--text); }
+
+  .area-loading {
+    padding: 24px;
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: var(--sub);
+    letter-spacing: 0.06em;
+  }
+
+  /* ── Season / date filters ───────────────────────────────────── */
+  .filter-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 16px 0 4px;
+    flex-wrap: wrap;
+  }
+  .filter-btn {
+    background: none;
+    border: 1px solid var(--border2);
+    color: var(--sub);
+    padding: 5px 14px;
+    border-radius: 20px;
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    transition: border-color 0.15s, color 0.15s, background 0.15s;
+  }
+  .filter-btn:hover  { border-color: var(--gold); color: var(--gold); }
+  .filter-btn.active { border-color: var(--gold); color: var(--bg); background: var(--gold); }
+  .filter-sep { flex: 1; }
+
+  /* ── Footer ─────────────────────────────────────────────────── */
+  footer {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+  }
+  footer a { color: var(--gold); text-decoration: none; }
+  footer a:hover { text-decoration: underline; }
+</style>
+</head>
+
+<body>
+<div class="shell">
+
+  <!-- Header -->
+  <header>
+    <div class="header-left">
+      <h1>Jazz Aspen Snowmass <span>Tickets</span></h1>
+      <p id="subtitle">Spektrix Live Sales Dashboard</p>
+    </div>
+    <div class="header-right">
+      <div class="meta">
+        <strong id="last-updated">—</strong>
+        Last Refreshed
+      </div>
+      <button class="btn-refresh" id="refresh-btn" onclick="loadDashboard()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+             stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="23 4 23 10 17 10"></polyline>
+          <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
+        </svg>
+        Refresh
+      </button>
+    </div>
+  </header>
+
+  <!-- Season / date filters -->
+  <div class="filter-row" id="filter-row"></div>
+
+  <!-- Summary cards -->
+  <div class="summary-row" id="summary-row">
+    <div class="card events"><div class="card-label">Upcoming Events</div><div class="card-value" id="s-events">—</div><div class="card-sub" id="s-range">next — days</div></div>
+    <div class="card sold"><div class="card-label">Total Sold</div><div class="card-value" id="s-sold">—</div><div class="card-sub" id="s-cap">of — capacity</div></div>
+    <div class="card reserved"><div class="card-label">Reserved</div><div class="card-value" id="s-reserved">—</div><div class="card-sub">held / not yet paid</div></div>
+    <div class="card locked"><div class="card-label">Locked</div><div class="card-value" id="s-locked">—</div><div class="card-sub">holds + kills</div></div>
+    <div class="card available"><div class="card-label">Available</div><div class="card-value" id="s-available">—</div><div class="card-sub">across all events</div></div>
+  </div>
+
+  <!-- Error bar -->
+  <div class="status-bar" id="error-bar"></div>
+
+  <!-- Table -->
+  <div class="table-wrap" id="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Event / Instance</th>
+          <th>Status</th>
+          <th class="num">Sold</th>
+          <th class="num">Reserved</th>
+          <th class="num">Locked</th>
+          <th class="num">Available</th>
+          <th class="num">Capacity</th>
+          <th>% Sold</th>
+        </tr>
+      </thead>
+      <tbody id="table-body">
+        <!-- skeleton -->
+        <tr><td colspan="8"><div class="skeleton-row"></div></td></tr>
+        <tr><td colspan="8"><div class="skeleton-row" style="opacity:.7"></div></td></tr>
+        <tr><td colspan="8"><div class="skeleton-row" style="opacity:.4"></div></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <footer>
+    Dashboard powered by the <a href="https://integrate.spektrix.com/docs/API3" target="_blank">Spektrix API v3</a> &nbsp;·&nbsp;
+    Flask proxy running at <a href="http://localhost:5000" target="_blank">localhost:5000</a> &nbsp;·&nbsp;
+    Excel Power Query: <code>http://localhost:5000/api/instances</code>
+  </footer>
+
+</div><!-- /shell -->
+
+<script>
+const API = "http://localhost:5000";
+
+let allInstances  = [];
+let seasons       = {};
+let currentSeason = null;   // null = all seasons
+let showUpcoming  = true;
+let expandedRows  = new Set();
+
+// ─── Bootstrap ────────────────────────────────────────────────────────────
+window.addEventListener('DOMContentLoaded', async () => {
+  try {
+    const r = await fetch(`${API}/api/config`);
+    const cfg = await r.json();
+    document.querySelector('#subtitle').textContent =
+      `${cfg.clientName || 'Spektrix'} — Live Sales Dashboard`;
+  } catch (e) {}
+  loadDashboard();
+});
+
+// ─── Main load ─────────────────────────────────────────────────────────────
+async function loadDashboard() {
+  const btn = document.getElementById('refresh-btn');
+  btn.disabled = true;
+  btn.classList.add('spinning');
+  hideError();
+  showSkeletons();
+
+  try {
+    const resp = await fetch(`${API}/api/instances`);
+    if (!resp.ok) throw new Error(`HTTP ${resp.status}. Is app.py running?`);
+    const data = await resp.json();
+
+    allInstances = data.instances || [];
+    seasons      = data.seasons   || {};
+
+    document.getElementById('last-updated').textContent =
+      new Date(data.fetchedAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+
+    buildSeasonFilters();
+    applyFilters();
+
+  } catch (e) {
+    showError(`Could not reach the Spektrix proxy: ${e.message}`);
+    showSkeletons(false);
+  } finally {
+    btn.disabled = false;
+    btn.classList.remove('spinning');
+  }
+}
+
+// ─── Filter controls ────────────────────────────────────────────────────────
+function buildSeasonFilters() {
+  const row = document.getElementById('filter-row');
+  row.innerHTML = [
+    `<button class="filter-btn ${!currentSeason ? 'active' : ''}" onclick="setSeason(null)">All Seasons</button>`,
+    ...Object.keys(seasons).map(s =>
+      `<button class="filter-btn ${currentSeason === s ? 'active' : ''}" data-season="${esc(s)}" onclick="setSeason(this.dataset.season)">${esc(s)}</button>`
+    ),
+    `<span class="filter-sep"></span>`,
+    `<button class="filter-btn ${showUpcoming ? 'active' : ''}" onclick="toggleUpcoming()">Upcoming Only</button>`,
+  ].join('');
+}
+
+function setSeason(season) {
+  currentSeason = season;
+  buildSeasonFilters();
+  applyFilters();
+}
+
+function toggleUpcoming() {
+  showUpcoming = !showUpcoming;
+  buildSeasonFilters();
+  applyFilters();
+}
+
+function applyFilters() {
+  const now = new Date();
+  const filtered = allInstances.filter(inst => {
+    if (currentSeason && inst.season !== currentSeason) return false;
+    if (showUpcoming && new Date(inst.start) <= now) return false;
+    return true;
+  });
+  renderSummary(filtered);
+  renderTable(filtered);
+
+  // Re-open previously expanded rows
+  expandedRows.forEach(id => {
+    const detailRow = document.getElementById(`detail-${id}`);
+    if (!detailRow) return;
+    detailRow.classList.add('visible');
+    const expandEl = document.getElementById(`expand-${id}`);
+    if (expandEl) { expandEl.textContent = '▾'; expandEl.closest('tr').classList.add('expanded'); }
+    const panel = document.getElementById(`panel-${id}`);
+    const inst  = allInstances.find(i => i.id === id);
+    if (panel && inst) renderAreaPanel(panel, inst.areas);
+  });
+}
+
+// ─── Summary cards ─────────────────────────────────────────────────────────
+function renderSummary(instances) {
+  let totalSold = 0, totalRes = 0, totalLocked = 0, totalAvail = 0, totalCap = 0;
+  instances.forEach(inst => {
+    const s = inst.summary || {};
+    totalSold   += s.sold      || 0;
+    totalRes    += s.reserved  || 0;
+    totalLocked += s.locked    || 0;
+    totalAvail  += s.available || 0;
+    totalCap    += s.capacity  || 0;
+  });
+  set('s-events',    instances.length);
+  set('s-sold',      fmt(totalSold));
+  set('s-cap',       `of ${fmt(totalCap)} capacity`);
+  set('s-reserved',  fmt(totalRes));
+  set('s-locked',    fmt(totalLocked));
+  set('s-available', fmt(totalAvail));
+  set('s-range',     currentSeason || 'All Seasons');
+}
+
+// ─── Table ─────────────────────────────────────────────────────────────────
+function renderTable(instances) {
+  const tbody = document.getElementById('table-body');
+  if (!instances.length) {
+    tbody.innerHTML = `<tr><td colspan="8" style="padding:32px;text-align:center;font-family:var(--mono);color:var(--sub)">No instances found.</td></tr>`;
+    return;
+  }
+
+  tbody.innerHTML = instances.map(inst => {
+    const s   = inst.summary || {};
+    const id  = inst.id;
+    const pct = s.capacity ? Math.round(((s.sold || 0) / s.capacity) * 100) : 0;
+    const cls = pct >= 90 ? 'red' : pct >= 70 ? 'yellow' : 'green';
+
+    return `
+    <tr class="instance-row" id="row-${id}" onclick="toggleDetail('${id}', this)">
+      <td>
+        <span class="expand-icon" id="expand-${id}">▸</span>
+        <span class="event-name">${esc(inst.eventName)}</span>
+        <div class="event-date" style="padding-left:28px">${fmtDate(inst.start)}</div>
+      </td>
+      <td>
+        <span class="badge ${inst.isOnSale ? 'on-sale' : 'off-sale'}">
+          ${inst.isOnSale ? 'On Sale' : 'Off Sale'}
+        </span>
+      </td>
+      <td class="num n-sold">${fmt(s.sold)}</td>
+      <td class="num n-res">${fmt(s.reserved)}</td>
+      <td class="num n-lock">${fmt(s.locked)}</td>
+      <td class="num n-avail">${fmt(s.available)}</td>
+      <td class="num" style="color:var(--sub)">${fmt(s.capacity)}</td>
+      <td style="min-width:110px">
+        <div class="prog-wrap">
+          <div class="prog-bar"><div class="prog-fill ${cls}" style="width:${pct}%"></div></div>
+          <span class="prog-pct ${cls}">${pct}%</span>
+        </div>
+      </td>
+    </tr>
+    <tr class="area-detail-row" id="detail-${id}">
+      <td colspan="8">
+        <div class="area-panel" id="panel-${id}">
+          <div class="area-loading">Loading…</div>
+        </div>
+      </td>
+    </tr>`;
+  }).join('');
+}
+
+// ─── Toggle area drilldown — data pre-loaded, no API call needed ────────────
+function toggleDetail(instanceId, rowEl) {
+  const detailRow = document.getElementById(`detail-${instanceId}`);
+  const expandEl  = document.getElementById(`expand-${instanceId}`);
+  const panel     = document.getElementById(`panel-${instanceId}`);
+  const isOpen    = detailRow.classList.contains('visible');
+
+  if (isOpen) {
+    detailRow.classList.remove('visible');
+    rowEl.classList.remove('expanded');
+    expandEl.textContent = '▸';
+    expandedRows.delete(instanceId);
+    return;
+  }
+
+  detailRow.classList.add('visible');
+  rowEl.classList.add('expanded');
+  expandEl.textContent = '▾';
+  expandedRows.add(instanceId);
+
+  const inst = allInstances.find(i => i.id === instanceId);
+  if (inst && inst.areas && inst.areas.length) {
+    renderAreaPanel(panel, inst.areas);
+  } else {
+    panel.innerHTML = `<p style="font-family:var(--mono);font-size:0.78rem;color:var(--sub);padding:16px">No area data available.</p>`;
+  }
+}
+
+// ─── Area panel rendering ───────────────────────────────────────────────────
+function renderAreaPanel(panel, areas) {
+  if (!areas || !areas.length) {
+    panel.innerHTML = `<p style="font-family:var(--mono);font-size:0.78rem;color:var(--sub)">No area data returned.</p>`;
+    return;
+  }
+
+  const cards = areas.map(a => {
+    if (a.error) return `
+      <div class="area-card">
+        <div class="area-card-name">${esc(a.areaName)}</div>
+        <p style="font-family:var(--mono);font-size:0.72rem;color:var(--red)">${esc(a.error)}</p>
+      </div>`;
+
+    const lockItems = (a.lockInformation || []).map(l => `
+      <div class="lock-item">
+        <span>${esc(l.lockType?.name || 'Unknown lock')}</span>
+        <span>${l.quantity}</span>
+      </div>`).join('');
+
+    const pct = a.capacity ? Math.round(((a.sold || 0) / a.capacity) * 100) : 0;
+    const cls = pct >= 90 ? 'red' : pct >= 70 ? 'yellow' : 'green';
+
+    return `
+      <div class="area-card">
+        <div class="area-card-name">${esc(a.areaName || a.name)}</div>
+        <div class="area-stats">
+          <div class="area-stat"><span class="area-stat-val n-sold">${fmt(a.sold)}</span><span class="area-stat-lbl">Sold</span></div>
+          <div class="area-stat"><span class="area-stat-val n-res">${fmt(a.reserved)}</span><span class="area-stat-lbl">Reserved</span></div>
+          <div class="area-stat"><span class="area-stat-val n-lock">${fmt(a.locked)}</span><span class="area-stat-lbl">Locked</span></div>
+          <div class="area-stat"><span class="area-stat-val n-avail">${fmt(a.available)}</span><span class="area-stat-lbl">Available</span></div>
+        </div>
+        <div class="prog-wrap" style="margin-bottom:${lockItems ? '8px' : '0'}">
+          <div class="prog-bar">
+            <div class="prog-fill ${cls}" style="width:${pct}%"></div>
+          </div>
+          <span class="prog-pct ${cls}">${pct}% of ${fmt(a.capacity)}</span>
+        </div>
+        ${lockItems ? `<div class="lock-list"><div class="area-stat-lbl" style="padding-bottom:4px">Lock Breakdown</div>${lockItems}</div>` : ''}
+      </div>`;
+  }).join('');
+
+  panel.innerHTML = `<h4>Seating Area Breakdown</h4><div class="area-grid">${cards}</div>`;
+}
+
+// ─── Utilities ──────────────────────────────────────────────────────────────
+function fmt(n)   { return n == null ? '—' : Number(n).toLocaleString(); }
+function set(id, v){ const el = document.getElementById(id); if (el) el.textContent = v; }
+function esc(s)   { return String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+function fmtDate(iso) {
+  if (!iso) return '—';
+  try {
+    return new Date(iso).toLocaleString([], {
+      weekday: 'short', month: 'short', day: 'numeric',
+      hour: '2-digit', minute: '2-digit'
+    });
+  } catch { return iso; }
+}
+
+function showError(msg) {
+  const bar = document.getElementById('error-bar');
+  bar.textContent = '⚠ ' + msg;
+  bar.classList.add('visible');
+}
+function hideError() { document.getElementById('error-bar').classList.remove('visible'); }
+
+function showSkeletons(show = true) {
+  const tbody = document.getElementById('table-body');
+  if (show) {
+    tbody.innerHTML = [1,2,3].map((_, i) =>
+      `<tr><td colspan="8"><div class="skeleton-row" style="opacity:${1 - i*0.3}"></div></td></tr>`
+    ).join('');
+  }
+}
+</script>
+</body>
+</html>
