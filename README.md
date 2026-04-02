@@ -1,7 +1,8 @@
-# Spektrix Ticket Sales Dashboard
+# JAS Ticket Sales Dashboard
 
-Real-time ticket sales dashboard backed by the Spektrix API v3.  
-Flask handles all HMAC-SHA1 authentication server-side — no CORS issues.
+Real-time ticket sales dashboard for Jazz Aspen Snowmass, backed by the Spektrix API v3.
+Flask handles all HMAC-SHA1 authentication server-side. Deployed on Render and accessible
+to the full team via a password-protected URL.
 
 ---
 
@@ -9,101 +10,161 @@ Flask handles all HMAC-SHA1 authentication server-side — no CORS issues.
 
 | File | Purpose |
 |------|---------|
-| `app.py` | Flask proxy server — handles Spektrix auth, exposes local API endpoints |
-| `config.py` | Your credentials + seating area IDs — **edit this first** |
-| `dashboard.html` | Web dashboard — open in browser after starting the server |
+| `app.py` | Flask server — Spektrix auth, caching, API endpoints |
+| `dashboard.html` | Web dashboard UI |
+| `events-config-dashboard.json` | Events, seating plans, seasons, and sales snapshots |
+| `snapshot.py` | Script to capture final sales data for past events into the JSON |
 | `requirements.txt` | Python dependencies |
+| `config.py` | Local credentials — **never commit this file** |
+| `.env` | Local environment variables — **never commit this file** |
 
 ---
 
-## Setup
+## Local Setup
 
 ### 1. Install dependencies
 
 ```bash
-pip install flask flask-cors requests
-```
-
-Or use the requirements file:
-```bash
 pip install -r requirements.txt
 ```
 
-### 2. Edit `config.py`
+### 2. Configure credentials
 
-Fill in your Spektrix credentials and seating area IDs:
+Edit `config.py` with your Spektrix credentials and dashboard password:
 
 ```python
-CLIENT_NAME   = "your_client_name"   # from your Spektrix URL
-API_KEY       = "your_api_key"
-API_SECRET    = "your_api_secret"
-
-SEATING_AREAS = {
-    "JAS Café - Dance":    "6602ATBVLJQKCMGMLQRDTTBNMTTCNKCBH",
-    "JAS Café - Reserved": "YOUR_RESERVED_AREA_ID",
-}
+CLIENT_NAME        = "jazzaspensnowmass"
+API_KEY            = "your_api_key"
+API_SECRET         = "your_base64_secret"
+DASHBOARD_PASSWORD = "your_password"
 ```
 
-**Finding your area IDs:** Run your existing Python auth script against:
-```
-GET /api/v3/instances/{instanceId}/status?includeChildPlans=true
-```
-The response will include child area data with their IDs. Or check the ID
-embedded in your existing test calls.
-
-### 3. Replace the auth function (if needed)
-
-`app.py` includes a default HMAC-SHA1 implementation, but if your working
-`make_spektrix_request()` function uses a different signature format, paste
-it into `app.py` directly (look for the `# ↓ Paste your existing...` comment).
-
-### 4. Start the server
+### 3. Start the server
 
 ```bash
 python app.py
 ```
 
-You should see:
-```
-🎵  Spektrix Dashboard running at http://localhost:5000
-```
-
-### 5. Open the dashboard
-
-Navigate to **http://localhost:5000** in any browser.
+Open **http://localhost:5000** in any browser. Enter username `jas` and your password.
 
 ---
 
-## Sharing with your team
+## Authentication
 
-### Option A — Web Dashboard (same network)
+### Dashboard (HTTP Basic Auth)
+The dashboard is password-protected. Credentials:
+- **Username:** `jas`
+- **Password:** set via `DASHBOARD_PASSWORD` in `config.py` (local) or Render environment variables (production)
 
-Find your machine's local IP address:
-- Windows: `ipconfig` → look for IPv4 Address (e.g. `192.168.1.42`)
-- Mac: `ifconfig` or System Settings → Network
+### Spektrix API (HMAC-SHA1)
+All Spektrix API calls are signed server-side using HMAC-SHA1. The signature format is:
+```
+string_to_sign = "GET\n{full_url}\n{date}"
+Authorization: SpektrixAPI3 {API_KEY}:{base64_signature}
+```
 
-Share the URL: `http://192.168.1.42:5000`
+---
 
-Anyone on the same network can open it. The server needs to keep running
-on your machine (or leave it running on a shared/always-on PC).
+## Events Config (`events-config-dashboard.json`)
 
-### Option B — Excel via Power Query
+This JSON file is the single source of truth for events, seating plans, and seasons.
+The live API is only called for seat availability — everything else comes from here.
 
-1. Open Excel → **Data** tab → **Get Data** → **From Web**
-2. Enter URL: `http://localhost:5000/api/instances`
-3. Click **OK** → in the Power Query editor, expand the `instances` column
-4. Expand `status` to get sold, reserved, locked, available, capacity columns
-5. Load to a worksheet or pivot table
-6. Hit **Refresh All** in Excel any time you want live data
+### Structure
 
-The Flask server must be running when you refresh in Excel.
+```
+{
+  "seasons": { "Winter 2026": { "label": "...", "year": 2026 } },
+  "planConfigs": {
+    "<fullPlanId>": {
+      "seatingAreas": { "area-name": "<fullAreaId>" }
+    }
+  },
+  "events": [
+    {
+      "name": "Artist Name",
+      "attribute_Season": "Winter 2026",
+      "instances": [
+        {
+          "id": "...",
+          "planId": "...",
+          "start": "2026-04-09T19:00:00",
+          "salesSnapshot": { ... }   ← added by snapshot.py after show ends
+        }
+      ]
+    }
+  ]
+}
+```
 
-### Option C — Schedule with Task Scheduler (Windows)
+### Seating plan logic
 
-To keep data "auto-refreshed" in Excel without manually triggering:
-1. Create a Python script that calls the Spektrix API and writes to a CSV/Excel file
-2. Schedule it in Windows Task Scheduler to run every 15–30 minutes
-3. Excel auto-refreshes when the source file updates
+| Instance | Action |
+|---|---|
+| Has `salesSnapshot` | Uses JSON data — no API call |
+| `planId` in `planConfigs` | Fetches per-area status from Spektrix |
+| `planId` not in `planConfigs` | Fetches instance-level status (single-area fallback) |
+| No `planId` | Skipped |
+
+### Adding a new seating plan
+
+Add an entry to `planConfigs` keyed by the full planId:
+
+```json
+"planConfigs": {
+  "NEW_FULL_PLAN_ID": {
+    "layoutName": "new-layout",
+    "seatingAreas": {
+      "area-name": "FULL_AREA_ID"
+    }
+  }
+}
+```
+
+Any instance whose `planId` matches will automatically use it.
+
+### Adding a new season
+
+Add an entry to `seasons` and set `attribute_Season` on the relevant events:
+
+```json
+"seasons": {
+  "Summer 2026": { "label": "Summer 2026", "year": 2026 }
+}
+```
+
+---
+
+## Server-Side Caching
+
+On first page load (or after cache expires), `app.py` fetches area status for all instances
+in parallel using `ThreadPoolExecutor` (up to 20 concurrent requests). Results are cached
+for **5 minutes**. Subsequent loads are served instantly from cache.
+
+To force a refresh before the cache expires:
+```bash
+curl -X POST http://localhost:5000/api/cache/clear
+```
+
+---
+
+## Sales Snapshots
+
+Once a show has passed, its ticket counts are final. Run `snapshot.py` to capture the
+final numbers into the JSON so the dashboard no longer needs to call the API for past events.
+
+```bash
+# Preview what will be updated
+python snapshot.py --dry-run
+
+# Capture snapshots for all past instances
+python snapshot.py
+
+# Re-capture all past instances (overwrites existing snapshots)
+python snapshot.py --all
+```
+
+Run this at the end of each season, then commit and push the updated JSON.
 
 ---
 
@@ -111,33 +172,53 @@ To keep data "auto-refreshed" in Excel without manually triggering:
 
 | Endpoint | Description |
 |----------|-------------|
-| `GET /api/instances` | All upcoming instances with top-level status. Good for Excel. |
-| `GET /api/instance/{id}/areas` | Per-area breakdown for one instance (uses config.py area IDs) |
-| `GET /api/instance/{id}/area/{areaId}` | Status for a single specific area |
-| `GET /api/config` | Returns configured client name and seating areas |
+| `GET /api/instances` | All instances with area data — served from cache |
+| `GET /api/instance/{id}/areas` | Live area fetch for one instance — bypasses cache |
+| `POST /api/cache/clear` | Forces a full re-fetch on next `/api/instances` request |
+| `GET /api/config` | Returns client name and seasons |
+
+All endpoints require Basic Auth.
+
+---
+
+## Deployment (Render)
+
+The dashboard is deployed at [jas-dashboard.onrender.com](https://jas-dashboard.onrender.com).
+
+- **Build command:** `pip install -r requirements.txt`
+- **Start command:** `gunicorn app:app`
+
+### Environment variables (set in Render dashboard)
+
+| Key | Description |
+|-----|-------------|
+| `SPEKTRIX_CLIENT` | Spektrix client name |
+| `SPEKTRIX_API_KEY` | API key (username) |
+| `SPEKTRIX_API_SECRET` | Base64-encoded API secret |
+| `DASHBOARD_PASSWORD` | Dashboard access password |
+
+### Deploying updates
+
+```bash
+git add .
+git commit -m "describe what changed"
+git push
+```
+
+Render auto-deploys within ~1 minute of a push to `main`.
 
 ---
 
 ## Troubleshooting
 
-**"Could not reach the Spektrix proxy"**  
-Make sure `python app.py` is running in a terminal window.
+**"Could not reach the Spektrix proxy"**
+Make sure `python app.py` is running locally, or check the Render deployment logs.
 
-**401 Unauthorized from Spektrix**  
-Double-check `API_KEY` and `API_SECRET` in `config.py`.  
-If the default HMAC format doesn't match, paste your working auth function into `app.py`.
+**401 from Spektrix API**
+Check `API_KEY` and `API_SECRET` in `config.py`. The secret must be base64-encoded.
 
-**Area breakdown shows "No seating areas configured"**  
-Add your area IDs to `SEATING_AREAS` in `config.py`.
+**Season filter buttons not working**
+Season names with spaces must be passed via `data-season` attribute — check `buildSeasonFilters()` in `dashboard.html`.
 
-**Excel Power Query error: "couldn't connect"**  
-The Flask server needs to be running. Also confirm the URL is exactly `http://localhost:5000/api/instances`.
-
----
-
-## Notes on rate limiting
-
-Spektrix recommends server-side caching for availability calls. This dashboard
-makes one status call per instance on load. If you have many instances (50+),
-consider adding a small `time.sleep(0.1)` between requests in `app.py`'s
-`api_instances()` route to avoid hitting rate limits.
+**Page loads but shows no instances**
+The default filter is "Upcoming Only". Toggle it off or check that instances in the JSON have future `start` dates.
