@@ -485,7 +485,8 @@
 </div><!-- /shell -->
 
 <script>
-const API = "http://localhost:5000";
+const API = window.location.origin;
+const FETCH_OPTS = { credentials: "same-origin" };
 
 let allInstances  = [];
 let seasons       = {};
@@ -496,7 +497,7 @@ let expandedRows  = new Set();
 // ─── Bootstrap ────────────────────────────────────────────────────────────
 window.addEventListener('DOMContentLoaded', async () => {
   try {
-    const r = await fetch(`${API}/api/config`);
+    const r = await fetch(`${API}/api/config`, FETCH_OPTS);
     const cfg = await r.json();
     document.querySelector('#subtitle').textContent =
       `${cfg.clientName || 'Spektrix'} — Live Sales Dashboard`;
@@ -513,7 +514,7 @@ async function loadDashboard() {
   showSkeletons();
 
   try {
-    const resp = await fetch(`${API}/api/instances`);
+    const resp = await fetch(`${API}/api/instances`, FETCH_OPTS);
     if (!resp.ok) throw new Error(`HTTP ${resp.status}. Is app.py running?`);
     const data = await resp.json();
 
