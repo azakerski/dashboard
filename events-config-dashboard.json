@@ -7,6 +7,10 @@
     "Winter 2026": {
       "label": "Winter 2026",
       "year": 2026
+    },
+    "Summer 2026": {
+      "label": "Summer 2026",
+      "year": 2026
     }
   },
   "planConfigs": {
@@ -6225,7 +6229,80 @@
           "id": "47401AKQNQDVQMQKDSCQGTCTQNHNCHLHR",
           "hasBestAvailableOverlay": false,
           "attribute_TablesSoldOut": "",
-          "attribute_BarSoldOut": ""
+          "attribute_BarSoldOut": "",
+          "salesSnapshot": {
+            "capturedAt": "2026-04-28T11:17:19.799480",
+            "areas": [
+              {
+                "name": "JAS Caf\u00e9 - Dance",
+                "available": 2,
+                "wheelchairAvailable": 0,
+                "specialAvailable": 0,
+                "capacity": 134,
+                "inBasket": 0,
+                "inOtherBasket": 0,
+                "locked": 18,
+                "reserved": 0,
+                "sold": 114,
+                "scanned": 103,
+                "masked": 166,
+                "unavailable": 132,
+                "lockInformation": [
+                  {
+                    "quantity": 11,
+                    "lockType": {
+                      "name": "Kill",
+                      "id": "2801AQDNLVMHMKCPBDVJNRVPGGRHGRKHB",
+                      "availableOnWeb": false,
+                      "availableToAgents": false,
+                      "requiresEligibility": false
+                    }
+                  },
+                  {
+                    "quantity": 7,
+                    "lockType": {
+                      "name": "JAS Holds",
+                      "id": "401ANPJQJQPQMRSBDNMVNLSPGTRBVQVRH",
+                      "availableOnWeb": false,
+                      "availableToAgents": false,
+                      "requiresEligibility": false
+                    }
+                  }
+                ],
+                "areaName": "main-tables",
+                "areaId": "6602ATBVLJQKCMGMLQRDTTBNMTTCNKCBH"
+              },
+              {
+                "name": "JAS Caf\u00e9 - Dance",
+                "available": 0,
+                "wheelchairAvailable": 0,
+                "specialAvailable": 0,
+                "capacity": 72,
+                "inBasket": 0,
+                "inOtherBasket": 0,
+                "locked": 1,
+                "reserved": 0,
+                "sold": 71,
+                "scanned": 65,
+                "masked": 178,
+                "unavailable": 72,
+                "lockInformation": [
+                  {
+                    "quantity": 1,
+                    "lockType": {
+                      "name": "Artist Holds",
+                      "id": "201AGBHDRLQHNHPHKKMPKLGPMDRDTDMVL",
+                      "availableOnWeb": false,
+                      "availableToAgents": false,
+                      "requiresEligibility": false
+                    }
+                  }
+                ],
+                "areaName": "bar-standing",
+                "areaId": "6603ADJDMRGPNHRNPSJSQVNRBJTMGQPKS"
+              }
+            ]
+          }
         },
         {
           "isOnSale": true,
@@ -6247,7 +6324,80 @@
           "id": "47002AJDNPVNSJRRRQMSMJRHGBMJDBRGB",
           "hasBestAvailableOverlay": false,
           "attribute_TablesSoldOut": "",
-          "attribute_BarSoldOut": ""
+          "attribute_BarSoldOut": "",
+          "salesSnapshot": {
+            "capturedAt": "2026-04-28T11:17:21.032076",
+            "areas": [
+              {
+                "name": "JAS Caf\u00e9 - Dance",
+                "available": 62,
+                "wheelchairAvailable": 0,
+                "specialAvailable": 0,
+                "capacity": 134,
+                "inBasket": 0,
+                "inOtherBasket": 0,
+                "locked": 10,
+                "reserved": 0,
+                "sold": 62,
+                "scanned": 57,
+                "masked": 166,
+                "unavailable": 72,
+                "lockInformation": [
+                  {
+                    "quantity": 10,
+                    "lockType": {
+                      "name": "JAS Holds",
+                      "id": "401ANPJQJQPQMRSBDNMVNLSPGTRBVQVRH",
+                      "availableOnWeb": false,
+                      "availableToAgents": false,
+                      "requiresEligibility": false
+                    }
+                  }
+                ],
+                "areaName": "main-tables",
+                "areaId": "6602ATBVLJQKCMGMLQRDTTBNMTTCNKCBH"
+              },
+              {
+                "name": "JAS Caf\u00e9 - Dance",
+                "available": 1,
+                "wheelchairAvailable": 0,
+                "specialAvailable": 0,
+                "capacity": 85,
+                "inBasket": 0,
+                "inOtherBasket": 0,
+                "locked": 11,
+                "reserved": 0,
+                "sold": 73,
+                "scanned": 56,
+                "masked": 165,
+                "unavailable": 84,
+                "lockInformation": [
+                  {
+                    "quantity": 5,
+                    "lockType": {
+                      "name": "JAS Holds",
+                      "id": "401ANPJQJQPQMRSBDNMVNLSPGTRBVQVRH",
+                      "availableOnWeb": false,
+                      "availableToAgents": false,
+                      "requiresEligibility": false
+                    }
+                  },
+                  {
+                    "quantity": 6,
+                    "lockType": {
+                      "name": "Artist Holds",
+                      "id": "201AGBHDRLQHNHPHKKMPKLGPMDRDTDMVL",
+                      "availableOnWeb": false,
+                      "availableToAgents": false,
+                      "requiresEligibility": false
+                    }
+                  }
+                ],
+                "areaName": "bar-standing",
+                "areaId": "6603ADJDMRGPNHRNPSJSQVNRBJTMGQPKS"
+              }
+            ]
+          }
         }
       ],
       "thumbnailUrl": "https://system.spektrix.com/jazzaspensnowmass/files/2021a4f6-b375-4789-b9c2-ecfd2491462b-thumbnail.jpg",
@@ -6263,6 +6413,1414 @@
       "attribute_Genre": "Funk",
       "attribute_IsSupplementaryEvent": false,
       "attribute_Season": "Winter 2026"
-    }
+    },
+    {
+    "description": "Comedy Night presented by The Cultural Vibrancy Fellowship Grant & Jazz Aspen Snowmass",
+    "htmlDescription": "<div id>\r\n\r\n</div>",
+    "duration": 90,
+    "imageUrl": "https://system.spektrix.com/jazzaspensnowmass/files/a2968d18-7ab0-42b2-96b8-a62600130bbc.jpg",
+    "isOnSale": true,
+    "name": "Comedy Night",
+    "instanceDates": "June 11-June 11",
+    "instances": [
+      {
+        "isOnSale": true,
+        "planId": "7601AHCJPTHNBCVJHLQNKQVKDRKRMLTPC",
+        "priceList": {
+          "id": "23801AJTHHRQPTBGSQKNGJHMKGQMHTHHM"
+        },
+        "event": {
+          "id": "23801AJTHHRQPTBGSQKNGJHMKGQMHTHHM"
+        },
+        "start": "2026-06-11T19:30:00",
+        "startUtc": "2026-06-12T01:30:00",
+        "startSellingAtWeb": "2026-04-23T11:14:00",
+        "startSellingAtWebUtc": "2026-04-23T17:14:00Z",
+        "stopSellingAtWeb": "2026-06-11T19:30:00",
+        "stopSellingAtWebUtc": "2026-06-12T01:30:00Z",
+        "webInstanceId": null,
+        "cancelled": false,
+        "id": "71801ABVJVLDBDPJBNLJVMTCQQRSJHMBM",
+        "hasBestAvailableOverlay": false,
+        "attribute_TablesSoldOut": "",
+        "attribute_BarSoldOut": ""
+      }
+    ],
+    "thumbnailUrl": "https://system.spektrix.com/jazzaspensnowmass/files/a2968d18-7ab0-42b2-96b8-a62600130bbc-thumbnail.jpg",
+    "webEventId": null,
+    "id": "23801AJTHHRQPTBGSQKNGJHMKGQMHTHHM",
+    "firstInstanceDateTime": "2026-06-11T19:30:00",
+    "firstInstanceDateTimeUtc": "2026-06-12T01:30:00Z",
+    "lastInstanceDateTime": "2026-06-11T19:30:00",
+    "lastInstanceDateTimeUtc": "2026-06-12T01:30:00Z",
+    "altText": "",
+    "attribute_CustomImage": "https://jazzaspensnowmass.org/wp-content/uploads/2026/04/Comedy-Night.jpg",
+    "attribute_EventType": "JAS Center",
+    "attribute_Genre": "Comedy",
+    "attribute_IsSupplementaryEvent": false,
+    "attribute_Season": "Summer 2026"
+  },
+  {
+    "description": "",
+    "htmlDescription": "<div id>\r\n\r\n</div>",
+    "duration": 180,
+    "imageUrl": "",
+    "isOnSale": true,
+    "name": "Saut\u00e9 and Swing",
+    "instanceDates": "June 18-June 18",
+    "instances": [
+      {
+        "isOnSale": true,
+        "planId": "7801ATTBPVLSHPLVGKMJNMMDGBTHMPBTK",
+        "priceList": {
+          "id": "23001ARCVCNHNNNCLVMBNCMRGPKGBRCSK"
+        },
+        "event": {
+          "id": "22801AGSKTJDCRVHCKQCVVHGLQCVGCCGM"
+        },
+        "start": "2026-06-18T17:30:00",
+        "startUtc": "2026-06-18T23:30:00",
+        "startSellingAtWeb": "2026-04-21T15:35:00",
+        "startSellingAtWebUtc": "2026-04-21T21:35:00Z",
+        "stopSellingAtWeb": "2026-06-18T17:30:00",
+        "stopSellingAtWebUtc": "2026-06-18T23:30:00Z",
+        "webInstanceId": null,
+        "cancelled": false,
+        "id": "68602AVRSPNTBNBBKGNCCBVJSBBMSHPSS",
+        "hasBestAvailableOverlay": false,
+        "attribute_TablesSoldOut": "",
+        "attribute_BarSoldOut": ""
+      }
+    ],
+    "thumbnailUrl": "",
+    "webEventId": null,
+    "id": "22801AGSKTJDCRVHCKQCVVHGLQCVGCCGM",
+    "firstInstanceDateTime": "2026-06-18T17:30:00",
+    "firstInstanceDateTimeUtc": "2026-06-18T23:30:00Z",
+    "lastInstanceDateTime": "2026-06-18T17:30:00",
+    "lastInstanceDateTimeUtc": "2026-06-18T23:30:00Z",
+    "altText": "",
+    "attribute_CustomImage": "https://jazzaspensnowmass.org/wp-content/uploads/2026/04/SS-Logo-NEW-1-e1777086577365.jpg",
+    "attribute_EventType": "JAS Center",
+    "attribute_Genre": "Fundraiser",
+    "attribute_IsSupplementaryEvent": false,
+    "attribute_Season": "Summer 2026"
+  },
+  {
+    "description": "",
+    "htmlDescription": "<div id>\r\n\r\n</div>",
+    "duration": 90,
+    "imageUrl": "https://system.spektrix.com/jazzaspensnowmass/files/b28f179d-0c7c-44c1-a3e1-ebcf2980ba70.jpeg",
+    "isOnSale": true,
+    "name": "St. Paul & The Broken Bones",
+    "instanceDates": "June 18-June 18",
+    "instances": [
+      {
+        "isOnSale": true,
+        "planId": "7801ATTBPVLSHPLVGKMJNMMDGBTHMPBTK",
+        "priceList": {
+          "id": "23201APGCMPGJNLTBJBBRLRLRBCKNMGMV"
+        },
+        "event": {
+          "id": "20001ASSPTTDVHQJLHCGJGTSBBKPHTPJB"
+        },
+        "start": "2026-06-18T21:00:00",
+        "startUtc": "2026-06-19T03:00:00",
+        "startSellingAtWeb": "2026-04-21T15:39:00",
+        "startSellingAtWebUtc": "2026-04-21T21:39:00Z",
+        "stopSellingAtWeb": "2026-06-18T21:00:00",
+        "stopSellingAtWebUtc": "2026-06-19T03:00:00Z",
+        "webInstanceId": null,
+        "cancelled": false,
+        "id": "68603ADTLBMQKBDCPHDQQMRKNVLGPCGLT",
+        "hasBestAvailableOverlay": false,
+        "attribute_TablesSoldOut": "",
+        "attribute_BarSoldOut": ""
+      }
+    ],
+    "thumbnailUrl": "https://system.spektrix.com/jazzaspensnowmass/files/b28f179d-0c7c-44c1-a3e1-ebcf2980ba70-thumbnail.jpeg",
+    "webEventId": null,
+    "id": "20001ASSPTTDVHQJLHCGJGTSBBKPHTPJB",
+    "firstInstanceDateTime": "2026-06-18T21:00:00",
+    "firstInstanceDateTimeUtc": "2026-06-19T03:00:00Z",
+    "lastInstanceDateTime": "2026-06-18T21:00:00",
+    "lastInstanceDateTimeUtc": "2026-06-19T03:00:00Z",
+    "altText": "",
+    "attribute_CustomImage": "https://jazzaspensnowmass.org/wp-content/uploads/2026/04/SPBB-main4-600x600-1.jpeg",
+    "attribute_EventType": "JAS Center",
+    "attribute_Genre": "Soul",
+    "attribute_IsSupplementaryEvent": false,
+    "attribute_Season": "Summer 2026"
+  },
+  {
+    "description": "",
+    "htmlDescription": "<div id>\r\n\r\n</div>",
+    "duration": 75,
+    "imageUrl": "https://system.spektrix.com/jazzaspensnowmass/files/8a538992-abb7-4018-842c-f87a3735c656.jpg",
+    "isOnSale": true,
+    "name": "The James Hunter Six",
+    "instanceDates": "July 3-July 3",
+    "instances": [
+      {
+        "isOnSale": true,
+        "planId": "6601AQMNQNHRQGLJKCSPPPSGMQSBMDCJM",
+        "priceList": {
+          "id": "16801ANHJRBJLNRBNVQDKPGNSLJNKRTQV"
+        },
+        "event": {
+          "id": "20201AVQHKKMVCNSSQSPNTVCQPQCKBBPV"
+        },
+        "start": "2026-07-03T18:30:00",
+        "startUtc": "2026-07-04T00:30:00",
+        "startSellingAtWeb": "2026-04-16T09:28:00",
+        "startSellingAtWebUtc": "2026-04-16T15:28:00Z",
+        "stopSellingAtWeb": "2026-07-03T18:30:00",
+        "stopSellingAtWebUtc": "2026-07-04T00:30:00Z",
+        "webInstanceId": null,
+        "cancelled": false,
+        "id": "64801AJPTMMJGDJQHDKQNBCGKMVGLSGLB",
+        "hasBestAvailableOverlay": false,
+        "attribute_TablesSoldOut": "",
+        "attribute_BarSoldOut": ""
+      },
+      {
+        "isOnSale": true,
+        "planId": "6601AQMNQNHRQGLJKCSPPPSGMQSBMDCJM",
+        "priceList": {
+          "id": "17001ATQVJDMTMDNCJJRSGHPLDNKCVDBL"
+        },
+        "event": {
+          "id": "20201AVQHKKMVCNSSQSPNTVCQPQCKBBPV"
+        },
+        "start": "2026-07-03T21:00:00",
+        "startUtc": "2026-07-04T03:00:00",
+        "startSellingAtWeb": "2026-04-16T09:28:00",
+        "startSellingAtWebUtc": "2026-04-16T15:28:00Z",
+        "stopSellingAtWeb": "2026-07-03T21:00:00",
+        "stopSellingAtWebUtc": "2026-07-04T03:00:00Z",
+        "webInstanceId": null,
+        "cancelled": false,
+        "id": "65001ABJBLQTSTGTMVKPRRHSLPSVNVDBM",
+        "hasBestAvailableOverlay": false,
+        "attribute_TablesSoldOut": "",
+        "attribute_BarSoldOut": ""
+      }
+    ],
+    "thumbnailUrl": "https://system.spektrix.com/jazzaspensnowmass/files/8a538992-abb7-4018-842c-f87a3735c656-thumbnail.jpg",
+    "webEventId": null,
+    "id": "20201AVQHKKMVCNSSQSPNTVCQPQCKBBPV",
+    "firstInstanceDateTime": "2026-07-03T18:30:00",
+    "firstInstanceDateTimeUtc": "2026-07-04T00:30:00Z",
+    "lastInstanceDateTime": "2026-07-03T21:00:00",
+    "lastInstanceDateTimeUtc": "2026-07-04T03:00:00Z",
+    "altText": "",
+    "attribute_CustomImage": "https://jazzaspensnowmass.org/wp-content/uploads/2026/04/james_hunter_photo_credit_jim_herrington-scaled.jpg",
+    "attribute_EventType": "JAS Cafe",
+    "attribute_Genre": "Soul",
+    "attribute_IsSupplementaryEvent": false,
+    "attribute_Season": "Summer 2026"
+  },
+  {
+    "description": "",
+    "htmlDescription": "<div id>\r\n\r\n</div>",
+    "duration": 75,
+    "imageUrl": "https://system.spektrix.com/jazzaspensnowmass/files/18fd551b-0edb-4057-a6c2-fa1c131e313e.jpg",
+    "isOnSale": true,
+    "name": "Bonerama",
+    "instanceDates": "July 4-July 4",
+    "instances": [
+      {
+        "isOnSale": true,
+        "planId": "6601AQMNQNHRQGLJKCSPPPSGMQSBMDCJM",
+        "priceList": {
+          "id": "16801ANHJRBJLNRBNVQDKPGNSLJNKRTQV"
+        },
+        "event": {
+          "id": "20401AHPLRCCNVVRTBBQTNVLNPCCJVRGB"
+        },
+        "start": "2026-07-04T18:30:00",
+        "startUtc": "2026-07-05T00:30:00",
+        "startSellingAtWeb": "2026-04-16T09:38:00",
+        "startSellingAtWebUtc": "2026-04-16T15:38:00Z",
+        "stopSellingAtWeb": "2026-07-04T18:30:00",
+        "stopSellingAtWebUtc": "2026-07-05T00:30:00Z",
+        "webInstanceId": null,
+        "cancelled": false,
+        "id": "65201ACRNVHVJBDMGRPJPBKVMQHKPTNJN",
+        "hasBestAvailableOverlay": false,
+        "attribute_TablesSoldOut": "",
+        "attribute_BarSoldOut": ""
+      },
+      {
+        "isOnSale": true,
+        "planId": "6601AQMNQNHRQGLJKCSPPPSGMQSBMDCJM",
+        "priceList": {
+          "id": "17001ATQVJDMTMDNCJJRSGHPLDNKCVDBL"
+        },
+        "event": {
+          "id": "20401AHPLRCCNVVRTBBQTNVLNPCCJVRGB"
+        },
+        "start": "2026-07-04T21:00:00",
+        "startUtc": "2026-07-05T03:00:00",
+        "startSellingAtWeb": "2026-04-16T09:38:00",
+        "startSellingAtWebUtc": "2026-04-16T15:38:00Z",
+        "stopSellingAtWeb": "2026-07-04T21:00:00",
+        "stopSellingAtWebUtc": "2026-07-05T03:00:00Z",
+        "webInstanceId": null,
+        "cancelled": false,
+        "id": "65401ARRMBSGBRKRMPJDLPDLGHVCMRJJP",
+        "hasBestAvailableOverlay": false,
+        "attribute_TablesSoldOut": "",
+        "attribute_BarSoldOut": ""
+      }
+    ],
+    "thumbnailUrl": "https://system.spektrix.com/jazzaspensnowmass/files/18fd551b-0edb-4057-a6c2-fa1c131e313e-thumbnail.jpg",
+    "webEventId": null,
+    "id": "20401AHPLRCCNVVRTBBQTNVLNPCCJVRGB",
+    "firstInstanceDateTime": "2026-07-04T18:30:00",
+    "firstInstanceDateTimeUtc": "2026-07-05T00:30:00Z",
+    "lastInstanceDateTime": "2026-07-04T21:00:00",
+    "lastInstanceDateTimeUtc": "2026-07-05T03:00:00Z",
+    "altText": "",
+    "attribute_CustomImage": "https://jazzaspensnowmass.org/wp-content/uploads/2026/04/Bonerama-2024-Promo-Photo-1_c-Marc-Pagani-scaled.jpg",
+    "attribute_EventType": "JAS Cafe",
+    "attribute_Genre": "New Orleans",
+    "attribute_IsSupplementaryEvent": false,
+    "attribute_Season": "Summer 2026"
+  },
+  {
+    "description": "",
+    "htmlDescription": "<div id>\r\n\r\n</div>",
+    "duration": 75,
+    "imageUrl": "https://system.spektrix.com/jazzaspensnowmass/files/e8ffb7a9-cd94-4687-a787-85b8a11668bd.jpg",
+    "isOnSale": true,
+    "name": "Maruja Lim\u00f3n",
+    "instanceDates": "July 9-July 9",
+    "instances": [
+      {
+        "isOnSale": true,
+        "planId": "6404APLBMJCQRCCDQRTTVKNGSKPSMVHBV",
+        "priceList": {
+          "id": "17401ARMGDGRGTJBKVPBLJVRHCKNDGPTT"
+        },
+        "event": {
+          "id": "20801AJMTLQPSPKJDPVTSBMNNJNRPTPVH"
+        },
+        "start": "2026-07-09T18:30:00",
+        "startUtc": "2026-07-10T00:30:00",
+        "startSellingAtWeb": "2026-04-16T09:41:00",
+        "startSellingAtWebUtc": "2026-04-16T15:41:00Z",
+        "stopSellingAtWeb": "2026-07-09T18:30:00",
+        "stopSellingAtWebUtc": "2026-07-10T00:30:00Z",
+        "webInstanceId": null,
+        "cancelled": false,
+        "id": "65601ABJVQCQRNKJTHQGGNGBHPDGVBKKD",
+        "hasBestAvailableOverlay": false,
+        "attribute_TablesSoldOut": "",
+        "attribute_BarSoldOut": ""
+      },
+      {
+        "isOnSale": true,
+        "planId": "6404APLBMJCQRCCDQRTTVKNGSKPSMVHBV",
+        "priceList": {
+          "id": "17601ADSBKGQMMPTLRCMTNQVQJNSBPVNG"
+        },
+        "event": {
+          "id": "20801AJMTLQPSPKJDPVTSBMNNJNRPTPVH"
+        },
+        "start": "2026-07-09T21:00:00",
+        "startUtc": "2026-07-10T03:00:00",
+        "startSellingAtWeb": "2026-04-16T09:41:00",
+        "startSellingAtWebUtc": "2026-04-16T15:41:00Z",
+        "stopSellingAtWeb": "2026-07-09T21:00:00",
+        "stopSellingAtWebUtc": "2026-07-10T03:00:00Z",
+        "webInstanceId": null,
+        "cancelled": false,
+        "id": "65801ABDQQTPTQHTDJVCCJNHQLNRJJCBG",
+        "hasBestAvailableOverlay": false,
+        "attribute_TablesSoldOut": "",
+        "attribute_BarSoldOut": ""
+      }
+    ],
+    "thumbnailUrl": "https://system.spektrix.com/jazzaspensnowmass/files/e8ffb7a9-cd94-4687-a787-85b8a11668bd-thumbnail.jpg",
+    "webEventId": null,
+    "id": "20801AJMTLQPSPKJDPVTSBMNNJNRPTPVH",
+    "firstInstanceDateTime": "2026-07-09T18:30:00",
+    "firstInstanceDateTimeUtc": "2026-07-10T00:30:00Z",
+    "lastInstanceDateTime": "2026-07-09T21:00:00",
+    "lastInstanceDateTimeUtc": "2026-07-10T03:00:00Z",
+    "altText": "",
+    "attribute_CustomImage": "https://jazzaspensnowmass.org/wp-content/uploads/2026/04/03-Promo-Asset-Red.jpg",
+    "attribute_EventType": "JAS Cafe",
+    "attribute_Genre": "World",
+    "attribute_IsSupplementaryEvent": false,
+    "attribute_Season": "Summer 2026"
+  },
+  {
+    "description": "",
+    "htmlDescription": "<div id>\r\n\r\n</div>",
+    "duration": 75,
+    "imageUrl": "https://system.spektrix.com/jazzaspensnowmass/files/b414b0f1-42da-4c74-a32a-5c7c2aad1200.jpg",
+    "isOnSale": true,
+    "name": "Bria Skonberg Quartet Featuring Mathias Picard",
+    "instanceDates": "July 10-July 10",
+    "instances": [
+      {
+        "isOnSale": true,
+        "planId": "6404APLBMJCQRCCDQRTTVKNGSKPSMVHBV",
+        "priceList": {
+          "id": "23601ABQMTDMTTDQVVNJCNJPSQCSVMLHB"
+        },
+        "event": {
+          "id": "22001AHPNNBVBQNQGTPVNVNBNPSJQPNTM"
+        },
+        "start": "2026-07-10T18:30:00",
+        "startUtc": "2026-07-11T00:30:00",
+        "startSellingAtWeb": "2026-04-21T09:13:00",
+        "startSellingAtWebUtc": "2026-04-21T15:13:00Z",
+        "stopSellingAtWeb": "2026-07-10T18:30:00",
+        "stopSellingAtWebUtc": "2026-07-11T00:30:00Z",
+        "webInstanceId": null,
+        "cancelled": false,
+        "id": "68201ATPHPGBHMDNSHHSTPHBMQBRQBLST",
+        "hasBestAvailableOverlay": false,
+        "attribute_TablesSoldOut": "",
+        "attribute_BarSoldOut": ""
+      },
+      {
+        "isOnSale": true,
+        "planId": "6404APLBMJCQRCCDQRTTVKNGSKPSMVHBV",
+        "priceList": {
+          "id": "17601ADSBKGQMMPTLRCMTNQVQJNSBPVNG"
+        },
+        "event": {
+          "id": "22001AHPNNBVBQNQGTPVNVNBNPSJQPNTM"
+        },
+        "start": "2026-07-10T21:00:00",
+        "startUtc": "2026-07-11T03:00:00",
+        "startSellingAtWeb": "2026-04-21T09:13:00",
+        "startSellingAtWebUtc": "2026-04-21T15:13:00Z",
+        "stopSellingAtWeb": "2026-07-10T21:00:00",
+        "stopSellingAtWebUtc": "2026-07-11T03:00:00Z",
+        "webInstanceId": null,
+        "cancelled": false,
+        "id": "68401ANKJDRLSGLSHHGCVSLLNTTTQRLMS",
+        "hasBestAvailableOverlay": false,
+        "attribute_TablesSoldOut": "",
+        "attribute_BarSoldOut": ""
+      }
+    ],
+    "thumbnailUrl": "https://system.spektrix.com/jazzaspensnowmass/files/b414b0f1-42da-4c74-a32a-5c7c2aad1200-thumbnail.jpg",
+    "webEventId": null,
+    "id": "22001AHPNNBVBQNQGTPVNVNBNPSJQPNTM",
+    "firstInstanceDateTime": "2026-07-10T18:30:00",
+    "firstInstanceDateTimeUtc": "2026-07-11T00:30:00Z",
+    "lastInstanceDateTime": "2026-07-10T21:00:00",
+    "lastInstanceDateTimeUtc": "2026-07-11T03:00:00Z",
+    "altText": "",
+    "attribute_CustomImage": "https://jazzaspensnowmass.org/wp-content/uploads/2026/04/Bria-Skonberg-credit-Shervin-Lainez-scaled.jpg",
+    "attribute_EventType": "JAS Cafe",
+    "attribute_Genre": "Jazz Instrumental",
+    "attribute_IsSupplementaryEvent": false,
+    "attribute_Season": "Summer 2026"
+  },
+  {
+    "description": "",
+    "htmlDescription": "<div id>\r\n\r\n</div>",
+    "duration": 75,
+    "imageUrl": "https://system.spektrix.com/jazzaspensnowmass/files/53067738-f55e-4172-bf4f-6909180d90fa.jpg",
+    "isOnSale": true,
+    "name": "Delvon Lamarr Organ Trio",
+    "instanceDates": "July 11-July 11",
+    "instances": [
+      {
+        "isOnSale": true,
+        "planId": "6601AQMNQNHRQGLJKCSPPPSGMQSBMDCJM",
+        "priceList": {
+          "id": "16801ANHJRBJLNRBNVQDKPGNSLJNKRTQV"
+        },
+        "event": {
+          "id": "21001AHGQKHHCBJDNTTTMDTTPLSBDJSQB"
+        },
+        "start": "2026-07-11T18:30:00",
+        "startUtc": "2026-07-12T00:30:00",
+        "startSellingAtWeb": "2026-04-16T09:44:00",
+        "startSellingAtWebUtc": "2026-04-16T15:44:00Z",
+        "stopSellingAtWeb": "2026-07-11T18:30:00",
+        "stopSellingAtWebUtc": "2026-07-12T00:30:00Z",
+        "webInstanceId": null,
+        "cancelled": false,
+        "id": "66001AJSDDCKQDHCCKMMQLSPQJHHDNNSR",
+        "hasBestAvailableOverlay": false,
+        "attribute_TablesSoldOut": "",
+        "attribute_BarSoldOut": ""
+      },
+      {
+        "isOnSale": true,
+        "planId": "6601AQMNQNHRQGLJKCSPPPSGMQSBMDCJM",
+        "priceList": {
+          "id": "17001ATQVJDMTMDNCJJRSGHPLDNKCVDBL"
+        },
+        "event": {
+          "id": "21001AHGQKHHCBJDNTTTMDTTPLSBDJSQB"
+        },
+        "start": "2026-07-11T21:00:00",
+        "startUtc": "2026-07-12T03:00:00",
+        "startSellingAtWeb": "2026-04-16T09:44:00",
+        "startSellingAtWebUtc": "2026-04-16T15:44:00Z",
+        "stopSellingAtWeb": "2026-07-11T21:00:00",
+        "stopSellingAtWebUtc": "2026-07-12T03:00:00Z",
+        "webInstanceId": null,
+        "cancelled": false,
+        "id": "66201ANBJCCNMNTBQVCLNSBCLHRLCHCHL",
+        "hasBestAvailableOverlay": false,
+        "attribute_TablesSoldOut": "",
+        "attribute_BarSoldOut": ""
+      }
+    ],
+    "thumbnailUrl": "https://system.spektrix.com/jazzaspensnowmass/files/53067738-f55e-4172-bf4f-6909180d90fa-thumbnail.jpg",
+    "webEventId": null,
+    "id": "21001AHGQKHHCBJDNTTTMDTTPLSBDJSQB",
+    "firstInstanceDateTime": "2026-07-11T18:30:00",
+    "firstInstanceDateTimeUtc": "2026-07-12T00:30:00Z",
+    "lastInstanceDateTime": "2026-07-11T21:00:00",
+    "lastInstanceDateTimeUtc": "2026-07-12T03:00:00Z",
+    "altText": "",
+    "attribute_CustomImage": "https://jazzaspensnowmass.org/wp-content/uploads/2026/04/Delvon.jpg",
+    "attribute_EventType": "JAS Cafe",
+    "attribute_Genre": "Soul",
+    "attribute_IsSupplementaryEvent": false,
+    "attribute_Season": "Summer 2026"
+  },
+  {
+    "description": "",
+    "htmlDescription": "<div id>\r\n\r\n</div>",
+    "duration": 0,
+    "imageUrl": "https://system.spektrix.com/jazzaspensnowmass/files/26981c3d-8802-428e-8b59-df0db677db42.JPG",
+    "isOnSale": true,
+    "name": "The Boneshakers",
+    "instanceDates": "July 17-July 17",
+    "instances": [
+      {
+        "isOnSale": true,
+        "planId": "6601AQMNQNHRQGLJKCSPPPSGMQSBMDCJM",
+        "priceList": {
+          "id": "16801ANHJRBJLNRBNVQDKPGNSLJNKRTQV"
+        },
+        "event": {
+          "id": "23601ABQMTDMTTDQVVNJCNJPSQCSVMLHB"
+        },
+        "start": "2026-07-17T18:30:00",
+        "startUtc": "2026-07-18T00:30:00",
+        "startSellingAtWeb": "2026-04-23T10:09:00",
+        "startSellingAtWebUtc": "2026-04-23T16:09:00Z",
+        "stopSellingAtWeb": "2026-07-17T18:30:00",
+        "stopSellingAtWebUtc": "2026-07-18T00:30:00Z",
+        "webInstanceId": null,
+        "cancelled": false,
+        "id": "71601AMRKGCHRRTHJRLKKPCDSPHMKGQPR",
+        "hasBestAvailableOverlay": false,
+        "attribute_TablesSoldOut": "",
+        "attribute_BarSoldOut": ""
+      },
+      {
+        "isOnSale": true,
+        "planId": "6601AQMNQNHRQGLJKCSPPPSGMQSBMDCJM",
+        "priceList": {
+          "id": "17001ATQVJDMTMDNCJJRSGHPLDNKCVDBL"
+        },
+        "event": {
+          "id": "23601ABQMTDMTTDQVVNJCNJPSQCSVMLHB"
+        },
+        "start": "2026-07-17T21:00:00",
+        "startUtc": "2026-07-18T03:00:00",
+        "startSellingAtWeb": "2026-04-23T10:09:00",
+        "startSellingAtWebUtc": "2026-04-23T16:09:00Z",
+        "stopSellingAtWeb": "2026-07-17T21:00:00",
+        "stopSellingAtWebUtc": "2026-07-18T03:00:00Z",
+        "webInstanceId": null,
+        "cancelled": false,
+        "id": "71401ARSRNJGNDQJKBJKRPKVJLLHLBTQD",
+        "hasBestAvailableOverlay": false,
+        "attribute_TablesSoldOut": "",
+        "attribute_BarSoldOut": ""
+      }
+    ],
+    "thumbnailUrl": "https://system.spektrix.com/jazzaspensnowmass/files/26981c3d-8802-428e-8b59-df0db677db42-thumbnail.JPG",
+    "webEventId": null,
+    "id": "23601ABQMTDMTTDQVVNJCNJPSQCSVMLHB",
+    "firstInstanceDateTime": "2026-07-17T18:30:00",
+    "firstInstanceDateTimeUtc": "2026-07-18T00:30:00Z",
+    "lastInstanceDateTime": "2026-07-17T21:00:00",
+    "lastInstanceDateTimeUtc": "2026-07-18T03:00:00Z",
+    "altText": "",
+    "attribute_CustomImage": "https://jazzaspensnowmass.org/wp-content/uploads/2026/04/The-Boneshakers-MAIN-PIC-2026-scaled.jpg",
+    "attribute_EventType": "JAS Cafe",
+    "attribute_Genre": "Blues",
+    "attribute_IsSupplementaryEvent": false,
+    "attribute_Season": "Summer 2026"
+  },
+  {
+    "description": "",
+    "htmlDescription": "<div id>\r\n\r\n</div>",
+    "duration": 75,
+    "imageUrl": "https://system.spektrix.com/jazzaspensnowmass/files/df8cc73f-774b-4a5f-8eb0-bebebad0f3a3.jpeg",
+    "isOnSale": true,
+    "name": "The Brass-A-Holics",
+    "instanceDates": "July 18-July 18",
+    "instances": [
+      {
+        "isOnSale": true,
+        "planId": "6601AQMNQNHRQGLJKCSPPPSGMQSBMDCJM",
+        "priceList": {
+          "id": "16801ANHJRBJLNRBNVQDKPGNSLJNKRTQV"
+        },
+        "event": {
+          "id": "22201AVHLKLNNVQMTJHCGGPHJTVQHKKPM"
+        },
+        "start": "2026-07-18T18:30:00",
+        "startUtc": "2026-07-19T00:30:00",
+        "startSellingAtWeb": "2026-04-20T15:55:00",
+        "startSellingAtWebUtc": "2026-04-20T21:55:00Z",
+        "stopSellingAtWeb": "2026-07-18T18:30:00",
+        "stopSellingAtWebUtc": "2026-07-19T00:30:00Z",
+        "webInstanceId": null,
+        "cancelled": false,
+        "id": "67601AVHPCSTMMBKTGKLCGLQQCGMMBVSK",
+        "hasBestAvailableOverlay": false,
+        "attribute_TablesSoldOut": "",
+        "attribute_BarSoldOut": ""
+      },
+      {
+        "isOnSale": true,
+        "planId": "6601AQMNQNHRQGLJKCSPPPSGMQSBMDCJM",
+        "priceList": {
+          "id": "17001ATQVJDMTMDNCJJRSGHPLDNKCVDBL"
+        },
+        "event": {
+          "id": "22201AVHLKLNNVQMTJHCGGPHJTVQHKKPM"
+        },
+        "start": "2026-07-18T21:00:00",
+        "startUtc": "2026-07-19T03:00:00",
+        "startSellingAtWeb": "2026-04-20T15:55:00",
+        "startSellingAtWebUtc": "2026-04-20T21:55:00Z",
+        "stopSellingAtWeb": "2026-07-18T21:00:00",
+        "stopSellingAtWebUtc": "2026-07-19T03:00:00Z",
+        "webInstanceId": null,
+        "cancelled": false,
+        "id": "67602AGRNQSGNGVNNJGBCCMVRNLPVLHRN",
+        "hasBestAvailableOverlay": false,
+        "attribute_TablesSoldOut": "",
+        "attribute_BarSoldOut": ""
+      }
+    ],
+    "thumbnailUrl": "https://system.spektrix.com/jazzaspensnowmass/files/df8cc73f-774b-4a5f-8eb0-bebebad0f3a3-thumbnail.jpeg",
+    "webEventId": null,
+    "id": "22201AVHLKLNNVQMTJHCGGPHJTVQHKKPM",
+    "firstInstanceDateTime": "2026-07-18T18:30:00",
+    "firstInstanceDateTimeUtc": "2026-07-19T00:30:00Z",
+    "lastInstanceDateTime": "2026-07-18T21:00:00",
+    "lastInstanceDateTimeUtc": "2026-07-19T03:00:00Z",
+    "altText": "",
+    "attribute_CustomImage": "https://jazzaspensnowmass.org/wp-content/uploads/2026/04/Brass-A-Holics-2-scaled.jpeg",
+    "attribute_EventType": "JAS Cafe",
+    "attribute_Genre": "New Orleans",
+    "attribute_IsSupplementaryEvent": false,
+    "attribute_Season": "Summer 2026"
+  },
+  {
+    "description": "",
+    "htmlDescription": "<div id>\r\n\r\n</div>",
+    "duration": 75,
+    "imageUrl": "https://system.spektrix.com/jazzaspensnowmass/files/b181af4e-a67e-4ac2-b3b4-0a70a93e3db8.jpg",
+    "isOnSale": true,
+    "name": "Veronica Swift with the Colorado Jazz Repertory Orchestra",
+    "instanceDates": "July 24-July 24",
+    "instances": [
+      {
+        "isOnSale": true,
+        "planId": "6404APLBMJCQRCCDQRTTVKNGSKPSMVHBV",
+        "priceList": {
+          "id": "17401ARMGDGRGTJBKVPBLJVRHCKNDGPTT"
+        },
+        "event": {
+          "id": "20202ACNMDPKKMSGKPRQRKMTPCVLBPNBT"
+        },
+        "start": "2026-07-24T18:30:00",
+        "startUtc": "2026-07-25T00:30:00",
+        "startSellingAtWeb": "2026-04-21T15:58:00",
+        "startSellingAtWebUtc": "2026-04-21T21:58:00Z",
+        "stopSellingAtWeb": "2026-07-24T18:30:00",
+        "stopSellingAtWebUtc": "2026-07-25T00:30:00Z",
+        "webInstanceId": null,
+        "cancelled": false,
+        "id": "70001AMJRQHDGBRNVCKLMQDNCHKHNLGPL",
+        "hasBestAvailableOverlay": false,
+        "attribute_TablesSoldOut": "",
+        "attribute_BarSoldOut": ""
+      },
+      {
+        "isOnSale": true,
+        "planId": "6404APLBMJCQRCCDQRTTVKNGSKPSMVHBV",
+        "priceList": {
+          "id": "17601ADSBKGQMMPTLRCMTNQVQJNSBPVNG"
+        },
+        "event": {
+          "id": "20202ACNMDPKKMSGKPRQRKMTPCVLBPNBT"
+        },
+        "start": "2026-07-24T21:00:00",
+        "startUtc": "2026-07-25T03:00:00",
+        "startSellingAtWeb": "2026-04-21T15:58:00",
+        "startSellingAtWebUtc": "2026-04-21T21:58:00Z",
+        "stopSellingAtWeb": "2026-07-24T21:00:00",
+        "stopSellingAtWebUtc": "2026-07-25T03:00:00Z",
+        "webInstanceId": null,
+        "cancelled": false,
+        "id": "70201ADHVPVLHCVCVCTRPRPPPJCCSKTGL",
+        "hasBestAvailableOverlay": false,
+        "attribute_TablesSoldOut": "",
+        "attribute_BarSoldOut": ""
+      }
+    ],
+    "thumbnailUrl": "https://system.spektrix.com/jazzaspensnowmass/files/b181af4e-a67e-4ac2-b3b4-0a70a93e3db8-thumbnail.jpg",
+    "webEventId": null,
+    "id": "20202ACNMDPKKMSGKPRQRKMTPCVLBPNBT",
+    "firstInstanceDateTime": "2026-07-24T18:30:00",
+    "firstInstanceDateTimeUtc": "2026-07-25T00:30:00Z",
+    "lastInstanceDateTime": "2026-07-24T21:00:00",
+    "lastInstanceDateTimeUtc": "2026-07-25T03:00:00Z",
+    "altText": "",
+    "attribute_CustomImage": "https://jazzaspensnowmass.org/wp-content/uploads/2026/04/VSwift_Sept17_0838-scaled.jpg",
+    "attribute_EventType": "JAS Cafe",
+    "attribute_Genre": "Jazz Vocals",
+    "attribute_IsSupplementaryEvent": false,
+    "attribute_Season": "Summer 2026"
+  },
+  {
+    "description": "",
+    "htmlDescription": "<div id>\r\n\r\n</div>",
+    "duration": 75,
+    "imageUrl": "https://system.spektrix.com/jazzaspensnowmass/files/eeba0c01-9b18-4435-aabd-0e0854b2d154.jpg",
+    "isOnSale": true,
+    "name": "Benny Benack, III",
+    "instanceDates": "July 25-July 25",
+    "instances": [
+      {
+        "isOnSale": true,
+        "planId": "6404APLBMJCQRCCDQRTTVKNGSKPSMVHBV",
+        "priceList": {
+          "id": "17401ARMGDGRGTJBKVPBLJVRHCKNDGPTT"
+        },
+        "event": {
+          "id": "24001ABMNLGCGVMRMGTMJKPBQCNHQQLMH"
+        },
+        "start": "2026-07-25T18:30:00",
+        "startUtc": "2026-07-26T00:30:00",
+        "startSellingAtWeb": "2026-04-27T10:25:00",
+        "startSellingAtWebUtc": "2026-04-27T16:25:00Z",
+        "stopSellingAtWeb": "2026-07-25T18:30:00",
+        "stopSellingAtWebUtc": "2026-07-26T00:30:00Z",
+        "webInstanceId": null,
+        "cancelled": false,
+        "id": "75801AMGDDQLLMQMDTGHKNVNHRDHSTBJQ",
+        "hasBestAvailableOverlay": false,
+        "attribute_TablesSoldOut": "",
+        "attribute_BarSoldOut": ""
+      },
+      {
+        "isOnSale": true,
+        "planId": "6404APLBMJCQRCCDQRTTVKNGSKPSMVHBV",
+        "priceList": {
+          "id": "17601ADSBKGQMMPTLRCMTNQVQJNSBPVNG"
+        },
+        "event": {
+          "id": "24001ABMNLGCGVMRMGTMJKPBQCNHQQLMH"
+        },
+        "start": "2026-07-25T21:00:00",
+        "startUtc": "2026-07-26T03:00:00",
+        "startSellingAtWeb": "2026-04-27T10:25:00",
+        "startSellingAtWebUtc": "2026-04-27T16:25:00Z",
+        "stopSellingAtWeb": "2026-07-25T21:00:00",
+        "stopSellingAtWebUtc": "2026-07-26T03:00:00Z",
+        "webInstanceId": null,
+        "cancelled": false,
+        "id": "76001ACNQBDSGGTSVDMCVRMLGHGQHVKLH",
+        "hasBestAvailableOverlay": false,
+        "attribute_TablesSoldOut": "",
+        "attribute_BarSoldOut": ""
+      }
+    ],
+    "thumbnailUrl": "https://system.spektrix.com/jazzaspensnowmass/files/eeba0c01-9b18-4435-aabd-0e0854b2d154-thumbnail.jpg",
+    "webEventId": null,
+    "id": "24001ABMNLGCGVMRMGTMJKPBQCNHQQLMH",
+    "firstInstanceDateTime": "2026-07-25T18:30:00",
+    "firstInstanceDateTimeUtc": "2026-07-26T00:30:00Z",
+    "lastInstanceDateTime": "2026-07-25T21:00:00",
+    "lastInstanceDateTimeUtc": "2026-07-26T03:00:00Z",
+    "altText": "",
+    "attribute_CustomImage": "https://jazzaspensnowmass.org/wp-content/uploads/2026/04/Benny-Banack-III_high-res-scaled.jpeg",
+    "attribute_EventType": "JAS Cafe",
+    "attribute_Genre": "Jazz Instrumental",
+    "attribute_IsSupplementaryEvent": false,
+    "attribute_Season": "Summer 2026"
+  },
+  {
+    "description": "",
+    "htmlDescription": "<div id>\r\n\r\n</div>",
+    "duration": 75,
+    "imageUrl": "https://system.spektrix.com/jazzaspensnowmass/files/594b776a-1f4c-4e99-82b6-7b00638ab405.jpg",
+    "isOnSale": true,
+    "name": "D.K. Harrell",
+    "instanceDates": "July 31-July 31",
+    "instances": [
+      {
+        "isOnSale": true,
+        "planId": "6404APLBMJCQRCCDQRTTVKNGSKPSMVHBV",
+        "priceList": {
+          "id": "17401ARMGDGRGTJBKVPBLJVRHCKNDGPTT"
+        },
+        "event": {
+          "id": "20601ABGSVVQHCDMLPVSSHGJPQKDMCGQD"
+        },
+        "start": "2026-07-31T18:30:00",
+        "startUtc": "2026-08-01T00:30:00",
+        "startSellingAtWeb": "2026-04-16T09:50:00",
+        "startSellingAtWebUtc": "2026-04-16T15:50:00Z",
+        "stopSellingAtWeb": "2026-07-31T18:30:00",
+        "stopSellingAtWebUtc": "2026-08-01T00:30:00Z",
+        "webInstanceId": null,
+        "cancelled": false,
+        "id": "66401ABGHVCPGPCLVNGNMHHVHCCMPBDSP",
+        "hasBestAvailableOverlay": false,
+        "attribute_TablesSoldOut": "",
+        "attribute_BarSoldOut": ""
+      },
+      {
+        "isOnSale": true,
+        "planId": "6404APLBMJCQRCCDQRTTVKNGSKPSMVHBV",
+        "priceList": {
+          "id": "17601ADSBKGQMMPTLRCMTNQVQJNSBPVNG"
+        },
+        "event": {
+          "id": "20601ABGSVVQHCDMLPVSSHGJPQKDMCGQD"
+        },
+        "start": "2026-07-31T21:00:00",
+        "startUtc": "2026-08-01T03:00:00",
+        "startSellingAtWeb": "2026-04-16T09:50:00",
+        "startSellingAtWebUtc": "2026-04-16T15:50:00Z",
+        "stopSellingAtWeb": "2026-07-31T21:00:00",
+        "stopSellingAtWebUtc": "2026-08-01T03:00:00Z",
+        "webInstanceId": null,
+        "cancelled": false,
+        "id": "66002AMJRRKMLMKQRPHRPCNVGRCJTPPSC",
+        "hasBestAvailableOverlay": false,
+        "attribute_TablesSoldOut": "",
+        "attribute_BarSoldOut": ""
+      }
+    ],
+    "thumbnailUrl": "https://system.spektrix.com/jazzaspensnowmass/files/594b776a-1f4c-4e99-82b6-7b00638ab405-thumbnail.jpg",
+    "webEventId": null,
+    "id": "20601ABGSVVQHCDMLPVSSHGJPQKDMCGQD",
+    "firstInstanceDateTime": "2026-07-31T18:30:00",
+    "firstInstanceDateTimeUtc": "2026-08-01T00:30:00Z",
+    "lastInstanceDateTime": "2026-07-31T21:00:00",
+    "lastInstanceDateTimeUtc": "2026-08-01T03:00:00Z",
+    "altText": "",
+    "attribute_CustomImage": "https://jazzaspensnowmass.org/wp-content/uploads/2026/04/dk-1-by-Remo-Neuhaus-scaled.jpg",
+    "attribute_EventType": "JAS Cafe",
+    "attribute_Genre": "Blues",
+    "attribute_IsSupplementaryEvent": false,
+    "attribute_Season": "Summer 2026"
+  },
+  {
+    "description": "",
+    "htmlDescription": "<div id>\r\n\r\n</div>",
+    "duration": 75,
+    "imageUrl": "https://system.spektrix.com/jazzaspensnowmass/files/56369a9f-12ef-4fe6-82fa-0323c813dfd5.jpg",
+    "isOnSale": true,
+    "name": "George Porter Jr. & the Runnin\u2019 Pardners",
+    "instanceDates": "August 1-August 1",
+    "instances": [
+      {
+        "isOnSale": true,
+        "planId": "6601AQMNQNHRQGLJKCSPPPSGMQSBMDCJM",
+        "priceList": {
+          "id": "16801ANHJRBJLNRBNVQDKPGNSLJNKRTQV"
+        },
+        "event": {
+          "id": "21201ARBBTMBLNJJTVHKLSDDJRJTLMNRD"
+        },
+        "start": "2026-08-01T18:30:00",
+        "startUtc": "2026-08-02T00:30:00",
+        "startSellingAtWeb": "2026-04-16T09:53:00",
+        "startSellingAtWebUtc": "2026-04-16T15:53:00Z",
+        "stopSellingAtWeb": "2026-08-01T18:30:00",
+        "stopSellingAtWebUtc": "2026-08-02T00:30:00Z",
+        "webInstanceId": null,
+        "cancelled": false,
+        "id": "66601AGQCGDBVSBRBPDBPSKRTDHMKTVRL",
+        "hasBestAvailableOverlay": false,
+        "attribute_TablesSoldOut": "",
+        "attribute_BarSoldOut": ""
+      },
+      {
+        "isOnSale": true,
+        "planId": "6601AQMNQNHRQGLJKCSPPPSGMQSBMDCJM",
+        "priceList": {
+          "id": "17001ATQVJDMTMDNCJJRSGHPLDNKCVDBL"
+        },
+        "event": {
+          "id": "21201ARBBTMBLNJJTVHKLSDDJRJTLMNRD"
+        },
+        "start": "2026-08-01T21:00:00",
+        "startUtc": "2026-08-02T03:00:00",
+        "startSellingAtWeb": "2026-04-16T09:53:00",
+        "startSellingAtWebUtc": "2026-04-16T15:53:00Z",
+        "stopSellingAtWeb": "2026-08-01T21:00:00",
+        "stopSellingAtWebUtc": "2026-08-02T03:00:00Z",
+        "webInstanceId": null,
+        "cancelled": false,
+        "id": "65602AMJJMBHGJVBCGBSJDHSDRMKNDHHP",
+        "hasBestAvailableOverlay": false,
+        "attribute_TablesSoldOut": "",
+        "attribute_BarSoldOut": ""
+      }
+    ],
+    "thumbnailUrl": "https://system.spektrix.com/jazzaspensnowmass/files/56369a9f-12ef-4fe6-82fa-0323c813dfd5-thumbnail.jpg",
+    "webEventId": null,
+    "id": "21201ARBBTMBLNJJTVHKLSDDJRJTLMNRD",
+    "firstInstanceDateTime": "2026-08-01T18:30:00",
+    "firstInstanceDateTimeUtc": "2026-08-02T00:30:00Z",
+    "lastInstanceDateTime": "2026-08-01T21:00:00",
+    "lastInstanceDateTimeUtc": "2026-08-02T03:00:00Z",
+    "altText": "",
+    "attribute_CustomImage": "https://jazzaspensnowmass.org/wp-content/uploads/2026/04/George-Porter-Jr-ITS2020_0117_203902-7376_ALIVECOVERAGE-scaled.jpg",
+    "attribute_EventType": "JAS Cafe",
+    "attribute_Genre": "Funk",
+    "attribute_IsSupplementaryEvent": false,
+    "attribute_Season": "Summer 2026"
+  },
+  {
+    "description": "",
+    "htmlDescription": "<div id>\r\n\r\n</div>",
+    "duration": 75,
+    "imageUrl": "https://system.spektrix.com/jazzaspensnowmass/files/3c29ff95-1e59-4e09-b44a-d1424d4bf66e.jpg",
+    "isOnSale": true,
+    "name": "Shelly Berg with Ashley Pezzotti ",
+    "instanceDates": "August 2-August 2",
+    "instances": [
+      {
+        "isOnSale": true,
+        "planId": "6404APLBMJCQRCCDQRTTVKNGSKPSMVHBV",
+        "priceList": {
+          "id": "23601ABQMTDMTTDQVVNJCNJPSQCSVMLHB"
+        },
+        "event": {
+          "id": "23201APGCMPGJNLTBJBBRLRLRBCKNMGMV"
+        },
+        "start": "2026-08-02T18:30:00",
+        "startUtc": "2026-08-03T00:30:00",
+        "startSellingAtWeb": "2026-04-22T10:44:00",
+        "startSellingAtWebUtc": "2026-04-22T16:44:00Z",
+        "stopSellingAtWeb": "2026-08-02T18:30:00",
+        "stopSellingAtWebUtc": "2026-08-03T00:30:00Z",
+        "webInstanceId": null,
+        "cancelled": false,
+        "id": "70401ASVSQQQCRPSCNRQPCKDQQQTGLMGK",
+        "hasBestAvailableOverlay": false,
+        "attribute_TablesSoldOut": "",
+        "attribute_BarSoldOut": ""
+      },
+      {
+        "isOnSale": true,
+        "planId": "6404APLBMJCQRCCDQRTTVKNGSKPSMVHBV",
+        "priceList": {
+          "id": "17601ADSBKGQMMPTLRCMTNQVQJNSBPVNG"
+        },
+        "event": {
+          "id": "23201APGCMPGJNLTBJBBRLRLRBCKNMGMV"
+        },
+        "start": "2026-08-02T21:00:00",
+        "startUtc": "2026-08-03T03:00:00",
+        "startSellingAtWeb": "2026-04-22T10:44:00",
+        "startSellingAtWebUtc": "2026-04-22T16:44:00Z",
+        "stopSellingAtWeb": "2026-08-02T21:00:00",
+        "stopSellingAtWebUtc": "2026-08-03T03:00:00Z",
+        "webInstanceId": null,
+        "cancelled": false,
+        "id": "70601ARTMQVDQNBCQNBNVCVCNCQVKTRPG",
+        "hasBestAvailableOverlay": false,
+        "attribute_TablesSoldOut": "",
+        "attribute_BarSoldOut": ""
+      }
+    ],
+    "thumbnailUrl": "https://system.spektrix.com/jazzaspensnowmass/files/3c29ff95-1e59-4e09-b44a-d1424d4bf66e-thumbnail.jpg",
+    "webEventId": null,
+    "id": "23201APGCMPGJNLTBJBBRLRLRBCKNMGMV",
+    "firstInstanceDateTime": "2026-08-02T18:30:00",
+    "firstInstanceDateTimeUtc": "2026-08-03T00:30:00Z",
+    "lastInstanceDateTime": "2026-08-02T21:00:00",
+    "lastInstanceDateTimeUtc": "2026-08-03T03:00:00Z",
+    "altText": "",
+    "attribute_CustomImage": "https://jazzaspensnowmass.org/wp-content/uploads/2026/04/Shelly-Berg-w-Ashley-Pezzoti-300-x-253-px-1.jpg",
+    "attribute_EventType": "JAS Cafe",
+    "attribute_Genre": "Jazz Vocals",
+    "attribute_IsSupplementaryEvent": false,
+    "attribute_Season": "Summer 2026"
+  },
+  {
+    "description": "",
+    "htmlDescription": "<div id>\r\n\r\n</div>",
+    "duration": 75,
+    "imageUrl": "https://system.spektrix.com/jazzaspensnowmass/files/b14b1402-7cb1-44c9-ac27-e1f3028fd513.jpg",
+    "isOnSale": true,
+    "name": "Randy Brecker",
+    "instanceDates": "August 7-August 7",
+    "instances": [
+      {
+        "isOnSale": true,
+        "planId": "6404APLBMJCQRCCDQRTTVKNGSKPSMVHBV",
+        "priceList": {
+          "id": "17401ARMGDGRGTJBKVPBLJVRHCKNDGPTT"
+        },
+        "event": {
+          "id": "22401AHNCPNVTKJTRNRHMVHTTDRBJQHGK"
+        },
+        "start": "2026-08-07T18:30:00",
+        "startUtc": "2026-08-08T00:30:00",
+        "startSellingAtWeb": "2026-04-20T15:57:00",
+        "startSellingAtWebUtc": "2026-04-20T21:57:00Z",
+        "stopSellingAtWeb": "2026-08-07T18:30:00",
+        "stopSellingAtWebUtc": "2026-08-08T00:30:00Z",
+        "webInstanceId": null,
+        "cancelled": false,
+        "id": "67801ATCLBJSLNJHDDQMPHBVVCKNGLMHB",
+        "hasBestAvailableOverlay": false,
+        "attribute_TablesSoldOut": "",
+        "attribute_BarSoldOut": ""
+      },
+      {
+        "isOnSale": true,
+        "planId": "6404APLBMJCQRCCDQRTTVKNGSKPSMVHBV",
+        "priceList": {
+          "id": "17601ADSBKGQMMPTLRCMTNQVQJNSBPVNG"
+        },
+        "event": {
+          "id": "22401AHNCPNVTKJTRNRHMVHTTDRBJQHGK"
+        },
+        "start": "2026-08-07T21:00:00",
+        "startUtc": "2026-08-08T03:00:00",
+        "startSellingAtWeb": "2026-04-20T15:57:00",
+        "startSellingAtWebUtc": "2026-04-20T21:57:00Z",
+        "stopSellingAtWeb": "2026-08-07T21:00:00",
+        "stopSellingAtWebUtc": "2026-08-08T03:00:00Z",
+        "webInstanceId": null,
+        "cancelled": false,
+        "id": "68001AVGQGHPGPGDNBSVTRMTDGHNQRSLV",
+        "hasBestAvailableOverlay": false,
+        "attribute_TablesSoldOut": "",
+        "attribute_BarSoldOut": ""
+      }
+    ],
+    "thumbnailUrl": "https://system.spektrix.com/jazzaspensnowmass/files/b14b1402-7cb1-44c9-ac27-e1f3028fd513-thumbnail.jpg",
+    "webEventId": null,
+    "id": "22401AHNCPNVTKJTRNRHMVHTTDRBJQHGK",
+    "firstInstanceDateTime": "2026-08-07T18:30:00",
+    "firstInstanceDateTimeUtc": "2026-08-08T00:30:00Z",
+    "lastInstanceDateTime": "2026-08-07T21:00:00",
+    "lastInstanceDateTimeUtc": "2026-08-08T03:00:00Z",
+    "altText": "",
+    "attribute_CustomImage": "https://jazzaspensnowmass.org/wp-content/uploads/2026/04/Randy1-300dpi-scaled.jpg",
+    "attribute_EventType": "JAS Cafe",
+    "attribute_Genre": "Jazz Instrumental",
+    "attribute_IsSupplementaryEvent": false,
+    "attribute_Season": "Summer 2026"
+  },
+  {
+    "description": "",
+    "htmlDescription": "<div id>\r\n\r\n</div>",
+    "duration": 75,
+    "imageUrl": "https://system.spektrix.com/jazzaspensnowmass/files/e331fdb8-a336-46d9-a0d0-768f01eeca9c.jpg",
+    "isOnSale": true,
+    "name": "JAS Academy Afro-Caribbean Big Band w/Etienne Charles",
+    "instanceDates": "August 8-August 8",
+    "instances": [
+      {
+        "isOnSale": true,
+        "planId": "6601AQMNQNHRQGLJKCSPPPSGMQSBMDCJM",
+        "priceList": {
+          "id": "22801AGSKTJDCRVHCKQCVVHGLQCVGCCGM"
+        },
+        "event": {
+          "id": "20602AVBBCJSPSGLQMNGMHPRPJBHCBTJB"
+        },
+        "start": "2026-08-08T18:30:00",
+        "startUtc": "2026-08-09T00:30:00",
+        "startSellingAtWeb": "2026-04-16T13:44:00",
+        "startSellingAtWebUtc": "2026-04-16T19:44:00Z",
+        "stopSellingAtWeb": "2026-08-08T18:30:00",
+        "stopSellingAtWebUtc": "2026-08-09T00:30:00Z",
+        "webInstanceId": null,
+        "cancelled": false,
+        "id": "67002ABLSLTQDGRLMKCQCMBQQNCKRNVPS",
+        "hasBestAvailableOverlay": false,
+        "attribute_TablesSoldOut": "",
+        "attribute_BarSoldOut": ""
+      },
+      {
+        "isOnSale": true,
+        "planId": "6601AQMNQNHRQGLJKCSPPPSGMQSBMDCJM",
+        "priceList": {
+          "id": "22801AGSKTJDCRVHCKQCVVHGLQCVGCCGM"
+        },
+        "event": {
+          "id": "20602AVBBCJSPSGLQMNGMHPRPJBHCBTJB"
+        },
+        "start": "2026-08-08T21:00:00",
+        "startUtc": "2026-08-09T03:00:00",
+        "startSellingAtWeb": "2026-04-16T13:44:00",
+        "startSellingAtWebUtc": "2026-04-16T19:44:00Z",
+        "stopSellingAtWeb": "2026-08-08T21:00:00",
+        "stopSellingAtWebUtc": "2026-08-09T03:00:00Z",
+        "webInstanceId": null,
+        "cancelled": false,
+        "id": "67401ALTRTTRTPTSQHLNNDTGHMDRBCNBR",
+        "hasBestAvailableOverlay": false,
+        "attribute_TablesSoldOut": "",
+        "attribute_BarSoldOut": ""
+      }
+    ],
+    "thumbnailUrl": "https://system.spektrix.com/jazzaspensnowmass/files/e331fdb8-a336-46d9-a0d0-768f01eeca9c-thumbnail.jpg",
+    "webEventId": null,
+    "id": "20602AVBBCJSPSGLQMNGMHPRPJBHCBTJB",
+    "firstInstanceDateTime": "2026-08-08T18:30:00",
+    "firstInstanceDateTimeUtc": "2026-08-09T00:30:00Z",
+    "lastInstanceDateTime": "2026-08-08T21:00:00",
+    "lastInstanceDateTimeUtc": "2026-08-09T03:00:00Z",
+    "altText": "",
+    "attribute_CustomImage": "https://jazzaspensnowmass.org/wp-content/uploads/2026/04/gullah-roots-image-1-10180-1749491090.png",
+    "attribute_EventType": "JAS Cafe",
+    "attribute_Genre": "World",
+    "attribute_IsSupplementaryEvent": false,
+    "attribute_Season": "Summer 2026"
+  },
+  {
+    "description": "",
+    "htmlDescription": "<div id>\r\n\r\n</div>",
+    "duration": 75,
+    "imageUrl": "https://system.spektrix.com/jazzaspensnowmass/files/d2a9c222-1460-4b7a-a208-81fc290ef237.jpg",
+    "isOnSale": true,
+    "name": "Antibalas",
+    "instanceDates": "August 9-August 9",
+    "instances": [
+      {
+        "isOnSale": true,
+        "planId": "6601AQMNQNHRQGLJKCSPPPSGMQSBMDCJM",
+        "priceList": {
+          "id": "16801ANHJRBJLNRBNVQDKPGNSLJNKRTQV"
+        },
+        "event": {
+          "id": "23001ARCVCNHNNNCLVMBNCMRGPKGBRCSK"
+        },
+        "start": "2026-08-09T18:30:00",
+        "startUtc": "2026-08-10T00:30:00",
+        "startSellingAtWeb": "2026-04-21T15:55:00",
+        "startSellingAtWebUtc": "2026-04-21T21:55:00Z",
+        "stopSellingAtWeb": "2026-08-09T18:30:00",
+        "stopSellingAtWebUtc": "2026-08-10T00:30:00Z",
+        "webInstanceId": null,
+        "cancelled": false,
+        "id": "69601ANKVPKVRSPMHRSMLLQSTRLSKPHPR",
+        "hasBestAvailableOverlay": false,
+        "attribute_TablesSoldOut": "",
+        "attribute_BarSoldOut": ""
+      },
+      {
+        "isOnSale": true,
+        "planId": "6601AQMNQNHRQGLJKCSPPPSGMQSBMDCJM",
+        "priceList": {
+          "id": "17001ATQVJDMTMDNCJJRSGHPLDNKCVDBL"
+        },
+        "event": {
+          "id": "23001ARCVCNHNNNCLVMBNCMRGPKGBRCSK"
+        },
+        "start": "2026-08-09T21:00:00",
+        "startUtc": "2026-08-10T03:00:00",
+        "startSellingAtWeb": "2026-04-21T15:55:00",
+        "startSellingAtWebUtc": "2026-04-21T21:55:00Z",
+        "stopSellingAtWeb": "2026-08-09T21:00:00",
+        "stopSellingAtWebUtc": "2026-08-10T03:00:00Z",
+        "webInstanceId": null,
+        "cancelled": false,
+        "id": "69801ACHMQQPHNNNRPKGGCKPVPDJPPBTJ",
+        "hasBestAvailableOverlay": false,
+        "attribute_TablesSoldOut": "",
+        "attribute_BarSoldOut": ""
+      }
+    ],
+    "thumbnailUrl": "https://system.spektrix.com/jazzaspensnowmass/files/d2a9c222-1460-4b7a-a208-81fc290ef237-thumbnail.jpg",
+    "webEventId": null,
+    "id": "23001ARCVCNHNNNCLVMBNCMRGPKGBRCSK",
+    "firstInstanceDateTime": "2026-08-09T18:30:00",
+    "firstInstanceDateTimeUtc": "2026-08-10T00:30:00Z",
+    "lastInstanceDateTime": "2026-08-09T21:00:00",
+    "lastInstanceDateTimeUtc": "2026-08-10T03:00:00Z",
+    "altText": "",
+    "attribute_CustomImage": "https://jazzaspensnowmass.org/wp-content/uploads/2026/04/Antibalas-Press-Photo-2-Photo-Credit-Siorne-John-scaled-e1758832567920-scaled.jpg",
+    "attribute_EventType": "JAS Cafe",
+    "attribute_Genre": "World",
+    "attribute_IsSupplementaryEvent": false,
+    "attribute_Season": "Summer 2026"
+  },
+  {
+    "description": "",
+    "htmlDescription": "<div id>\r\n\r\n</div>",
+    "duration": 75,
+    "imageUrl": "https://system.spektrix.com/jazzaspensnowmass/files/cdc81e37-c73b-4e7f-8292-90aefa34275b.jpg",
+    "isOnSale": true,
+    "name": "Django Festival Allstars",
+    "instanceDates": "August 14-August 14",
+    "instances": [
+      {
+        "isOnSale": true,
+        "planId": "6404APLBMJCQRCCDQRTTVKNGSKPSMVHBV",
+        "priceList": {
+          "id": "17401ARMGDGRGTJBKVPBLJVRHCKNDGPTT"
+        },
+        "event": {
+          "id": "21401ATBPGTQKVRDDCCQRVVVPPKQMSKBM"
+        },
+        "start": "2026-08-14T18:30:00",
+        "startUtc": "2026-08-15T00:30:00",
+        "startSellingAtWeb": "2026-04-16T10:01:00",
+        "startSellingAtWebUtc": "2026-04-16T16:01:00Z",
+        "stopSellingAtWeb": "2026-08-14T18:30:00",
+        "stopSellingAtWebUtc": "2026-08-15T00:30:00Z",
+        "webInstanceId": null,
+        "cancelled": false,
+        "id": "66801AQKPRHKKGQQBTMBVQVVTVMKKQTGN",
+        "hasBestAvailableOverlay": false,
+        "attribute_TablesSoldOut": "",
+        "attribute_BarSoldOut": ""
+      },
+      {
+        "isOnSale": true,
+        "planId": "6404APLBMJCQRCCDQRTTVKNGSKPSMVHBV",
+        "priceList": {
+          "id": "17601ADSBKGQMMPTLRCMTNQVQJNSBPVNG"
+        },
+        "event": {
+          "id": "21401ATBPGTQKVRDDCCQRVVVPPKQMSKBM"
+        },
+        "start": "2026-08-14T21:00:00",
+        "startUtc": "2026-08-15T03:00:00",
+        "startSellingAtWeb": "2026-04-16T10:01:00",
+        "startSellingAtWebUtc": "2026-04-16T16:01:00Z",
+        "stopSellingAtWeb": "2026-08-14T21:00:00",
+        "stopSellingAtWebUtc": "2026-08-15T03:00:00Z",
+        "webInstanceId": null,
+        "cancelled": false,
+        "id": "67001APKGPVRDVBKMDCRCRMPHDNRDBKDN",
+        "hasBestAvailableOverlay": false,
+        "attribute_TablesSoldOut": "",
+        "attribute_BarSoldOut": ""
+      }
+    ],
+    "thumbnailUrl": "https://system.spektrix.com/jazzaspensnowmass/files/cdc81e37-c73b-4e7f-8292-90aefa34275b-thumbnail.jpg",
+    "webEventId": null,
+    "id": "21401ATBPGTQKVRDDCCQRVVVPPKQMSKBM",
+    "firstInstanceDateTime": "2026-08-14T18:30:00",
+    "firstInstanceDateTimeUtc": "2026-08-15T00:30:00Z",
+    "lastInstanceDateTime": "2026-08-14T21:00:00",
+    "lastInstanceDateTimeUtc": "2026-08-15T03:00:00Z",
+    "altText": "",
+    "attribute_CustomImage": "https://jazzaspensnowmass.org/wp-content/uploads/2026/04/Django-Allstars-w_Francko-scaled.jpg",
+    "attribute_EventType": "JAS Cafe",
+    "attribute_Genre": "Jazz Instrumental",
+    "attribute_IsSupplementaryEvent": false,
+    "attribute_Season": "Summer 2026"
+  },
+  {
+    "description": "",
+    "htmlDescription": "<div id>\r\n\r\n</div>",
+    "duration": 75,
+    "imageUrl": "https://system.spektrix.com/jazzaspensnowmass/files/ada5bf1d-d815-46ae-8603-fdee088a123d.jpg",
+    "isOnSale": true,
+    "name": "Goldings Bernstein Stewart B-3 Trio",
+    "instanceDates": "August 15-August 15",
+    "instances": [
+      {
+        "isOnSale": true,
+        "planId": "6601AQMNQNHRQGLJKCSPPPSGMQSBMDCJM",
+        "priceList": {
+          "id": "16801ANHJRBJLNRBNVQDKPGNSLJNKRTQV"
+        },
+        "event": {
+          "id": "21601ATQCRBPJGGKQCSQSNJJDGKGBDPBP"
+        },
+        "start": "2026-08-15T18:30:00",
+        "startUtc": "2026-08-16T00:30:00",
+        "startSellingAtWeb": "2026-04-16T10:44:00",
+        "startSellingAtWebUtc": "2026-04-16T16:44:00Z",
+        "stopSellingAtWeb": "2026-08-15T18:30:00",
+        "stopSellingAtWebUtc": "2026-08-16T00:30:00Z",
+        "webInstanceId": null,
+        "cancelled": false,
+        "id": "65202AGSSSKQLRKGHGMLHSDNNNSRKSGQN",
+        "hasBestAvailableOverlay": false,
+        "attribute_TablesSoldOut": "",
+        "attribute_BarSoldOut": ""
+      },
+      {
+        "isOnSale": true,
+        "planId": "6601AQMNQNHRQGLJKCSPPPSGMQSBMDCJM",
+        "priceList": {
+          "id": "17001ATQVJDMTMDNCJJRSGHPLDNKCVDBL"
+        },
+        "event": {
+          "id": "21601ATQCRBPJGGKQCSQSNJJDGKGBDPBP"
+        },
+        "start": "2026-08-15T21:00:00",
+        "startUtc": "2026-08-16T03:00:00",
+        "startSellingAtWeb": "2026-04-16T10:44:00",
+        "startSellingAtWebUtc": "2026-04-16T16:44:00Z",
+        "stopSellingAtWeb": "2026-08-15T21:00:00",
+        "stopSellingAtWebUtc": "2026-08-16T03:00:00Z",
+        "webInstanceId": null,
+        "cancelled": false,
+        "id": "66402AQSGKVVNKGTGDDCQQRVHVTCPGDRN",
+        "hasBestAvailableOverlay": false,
+        "attribute_TablesSoldOut": "",
+        "attribute_BarSoldOut": ""
+      }
+    ],
+    "thumbnailUrl": "https://system.spektrix.com/jazzaspensnowmass/files/ada5bf1d-d815-46ae-8603-fdee088a123d-thumbnail.jpg",
+    "webEventId": null,
+    "id": "21601ATQCRBPJGGKQCSQSNJJDGKGBDPBP",
+    "firstInstanceDateTime": "2026-08-15T18:30:00",
+    "firstInstanceDateTimeUtc": "2026-08-16T00:30:00Z",
+    "lastInstanceDateTime": "2026-08-15T21:00:00",
+    "lastInstanceDateTimeUtc": "2026-08-16T03:00:00Z",
+    "altText": "",
+    "attribute_CustomImage": "https://jazzaspensnowmass.org/wp-content/uploads/2026/04/GBS-scaled.jpg",
+    "attribute_EventType": "JAS Cafe",
+    "attribute_Genre": "Jazz Instrumental",
+    "attribute_IsSupplementaryEvent": false,
+    "attribute_Season": "Summer 2026"
+  },
+  {
+    "description": "Brunch at the Paul JAS Center",
+    "htmlDescription": "<div id>\r\n\r\n</div>",
+    "duration": 75,
+    "imageUrl": "https://system.spektrix.com/jazzaspensnowmass/files/b80cf135-210b-49b0-b22a-f081f34262ee.JPG",
+    "isOnSale": true,
+    "name": "King Cabbage Brass Band",
+    "instanceDates": "August 16-August 16",
+    "instances": [
+      {
+        "isOnSale": true,
+        "planId": "6801ABTVLJRVPSSSGRNRDNBVDKGKTRLVM",
+        "priceList": {
+          "id": "18601AGJVHRJDDNTMMMDTKPLTNBGVTLHV"
+        },
+        "event": {
+          "id": "23401AHHMQSVVPPKJGSDQCLPJRGKVPLMQ"
+        },
+        "start": "2026-08-16T11:00:00",
+        "startUtc": "2026-08-16T17:00:00",
+        "startSellingAtWeb": "2026-04-22T10:51:00",
+        "startSellingAtWebUtc": "2026-04-22T16:51:00Z",
+        "stopSellingAtWeb": "2026-08-16T11:00:00",
+        "stopSellingAtWebUtc": "2026-08-16T17:00:00Z",
+        "webInstanceId": null,
+        "cancelled": false,
+        "id": "70801ACCPCJTVQVGBDPKMJGLRTJJDDVBG",
+        "hasBestAvailableOverlay": false,
+        "attribute_TablesSoldOut": "",
+        "attribute_BarSoldOut": ""
+      }
+    ],
+    "thumbnailUrl": "https://system.spektrix.com/jazzaspensnowmass/files/b80cf135-210b-49b0-b22a-f081f34262ee-thumbnail.JPG",
+    "webEventId": null,
+    "id": "23401AHHMQSVVPPKJGSDQCLPJRGKVPLMQ",
+    "firstInstanceDateTime": "2026-08-16T11:00:00",
+    "firstInstanceDateTimeUtc": "2026-08-16T17:00:00Z",
+    "lastInstanceDateTime": "2026-08-16T11:00:00",
+    "lastInstanceDateTimeUtc": "2026-08-16T17:00:00Z",
+    "altText": "",
+    "attribute_CustomImage": "https://jazzaspensnowmass.org/wp-content/uploads/2026/04/King-Cabbage-Brass-Band-scaled.jpg",
+    "attribute_EventType": "JAS Cafe",
+    "attribute_Genre": "New Orleans",
+    "attribute_IsSupplementaryEvent": false,
+    "attribute_Season": "Summer 2026"
+  },
+  {
+    "description": "",
+    "htmlDescription": "<div id>\r\n\r\n</div>",
+    "duration": 75,
+    "imageUrl": "https://system.spektrix.com/jazzaspensnowmass/files/26473e3a-a5bb-42bd-87ed-3a0592d281b0.jpg",
+    "isOnSale": true,
+    "name": "New York Voices",
+    "instanceDates": "August 16-August 16",
+    "instances": [
+      {
+        "isOnSale": true,
+        "planId": "6404APLBMJCQRCCDQRTTVKNGSKPSMVHBV",
+        "priceList": {
+          "id": "17401ARMGDGRGTJBKVPBLJVRHCKNDGPTT"
+        },
+        "event": {
+          "id": "21801ABPGGTNVQRGNRTJRVPPDJJQDTSQC"
+        },
+        "start": "2026-08-16T18:30:00",
+        "startUtc": "2026-08-17T00:30:00",
+        "startSellingAtWeb": "2026-04-16T10:46:00",
+        "startSellingAtWebUtc": "2026-04-16T16:46:00Z",
+        "stopSellingAtWeb": "2026-08-16T18:30:00",
+        "stopSellingAtWebUtc": "2026-08-17T00:30:00Z",
+        "webInstanceId": null,
+        "cancelled": false,
+        "id": "65002ASPDRDSNLPMSGLJDNVNGKQNNJKJM",
+        "hasBestAvailableOverlay": false,
+        "attribute_TablesSoldOut": "",
+        "attribute_BarSoldOut": ""
+      },
+      {
+        "isOnSale": true,
+        "planId": "6404APLBMJCQRCCDQRTTVKNGSKPSMVHBV",
+        "priceList": {
+          "id": "17601ADSBKGQMMPTLRCMTNQVQJNSBPVNG"
+        },
+        "event": {
+          "id": "21801ABPGGTNVQRGNRTJRVPPDJJQDTSQC"
+        },
+        "start": "2026-08-16T21:00:00",
+        "startUtc": "2026-08-17T03:00:00",
+        "startSellingAtWeb": "2026-04-16T10:46:00",
+        "startSellingAtWebUtc": "2026-04-16T16:46:00Z",
+        "stopSellingAtWeb": "2026-08-16T21:00:00",
+        "stopSellingAtWebUtc": "2026-08-17T03:00:00Z",
+        "webInstanceId": null,
+        "cancelled": false,
+        "id": "67201AVCRKQDBSGLQHRCLJQTBDLCTLNNQ",
+        "hasBestAvailableOverlay": false,
+        "attribute_TablesSoldOut": "",
+        "attribute_BarSoldOut": ""
+      }
+    ],
+    "thumbnailUrl": "https://system.spektrix.com/jazzaspensnowmass/files/26473e3a-a5bb-42bd-87ed-3a0592d281b0-thumbnail.jpg",
+    "webEventId": null,
+    "id": "21801ABPGGTNVQRGNRTJRVPPDJJQDTSQC",
+    "firstInstanceDateTime": "2026-08-16T18:30:00",
+    "firstInstanceDateTimeUtc": "2026-08-17T00:30:00Z",
+    "lastInstanceDateTime": "2026-08-16T21:00:00",
+    "lastInstanceDateTimeUtc": "2026-08-17T03:00:00Z",
+    "altText": "",
+    "attribute_CustomImage": "https://jazzaspensnowmass.org/wp-content/uploads/2026/04/New-York-Voices-scaled.jpg",
+    "attribute_EventType": "JAS Cafe",
+    "attribute_Genre": "Jazz Vocals",
+    "attribute_IsSupplementaryEvent": false,
+    "attribute_Season": "Summer 2026"
+  }
   ]
 }
