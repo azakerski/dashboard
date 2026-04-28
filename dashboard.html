@@ -477,9 +477,7 @@
   </div>
 
   <footer>
-    Dashboard powered by the <a href="https://integrate.spektrix.com/docs/API3" target="_blank">Spektrix API v3</a> &nbsp;·&nbsp;
-    Flask proxy running at <a href="http://localhost:5000" target="_blank">localhost:5000</a> &nbsp;·&nbsp;
-    Excel Power Query: <code>http://localhost:5000/api/instances</code>
+    Dashboard powered by the <a href="https://integrate.spektrix.com/docs/API3" target="_blank">Spektrix API v3</a>
   </footer>
 
 </div><!-- /shell -->
@@ -522,7 +520,7 @@ async function loadDashboard() {
     seasons      = data.seasons   || {};
 
     document.getElementById('last-updated').textContent =
-      new Date(data.fetchedAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+      new Date(data.fetchedAt).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit', timeZone: 'America/Denver' });
 
     buildSeasonFilters();
     applyFilters();
