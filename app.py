@@ -201,8 +201,8 @@ def _get_cached_data() -> list[dict]:
 def api_instances():
     instances = _get_cached_data()
     return jsonify({
-        "fetchedAt":   datetime.now().isoformat(),
-        "cachedUntil": _cache["expires_at"].isoformat() if _cache["expires_at"] else None,
+        "fetchedAt":   datetime.utcnow().isoformat() + "Z",
+        "cachedUntil": _cache["expires_at"].isoformat() + "Z" if _cache["expires_at"] else None,
         "seasons":     SEASONS,
         "instances":   instances,
     })
