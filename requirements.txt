@@ -3,3 +3,4 @@ flask-cors>=4.0
 flask-httpauth>=4.0
 requests>=2.31
 gunicorn>=21.0
+boto3>=1.34

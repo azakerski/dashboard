@@ -35,7 +35,10 @@ except ImportError:
     API_SECRET         = os.environ.get("SPEKTRIX_API_SECRET", "")
     DASHBOARD_PASSWORD = os.environ.get("DASHBOARD_PASSWORD", "")
 
-CACHE_TTL = 300  # seconds (5 minutes)
+CACHE_TTL     = 300   # seconds (5 minutes)
+AXS_CACHE_TTL = 3600  # seconds (1 hour)
+
+AXS_S3_BUCKET = os.environ.get("AXS_S3_BUCKET", "jas-axs-s3-bucket")
 
 app  = Flask(__name__, static_folder=".")
 CORS(app)
@@ -63,6 +66,9 @@ for _event in EVENTS:
 # ─── Cache ────────────────────────────────────────────────────────────────────
 _cache_lock = threading.Lock()
 _cache: dict = {"data": None, "expires_at": None}
+
+_axs_lock = threading.Lock()
+_axs_cache: dict = {"data": None, "expires_at": None}
 
 
 def _cache_valid() -> bool:
@@ -252,6 +258,33 @@ def clear_cache():
 @auth.login_required
 def api_config():
     return jsonify({"clientName": CLIENT_NAME, "seasons": SEASONS})
+
+
+@app.route("/api/axs")
+@auth.login_required
+def api_axs():
+    with _axs_lock:
+        if _axs_cache["data"] is not None and datetime.now() < _axs_cache["expires_at"]:
+            data = _axs_cache["data"]
+        else:
+            if not AXS_S3_BUCKET:
+                return jsonify({"fetchedAt": datetime.utcnow().isoformat() + "Z", "events": [], "note": "AXS_S3_BUCKET not configured"})
+            try:
+                import boto3
+                s3       = boto3.client("s3", region_name=os.environ.get("AWS_DEFAULT_REGION", "us-east-2"))
+                objects  = s3.list_objects_v2(Bucket=AXS_S3_BUCKET)
+                contents = objects.get("Contents", [])
+                if not contents:
+                    return jsonify({"fetchedAt": datetime.utcnow().isoformat() + "Z", "events": [], "note": "No files found in bucket"})
+                latest = max(contents, key=lambda o: o["LastModified"])
+                obj    = s3.get_object(Bucket=AXS_S3_BUCKET, Key=latest["Key"])
+                data   = json.loads(obj["Body"].read().decode("utf-8"))
+            except Exception as e:
+                return jsonify({"error": str(e), "events": []}), 500
+            _axs_cache["data"]       = data
+            _axs_cache["expires_at"] = datetime.now() + timedelta(seconds=AXS_CACHE_TTL)
+
+    return jsonify({"fetchedAt": datetime.utcnow().isoformat() + "Z", "events": data})
 
 
 @app.route("/")

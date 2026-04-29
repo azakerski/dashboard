@@ -27,6 +27,32 @@
     --display:  'Playfair Display', serif;
     --sans:     'DM Sans', sans-serif;
   }
+  body.light {
+    --bg:      #f5f4f0;
+    --surface: #ffffff;
+    --border:  #e0ddd6;
+    --border2: #ccc9c0;
+    --muted:   #a0998a;
+    --text:    #1a1a1c;
+    --sub:     #6b6560;
+    --gold:    #a07828;
+    --gold2:   #c9a84c;
+    --green:   #2e7d52;
+    --yellow:  #a07828;
+    --red:     #b84035;
+    --blue:    #2e6ea0;
+  }
+  .theme-toggle {
+    background: none;
+    border: 1px solid var(--border2);
+    color: var(--sub);
+    border-radius: 6px;
+    padding: 6px 10px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: border-color 0.15s, color 0.15s;
+  }
+  .theme-toggle:hover { border-color: var(--gold); color: var(--gold); }
 
   /* ── Reset ──────────────────────────────────────────────────── */
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -110,6 +136,31 @@
   .btn-refresh.spinning svg { animation: spin 0.8s linear infinite; }
   @keyframes spin { to { transform: rotate(360deg); } }
 
+  /* ── Tab nav ─────────────────────────────────────────────────── */
+  .tab-nav {
+    display: flex;
+    border-bottom: 1px solid var(--border);
+    margin-top: 24px;
+  }
+  .tab-nav-btn {
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    color: var(--sub);
+    padding: 12px 28px;
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: color 0.15s, border-color 0.15s;
+    margin-bottom: -1px;
+  }
+  .tab-nav-btn:hover { color: var(--gold); }
+  .tab-nav-btn.active { color: var(--gold); border-bottom-color: var(--gold); }
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
   /* ── Summary cards ───────────────────────────────────────────── */
   .summary-row {
     display: grid;
@@ -134,6 +185,7 @@
   .card.locked::after   { background: var(--muted); }
   .card.available::after{ background: var(--green); }
   .card.events::after   { background: var(--blue); }
+  .card.revenue::after  { background: var(--gold); }
 
   .card-label {
     font-family: var(--mono);
@@ -218,7 +270,7 @@
   tbody td.num {
     text-align: right;
     font-family: var(--mono);
-    font-size: 0.82rem;
+    font-size: 0.92rem;
   }
 
   .event-name {
@@ -294,6 +346,7 @@
   .n-res  { color: var(--yellow); }
   .n-lock { color: var(--muted); }
   .n-avail{ color: var(--green); }
+  .n-gold { color: var(--gold); }
 
   /* ── Area drilldown row ──────────────────────────────────────── */
   tr.area-detail-row { display: none; }
@@ -397,6 +450,13 @@
   .filter-btn.active { border-color: var(--gold); color: var(--bg); background: var(--gold); }
   .filter-sep { flex: 1; }
 
+  /* ── AXS simple table rows ───────────────────────────────────── */
+  tbody tr.axs-row {
+    border-bottom: 1px solid var(--border);
+    transition: background 0.1s;
+  }
+  tbody tr.axs-row:hover { background: rgba(201,168,76,0.04); }
+
   /* ── Footer ─────────────────────────────────────────────────── */
   footer {
     margin-top: 40px;
@@ -419,14 +479,15 @@
   <header>
     <div class="header-left">
       <h1>Jazz Aspen Snowmass <span>Tickets</span></h1>
-      <p id="subtitle">Spektrix Live Sales Dashboard</p>
+      <p id="subtitle">Live Sales Dashboard</p>
     </div>
     <div class="header-right">
       <div class="meta">
         <strong id="last-updated">—</strong>
         Last Refreshed
       </div>
-      <button class="btn-refresh" id="refresh-btn" onclick="loadDashboard()">
+      <button class="theme-toggle" id="theme-btn" onclick="toggleTheme()">☀ Light</button>
+      <button class="btn-refresh" id="refresh-btn" onclick="refreshActive()">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
              stroke-linecap="round" stroke-linejoin="round">
           <polyline points="23 4 23 10 17 10"></polyline>
@@ -437,43 +498,74 @@
     </div>
   </header>
 
-  <!-- Season / date filters -->
-  <div class="filter-row" id="filter-row"></div>
-
-  <!-- Summary cards -->
-  <div class="summary-row" id="summary-row">
-    <div class="card events"><div class="card-label">Upcoming Events</div><div class="card-value" id="s-events">—</div><div class="card-sub" id="s-range">next — days</div></div>
-    <div class="card sold"><div class="card-label">Total Sold</div><div class="card-value" id="s-sold">—</div><div class="card-sub" id="s-cap">of — capacity</div></div>
-    <div class="card reserved"><div class="card-label">Reserved</div><div class="card-value" id="s-reserved">—</div><div class="card-sub">held / not yet paid</div></div>
-    <div class="card locked"><div class="card-label">Locked</div><div class="card-value" id="s-locked">—</div><div class="card-sub">holds + kills</div></div>
-    <div class="card available"><div class="card-label">Available</div><div class="card-value" id="s-available">—</div><div class="card-sub">across all events</div></div>
+  <!-- Tab nav -->
+  <div class="tab-nav">
+    <button class="tab-nav-btn active" id="btn-spektrix" onclick="switchTab('spektrix')">Spektrix</button>
+    <button class="tab-nav-btn" id="btn-axs" onclick="switchTab('axs')">AXS</button>
   </div>
 
-  <!-- Error bar -->
-  <div class="status-bar" id="error-bar"></div>
+  <!-- ── Spektrix tab ─────────────────────────────────────────── -->
+  <div class="tab-panel active" id="tab-spektrix">
+    <div class="filter-row" id="filter-row"></div>
+    <div class="summary-row" id="summary-row">
+      <div class="card events"><div class="card-label">Upcoming Events</div><div class="card-value" id="s-events">—</div><div class="card-sub" id="s-range">next — days</div></div>
+      <div class="card sold"><div class="card-label">Total Sold</div><div class="card-value" id="s-sold">—</div><div class="card-sub" id="s-cap">of — capacity</div></div>
+      <div class="card reserved"><div class="card-label">Reserved</div><div class="card-value" id="s-reserved">—</div><div class="card-sub">held / not yet paid</div></div>
+      <div class="card locked"><div class="card-label">Locked</div><div class="card-value" id="s-locked">—</div><div class="card-sub">holds + kills</div></div>
+      <div class="card available"><div class="card-label">Available</div><div class="card-value" id="s-available">—</div><div class="card-sub">across all events</div></div>
+    </div>
+    <div class="status-bar" id="error-bar"></div>
+    <div class="table-wrap" id="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Event / Instance</th>
+            <th>Status</th>
+            <th class="num">Sold</th>
+            <th class="num">Reserved</th>
+            <th class="num">Locked</th>
+            <th class="num">Available</th>
+            <th class="num">Capacity</th>
+            <th>% Sold</th>
+          </tr>
+        </thead>
+        <tbody id="table-body">
+          <tr><td colspan="8"><div class="skeleton-row"></div></td></tr>
+          <tr><td colspan="8"><div class="skeleton-row" style="opacity:.7"></div></td></tr>
+          <tr><td colspan="8"><div class="skeleton-row" style="opacity:.4"></div></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 
-  <!-- Table -->
-  <div class="table-wrap" id="table-wrap">
-    <table>
-      <thead>
-        <tr>
-          <th>Event / Instance</th>
-          <th>Status</th>
-          <th class="num">Sold</th>
-          <th class="num">Reserved</th>
-          <th class="num">Locked</th>
-          <th class="num">Available</th>
-          <th class="num">Capacity</th>
-          <th>% Sold</th>
-        </tr>
-      </thead>
-      <tbody id="table-body">
-        <!-- skeleton -->
-        <tr><td colspan="8"><div class="skeleton-row"></div></td></tr>
-        <tr><td colspan="8"><div class="skeleton-row" style="opacity:.7"></div></td></tr>
-        <tr><td colspan="8"><div class="skeleton-row" style="opacity:.4"></div></td></tr>
-      </tbody>
-    </table>
+  <!-- ── AXS tab ──────────────────────────────────────────────── -->
+  <div class="tab-panel" id="tab-axs">
+    <div class="filter-row" id="axs-filter-row"></div>
+    <div class="summary-row" style="margin-top:28px">
+      <div class="card events"><div class="card-label">Events</div><div class="card-value" id="axs-s-events">—</div></div>
+      <div class="card sold"><div class="card-label">Total Tickets Sold</div><div class="card-value" id="axs-s-sold">—</div></div>
+      <div class="card"><div class="card-label">Total Comp</div><div class="card-value" id="axs-s-comp">—</div></div>
+      <div class="card"><div class="card-label">Total Tickets</div><div class="card-value" id="axs-s-total">—</div></div>
+    </div>
+    <div class="status-bar" id="axs-error-bar"></div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Event</th>
+            <th>Venue</th>
+            <th class="num">Tickets Sold</th>
+            <th class="num">Tickets Comp</th>
+            <th class="num">Total Tickets</th>
+          </tr>
+        </thead>
+        <tbody id="axs-table-body">
+          <tr><td colspan="5"><div class="skeleton-row"></div></td></tr>
+          <tr><td colspan="5"><div class="skeleton-row" style="opacity:.7"></div></td></tr>
+          <tr><td colspan="5"><div class="skeleton-row" style="opacity:.4"></div></td></tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 
   <footer>
@@ -488,9 +580,14 @@ const FETCH_OPTS = { credentials: "same-origin" };
 
 let allInstances  = [];
 let seasons       = {};
-let currentSeason = null;   // null = all seasons
+let currentSeason = null;
 let showUpcoming  = true;
 let expandedRows  = new Set();
+
+let activeTab     = 'spektrix';
+let axsLoaded     = false;
+let axsEvents     = [];
+let axsFilter     = null; // null = all, 'june', 'laborday'
 
 // ─── Bootstrap ────────────────────────────────────────────────────────────
 window.addEventListener('DOMContentLoaded', async () => {
@@ -503,13 +600,45 @@ window.addEventListener('DOMContentLoaded', async () => {
   loadDashboard();
 });
 
-// ─── Main load ─────────────────────────────────────────────────────────────
+// ─── Theme toggle ──────────────────────────────────────────────────────────
+(function initTheme() {
+  if (localStorage.getItem('theme') === 'light') applyLight();
+})();
+
+function applyLight() {
+  document.body.classList.add('light');
+  document.getElementById('theme-btn').textContent = '☾ Dark';
+}
+
+function toggleTheme() {
+  const isLight = document.body.classList.toggle('light');
+  document.getElementById('theme-btn').textContent = isLight ? '☾ Dark' : '☀ Light';
+  localStorage.setItem('theme', isLight ? 'light' : 'dark');
+}
+
+// ─── Tab switching ─────────────────────────────────────────────────────────
+function switchTab(name) {
+  activeTab = name;
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(`tab-${name}`).classList.add('active');
+  document.getElementById(`btn-${name}`).classList.add('active');
+
+  if (name === 'axs' && !axsLoaded) loadAxsData();
+}
+
+function refreshActive() {
+  if (activeTab === 'spektrix') loadDashboard();
+  else { axsLoaded = false; loadAxsData(); }
+}
+
+// ─── Spektrix load ─────────────────────────────────────────────────────────
 async function loadDashboard() {
   const btn = document.getElementById('refresh-btn');
   btn.disabled = true;
   btn.classList.add('spinning');
-  hideError();
-  showSkeletons();
+  hideError('error-bar');
+  showSkeletons('table-body', 8);
 
   try {
     const resp = await fetch(`${API}/api/instances`, FETCH_OPTS);
@@ -526,12 +655,102 @@ async function loadDashboard() {
     applyFilters();
 
   } catch (e) {
-    showError(`Could not reach the Spektrix proxy: ${e.message}`);
-    showSkeletons(false);
+    showError('error-bar', `Could not reach the Spektrix proxy: ${e.message}`);
+    showSkeletons('table-body', 8, false);
   } finally {
     btn.disabled = false;
     btn.classList.remove('spinning');
   }
+}
+
+// ─── AXS load ──────────────────────────────────────────────────────────────
+async function loadAxsData() {
+  hideError('axs-error-bar');
+  showSkeletons('axs-table-body', 4);
+
+  try {
+    const resp = await fetch(`${API}/api/axs`, FETCH_OPTS);
+    if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+    const data = await resp.json();
+    if (data.error) throw new Error(data.error);
+
+    axsLoaded = true;
+    document.getElementById('last-updated').textContent =
+      new Date(data.fetchedAt).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit', timeZone: 'America/Denver' });
+
+    axsEvents = (data.events || []).sort((a, b) => {
+      const dateDiff = (a['Event Date'] || '').localeCompare(b['Event Date'] || '');
+      if (dateDiff !== 0) return dateDiff;
+      return (a['Event Name'] || '').localeCompare(b['Event Name'] || '');
+    });
+    buildAxsFilters();
+    applyAxsFilter();
+  } catch (e) {
+    showError('axs-error-bar', `Could not load AXS data: ${e.message}`);
+    showSkeletons('axs-table-body', 4, false);
+  }
+}
+
+function buildAxsFilters() {
+  const row = document.getElementById('axs-filter-row');
+  const btn = (label, val) =>
+    `<button class="filter-btn ${axsFilter === val ? 'active' : ''}" onclick="setAxsFilter(${val === null ? 'null' : `'${val}'`})">${label}</button>`;
+  row.innerHTML = [btn('All', null), btn('June', 'june'), btn('Labor Day', 'laborday')].join('');
+}
+
+function setAxsFilter(val) {
+  axsFilter = val;
+  buildAxsFilters();
+  applyAxsFilter();
+}
+
+function applyAxsFilter() {
+  const filtered = axsFilter === null ? axsEvents : axsEvents.filter(ev => {
+    const date = ev['Event Date'] || '';
+    const mmdd = date.slice(5); // "MM-DD" portion of "YYYY-MM-DD"
+    return axsFilter === 'june' ? mmdd < '07-15' : mmdd >= '07-15';
+  });
+  renderAxsTable(filtered);
+}
+
+function renderAxsTable(events) {
+  const tbody = document.getElementById('axs-table-body');
+
+  if (!events.length) {
+    tbody.innerHTML = `<tr><td colspan="4" style="padding:32px;text-align:center;font-family:var(--mono);color:var(--sub)">No AXS events found.</td></tr>`;
+    set('axs-s-events', 0);
+    set('axs-s-sold', '—');
+    set('axs-s-revenue', '—');
+    return;
+  }
+
+  let totalSold = 0, totalComp = 0, totalTickets = 0;
+
+  tbody.innerHTML = events.map(ev => {
+    const sold    = parseInt((ev['Primary: Tickets Sold']   || '0').replace(/,/g, ''), 10) || 0;
+    const comp    = parseInt((ev['Tickets Comp']            || '0').replace(/,/g, ''), 10) || 0;
+    const total   = parseInt((ev['Tickets Issued: Primary'] || '0').replace(/,/g, ''), 10) || 0;
+    totalSold    += sold;
+    totalComp    += comp;
+    totalTickets += total;
+
+    return `
+    <tr class="axs-row">
+      <td>
+        <span class="event-name">${esc(ev['Event Name'] || '—')}</span>
+        <div class="event-date">${fmtAxsDate(ev['Event Date'])}</div>
+      </td>
+      <td style="color:var(--sub);font-size:0.85rem">${esc(ev['Venue Name'] || '—')}</td>
+      <td class="num n-sold">${sold ? sold.toLocaleString() : '—'}</td>
+      <td class="num">${comp ? comp.toLocaleString() : '—'}</td>
+      <td class="num n-gold">${total ? total.toLocaleString() : '—'}</td>
+    </tr>`;
+  }).join('');
+
+  set('axs-s-events', events.length);
+  set('axs-s-sold', totalSold.toLocaleString());
+  set('axs-s-comp', totalComp.toLocaleString());
+  set('axs-s-total', totalTickets.toLocaleString());
 }
 
 // ─── Filter controls ────────────────────────────────────────────────────────
@@ -569,7 +788,6 @@ function applyFilters() {
   renderSummary(filtered);
   renderTable(filtered);
 
-  // Re-open previously expanded rows
   expandedRows.forEach(id => {
     const detailRow = document.getElementById(`detail-${id}`);
     if (!detailRow) return;
@@ -602,7 +820,7 @@ function renderSummary(instances) {
   set('s-range',     currentSeason || 'All Seasons');
 }
 
-// ─── Table ─────────────────────────────────────────────────────────────────
+// ─── Spektrix table ─────────────────────────────────────────────────────────
 function renderTable(instances) {
   const tbody = document.getElementById('table-body');
   if (!instances.length) {
@@ -650,7 +868,7 @@ function renderTable(instances) {
   }).join('');
 }
 
-// ─── Toggle area drilldown — data pre-loaded, no API call needed ────────────
+// ─── Toggle area drilldown ──────────────────────────────────────────────────
 function toggleDetail(instanceId, rowEl) {
   const detailRow = document.getElementById(`detail-${instanceId}`);
   const expandEl  = document.getElementById(`expand-${instanceId}`);
@@ -738,18 +956,26 @@ function fmtDate(iso) {
   } catch { return iso; }
 }
 
-function showError(msg) {
-  const bar = document.getElementById('error-bar');
+function fmtAxsDate(dateStr) {
+  if (!dateStr) return '—';
+  try {
+    const [y, m, d] = dateStr.split('-').map(Number);
+    return new Date(y, m - 1, d).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
+  } catch { return dateStr; }
+}
+
+function showError(barId, msg) {
+  const bar = document.getElementById(barId);
   bar.textContent = '⚠ ' + msg;
   bar.classList.add('visible');
 }
-function hideError() { document.getElementById('error-bar').classList.remove('visible'); }
+function hideError(barId) { document.getElementById(barId).classList.remove('visible'); }
 
-function showSkeletons(show = true) {
-  const tbody = document.getElementById('table-body');
+function showSkeletons(tbodyId, cols, show = true) {
+  const tbody = document.getElementById(tbodyId);
   if (show) {
     tbody.innerHTML = [1,2,3].map((_, i) =>
-      `<tr><td colspan="8"><div class="skeleton-row" style="opacity:${1 - i*0.3}"></div></td></tr>`
+      `<tr><td colspan="${cols}"><div class="skeleton-row" style="opacity:${1 - i*0.3}"></div></td></tr>`
     ).join('');
   }
 }
