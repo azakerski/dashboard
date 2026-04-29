@@ -281,10 +281,11 @@ def api_axs():
                 data   = json.loads(obj["Body"].read().decode("utf-8"))
             except Exception as e:
                 return jsonify({"error": str(e), "events": []}), 500
-            _axs_cache["data"]       = data
-            _axs_cache["expires_at"] = datetime.now() + timedelta(seconds=AXS_CACHE_TTL)
+            _axs_cache["data"]              = data
+            _axs_cache["expires_at"]        = datetime.now() + timedelta(seconds=AXS_CACHE_TTL)
+            _axs_cache["file_modified_at"]  = latest["LastModified"].isoformat()
 
-    return jsonify({"fetchedAt": datetime.utcnow().isoformat() + "Z", "events": data})
+    return jsonify({"fetchedAt": datetime.utcnow().isoformat() + "Z", "fileModifiedAt": _axs_cache.get("file_modified_at"), "events": data})
 
 
 @app.route("/")

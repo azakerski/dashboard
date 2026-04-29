@@ -587,7 +587,8 @@ let expandedRows  = new Set();
 let activeTab     = 'spektrix';
 let axsLoaded     = false;
 let axsEvents     = [];
-let axsFilter     = null; // null = all, 'june', 'laborday'
+let axsFilter          = null; // null = all, 'june', 'laborday'
+let axsFileModifiedAt  = null;
 
 // ─── Bootstrap ────────────────────────────────────────────────────────────
 window.addEventListener('DOMContentLoaded', async () => {
@@ -675,6 +676,7 @@ async function loadAxsData() {
     if (data.error) throw new Error(data.error);
 
     axsLoaded = true;
+    axsFileModifiedAt = data.fileModifiedAt || null;
     document.getElementById('last-updated').textContent =
       new Date(data.fetchedAt).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit', timeZone: 'America/Denver' });
 
@@ -695,7 +697,10 @@ function buildAxsFilters() {
   const row = document.getElementById('axs-filter-row');
   const btn = (label, val) =>
     `<button class="filter-btn ${axsFilter === val ? 'active' : ''}" onclick="setAxsFilter(${val === null ? 'null' : `'${val}'`})">${label}</button>`;
-  row.innerHTML = [btn('All', null), btn('June', 'june'), btn('Labor Day', 'laborday')].join('');
+  const timestamp = axsFileModifiedAt
+    ? `<span style="margin-left:auto;font-size:0.9rem;color:var(--text)">AXS data updated: ${new Date(axsFileModifiedAt).toLocaleString('en-US', { month: 'short', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit', timeZone: 'America/Denver' })}</span>`
+    : '';
+  row.innerHTML = [btn('All', null), btn('June', 'june'), btn('Labor Day', 'laborday'), timestamp].join('');
 }
 
 function setAxsFilter(val) {
