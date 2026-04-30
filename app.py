@@ -91,7 +91,7 @@ def make_spektrix_request(path: str) -> dict | list:
         "Host":          "system.spektrix.com",
         "Date":          date,
         "Content-Type":  "application/json",
-    }, timeout=15)
+    }, timeout=8)
     resp.raise_for_status()
     return resp.json()
 
