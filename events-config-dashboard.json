@@ -47,6 +47,27 @@
           "all": "$30"
         }
       }
+    },
+    "1801APGQPRKNVLCHGSKJBCTJKDRMGPLNL": {
+      "layoutName": "labor-day-3-day-vip",
+      "seatingAreas": {
+        "Silver": "1802ARGRKTLMNQKVDQSCGBCSGTHTTCNNB",
+        "Gold SRO": "1803ACKMBSHNPMLSHSGNHMHSGNQQGPLCH",
+        "Gold Seating": "1804ABSPTKQMHCTJTHTCQKMHPBLGDQHCG",
+        "National Council Patio": "1805ALLBRLTKSTCLTLPMMNKTTNHVPCSDJ",
+        "Natioal Council Upper Deck": "1806ABRKVBGRNVSGQJKCRQBNSRBSVQDMR",
+        "National Council Box": "1807ASNVGDVDPCDNPMKDCTGNRBHBGGNDG"
+      }
+    },
+    "5007ASJVMCJRLSBCRRCDMLQBGTRVRGGGN": {
+      "layoutName": "labor-day-single-day",
+      "seatingAreas": {
+        "Silver": "5008ARHVQKNSLBSJKSVLVRBCKJKNKVDPS",
+        "Gold SRO": "5009ADBLBCJPMVPQGSGMDSRVDTJVMPJQB",
+        "National Council Patio": "5010ATTHVSKDMBJSCNQBDBVMDPPKDBTDK",
+        "Natioal Council Upper Deck": "5011AMDNNMKBPTKJHGCPBSMCLTDCPSDPS",
+        "National Council Box": "5012AQBMCSVNCJBRKRHVDNHVDNBDHNHGB"
+      }
     }
   },
   "events": [
@@ -7821,6 +7842,347 @@
     "attribute_Genre": "Jazz Vocals",
     "attribute_IsSupplementaryEvent": false,
     "attribute_Season": "Summer 2026"
+  },
+  {
+    "description": "",
+    "htmlDescription": "<div id>\r\n\r\n</div>",
+    "duration": 0,
+    "imageUrl": "https://system.spektrix.com/jazzaspensnowmass/files/1e8e0dc8-988a-40c5-965f-ab1490a47f7c.jpg",
+    "isOnSale": true,
+    "name": "3-Day Labor Day Experience VIP Pass",
+    "instanceDates": "September 4-September 4",
+    "instances": [
+      {
+        "isOnSale": true,
+        "planId": "1801APGQPRKNVLCHGSKJBCTJKDRMGPLNL",
+        "priceList": {
+          "id": "21801ABPGGTNVQRGNRTJRVPPDJJQDTSQC"
+        },
+        "event": {
+          "id": "3001AKGPBMSRNCDBJCGBHRDVVQRQLSLMV"
+        },
+        "start": "2026-09-04T17:00:00",
+        "startUtc": "2026-09-04T23:00:00",
+        "startSellingAtWeb": "2025-10-01T15:48:00",
+        "startSellingAtWebUtc": "2025-10-01T21:48:00Z",
+        "stopSellingAtWeb": "2026-09-04T12:00:00",
+        "stopSellingAtWebUtc": "2026-09-04T18:00:00Z",
+        "webInstanceId": null,
+        "cancelled": false,
+        "id": "41003APSMJVNPPBRKSBTMNNDRBTSNBRNM",
+        "hasBestAvailableOverlay": false,
+        "attribute_TablesSoldOut": "",
+        "attribute_BarSoldOut": ""
+      }
+    ],
+    "thumbnailUrl": "https://system.spektrix.com/jazzaspensnowmass/files/1e8e0dc8-988a-40c5-965f-ab1490a47f7c-thumbnail.jpg",
+    "webEventId": null,
+    "id": "3001AKGPBMSRNCDBJCGBHRDVVQRQLSLMV",
+    "firstInstanceDateTime": "2026-09-04T17:00:00",
+    "firstInstanceDateTimeUtc": "2026-09-04T23:00:00Z",
+    "lastInstanceDateTime": "2026-09-04T17:00:00",
+    "lastInstanceDateTimeUtc": "2026-09-04T23:00:00Z",
+    "altText": "",
+    "attribute_EventType": "Labor Day Experience",
+    "attribute_IsSupplementaryEvent": false,
+    "attribute_Genre": "",
+    "attribute_CustomImage": "",
+    "attribute_Season": ""
+  },
+  {
+    "description": "",
+    "htmlDescription": "<div id>\r\n\r\n</div>",
+    "duration": 0,
+    "imageUrl": "https://system.spektrix.com/jazzaspensnowmass/files/69f12d8f-2f6f-4d6c-93be-2d894c093529.jpg",
+    "isOnSale": true,
+    "name": "3-Day June Experience VIP Pass",
+    "instanceDates": "June 25-June 25",
+    "instances": [
+      
+      {
+        "isOnSale": true,
+        "planId": "3001AKGPBMSRNCDBJCGBHRDVVQRQLSLMV",
+        "priceList": {
+          "id": "11601ASNTDDTNQDPTRBBMHTCLMHBVDMHV"
+        },
+        "event": {
+          "id": "2001AHRPHKQVSMKGSDJKJQJCLGRKHBSVV"
+        },
+        "start": "2026-06-25T17:00:00",
+        "startUtc": "2026-06-25T23:00:00",
+        "startSellingAtWeb": "2025-10-01T15:35:00",
+        "startSellingAtWebUtc": "2025-10-01T21:35:00Z",
+        "stopSellingAtWeb": "2026-06-25T12:00:00",
+        "stopSellingAtWebUtc": "2026-06-25T18:00:00Z",
+        "webInstanceId": null,
+        "cancelled": false,
+        "id": "41601AVNPVJKVCKMRJHHMRKVNNMTGJHSV",
+        "hasBestAvailableOverlay": false,
+        "attribute_TablesSoldOut": "",
+        "attribute_BarSoldOut": ""
+      }
+    ],
+    "thumbnailUrl": "https://system.spektrix.com/jazzaspensnowmass/files/69f12d8f-2f6f-4d6c-93be-2d894c093529-thumbnail.jpg",
+    "webEventId": null,
+    "id": "2001AHRPHKQVSMKGSDJKJQJCLGRKHBSVV",
+    "firstInstanceDateTime": "2026-06-25T17:00:00",
+    "firstInstanceDateTimeUtc": "2026-06-25T23:00:00Z",
+    "lastInstanceDateTime": "2026-06-25T17:00:00",
+    "lastInstanceDateTimeUtc": "2026-06-25T23:00:00Z",
+    "altText": "",
+    "attribute_EventType": "June Experience",
+    "attribute_IsSupplementaryEvent": false,
+    "attribute_Genre": "",
+    "attribute_CustomImage": "",
+    "attribute_Season": ""
+  },
+  {
+    "description": "",
+    "htmlDescription": "<div id>\r\n\t<span class=\"ItalicText\">Add on tickets for our New Orleans Sunday Brunch featuring ALL3N Generation</span>\r\n</div>",
+    "duration": 90,
+    "imageUrl": "",
+    "isOnSale": true,
+    "name": "June Brunch",
+    "instanceDates": "June 28-June 28",
+    "instances": [
+      {
+        "isOnSale": true,
+        "planId": "4801ANHPDLLRCQPPBDBQTRQJMPNKSLKPJ",
+        "priceList": {
+          "id": "22401AHNCPNVTKJTRNRHMVHTTDRBJQHGK"
+        },
+        "event": {
+          "id": "8601AVPPNNBTVGDHCLBCTPRSLGQPDSBRD"
+        },
+        "start": "2026-06-28T10:00:00",
+        "startUtc": "2026-06-28T16:00:00",
+        "startSellingAtWeb": "2024-02-26T13:34:00",
+        "startSellingAtWebUtc": "2024-02-26T20:34:00Z",
+        "stopSellingAtWeb": "2026-06-28T10:00:00",
+        "stopSellingAtWebUtc": "2026-06-28T16:00:00Z",
+        "webInstanceId": null,
+        "cancelled": false,
+        "id": "61001AVKKRKGPQTDBMRDKCBQMCGNRHLKS",
+        "hasBestAvailableOverlay": false,
+        "attribute_TablesSoldOut": "",
+        "attribute_BarSoldOut": ""
+      },
+      {
+        "isOnSale": true,
+        "planId": "4801ANHPDLLRCQPPBDBQTRQJMPNKSLKPJ",
+        "priceList": {
+          "id": "22401AHNCPNVTKJTRNRHMVHTTDRBJQHGK"
+        },
+        "event": {
+          "id": "8601AVPPNNBTVGDHCLBCTPRSLGQPDSBRD"
+        },
+        "start": "2026-06-28T12:30:00",
+        "startUtc": "2026-06-28T18:30:00",
+        "startSellingAtWeb": "2024-02-26T13:34:00",
+        "startSellingAtWebUtc": "2024-02-26T20:34:00Z",
+        "stopSellingAtWeb": "2026-06-28T12:30:00",
+        "stopSellingAtWebUtc": "2026-06-28T18:30:00Z",
+        "webInstanceId": null,
+        "cancelled": false,
+        "id": "61201ARKNPQJBTCNRNPMQMMBCRPGCCDLM",
+        "hasBestAvailableOverlay": false,
+        "attribute_TablesSoldOut": "",
+        "attribute_BarSoldOut": ""
+      }
+    ],
+    "thumbnailUrl": "",
+    "webEventId": null,
+    "id": "8601AVPPNNBTVGDHCLBCTPRSLGQPDSBRD",
+    "firstInstanceDateTime": "2026-06-28T10:00:00",
+    "firstInstanceDateTimeUtc": "2026-06-28T16:00:00Z",
+    "lastInstanceDateTime": "2026-06-28T12:30:00",
+    "lastInstanceDateTimeUtc": "2026-06-28T18:30:00Z",
+    "altText": "",
+    "attribute_EventType": "June Experience",
+    "attribute_IsSupplementaryEvent": false,
+    "attribute_Genre": "",
+    "attribute_CustomImage": "",
+    "attribute_Season": ""
+  },
+  {
+    "description": "",
+    "htmlDescription": "<div id>\r\n\r\n</div>",
+    "duration": 0,
+    "imageUrl": "",
+    "isOnSale": false,
+    "name": "CHILD VIP LABOR DAY",
+    "instanceDates": "September 4-September 6",
+    "instances": [
+      {
+        "isOnSale": false,
+        "planId": "2801AQDNLVMHMKCPBDVJNRVPGGRHGRKHB",
+        "priceList": {
+          "id": "24001ABMNLGCGVMRMGTMJKPBQCNHQQLMH"
+        },
+        "event": {
+          "id": "3601ABRLTLCLBPPCHRCSJRVVJLBBBDQCM"
+        },
+        "start": "2026-09-04T17:00:00",
+        "startUtc": "2026-09-04T23:00:00",
+        "startSellingAtWeb": null,
+        "startSellingAtWebUtc": null,
+        "stopSellingAtWeb": "2026-09-04T17:00:00",
+        "stopSellingAtWebUtc": "2026-09-04T23:00:00Z",
+        "webInstanceId": null,
+        "cancelled": false,
+        "id": "57001AJRNLVRMBLNJDVNKVQMDNNSRGTGD",
+        "hasBestAvailableOverlay": false,
+        "attribute_TablesSoldOut": "",
+        "attribute_BarSoldOut": ""
+      },
+      {
+        "isOnSale": false,
+        "planId": "2801AQDNLVMHMKCPBDVJNRVPGGRHGRKHB",
+        "priceList": {
+          "id": "24001ABMNLGCGVMRMGTMJKPBQCNHQQLMH"
+        },
+        "event": {
+          "id": "3601ABRLTLCLBPPCHRCSJRVVJLBBBDQCM"
+        },
+        "start": "2026-09-05T14:00:00",
+        "startUtc": "2026-09-05T20:00:00",
+        "startSellingAtWeb": null,
+        "startSellingAtWebUtc": null,
+        "stopSellingAtWeb": "2026-09-05T14:00:00",
+        "stopSellingAtWebUtc": "2026-09-05T20:00:00Z",
+        "webInstanceId": null,
+        "cancelled": false,
+        "id": "57201AVHSVBLCRCLQGNRQCCGBRSLVVRBN",
+        "hasBestAvailableOverlay": false,
+        "attribute_TablesSoldOut": "",
+        "attribute_BarSoldOut": ""
+      },
+      {
+        "isOnSale": false,
+        "planId": "2801AQDNLVMHMKCPBDVJNRVPGGRHGRKHB",
+        "priceList": {
+          "id": "24001ABMNLGCGVMRMGTMJKPBQCNHQQLMH"
+        },
+        "event": {
+          "id": "3601ABRLTLCLBPPCHRCSJRVVJLBBBDQCM"
+        },
+        "start": "2026-09-06T14:00:00",
+        "startUtc": "2026-09-06T20:00:00",
+        "startSellingAtWeb": null,
+        "startSellingAtWebUtc": null,
+        "stopSellingAtWeb": "2026-09-06T14:00:00",
+        "stopSellingAtWebUtc": "2026-09-06T20:00:00Z",
+        "webInstanceId": null,
+        "cancelled": false,
+        "id": "57401ANHTKSRPPTMGTRKPHLCBHVSMPJSK",
+        "hasBestAvailableOverlay": false,
+        "attribute_TablesSoldOut": "",
+        "attribute_BarSoldOut": ""
+      }
+    ],
+    "thumbnailUrl": "",
+    "webEventId": null,
+    "id": "3601ABRLTLCLBPPCHRCSJRVVJLBBBDQCM",
+    "firstInstanceDateTime": "2026-09-04T17:00:00",
+    "firstInstanceDateTimeUtc": "2026-09-04T23:00:00Z",
+    "lastInstanceDateTime": "2026-09-06T14:00:00",
+    "lastInstanceDateTimeUtc": "2026-09-06T20:00:00Z",
+    "altText": "",
+    "attribute_EventType": "Labor Day Experience",
+    "attribute_IsSupplementaryEvent": false,
+    "attribute_Genre": "",
+    "attribute_CustomImage": "",
+    "attribute_Season": ""
+  },
+  {
+    "description": "Labor Day Single Day VIP Passes - Internal Use only",
+    "htmlDescription": "<div id>\r\n\r\n</div>",
+    "duration": 0,
+    "imageUrl": "https://system.spektrix.com/jazzaspensnowmass/files/605c59d5-468e-48cf-bf80-dc1e605f92f7.jpg",
+    "isOnSale": false,
+    "name": "Labor Day Single Day VIP Passes",
+    "instanceDates": "September 4-September 6",
+    "instances": [
+      {
+        "isOnSale": false,
+        "planId": "5007ASJVMCJRLSBCRRCDMLQBGTRVRGGGN",
+        "priceList": {
+          "id": "15001AMKBTPKPRJBCVBMQKCKPSNVVCTJT"
+        },
+        "event": {
+          "id": "5401AGJPGHQLLTTGLRDMRHSLBPRNDKDHR"
+        },
+        "start": "2026-09-04T17:00:00",
+        "startUtc": "2026-09-04T23:00:00",
+        "startSellingAtWeb": "2025-07-25T13:00:00",
+        "startSellingAtWebUtc": "2025-07-25T19:00:00Z",
+        "stopSellingAtWeb": "2026-09-04T17:00:00",
+        "stopSellingAtWebUtc": "2026-09-04T23:00:00Z",
+        "webInstanceId": null,
+        "cancelled": false,
+        "id": "62801ABJBVRSCKSBLJSPRBSBBBRLBKKGT",
+        "hasBestAvailableOverlay": false,
+        "attribute_TablesSoldOut": "",
+        "attribute_BarSoldOut": ""
+      },
+      {
+        "isOnSale": false,
+        "planId": "5007ASJVMCJRLSBCRRCDMLQBGTRVRGGGN",
+        "priceList": {
+          "id": "15001AMKBTPKPRJBCVBMQKCKPSNVVCTJT"
+        },
+        "event": {
+          "id": "5401AGJPGHQLLTTGLRDMRHSLBPRNDKDHR"
+        },
+        "start": "2026-09-05T14:00:00",
+        "startUtc": "2026-09-05T20:00:00",
+        "startSellingAtWeb": "2025-07-25T13:00:00",
+        "startSellingAtWebUtc": "2025-07-25T19:00:00Z",
+        "stopSellingAtWeb": "2026-09-05T14:00:00",
+        "stopSellingAtWebUtc": "2026-09-05T20:00:00Z",
+        "webInstanceId": null,
+        "cancelled": false,
+        "id": "63001AJJHHCCDTKKSDNHNCJHVRPDPDKLT",
+        "hasBestAvailableOverlay": false,
+        "attribute_TablesSoldOut": "",
+        "attribute_BarSoldOut": ""
+      },
+      {
+        "isOnSale": false,
+        "planId": "5007ASJVMCJRLSBCRRCDMLQBGTRVRGGGN",
+        "priceList": {
+          "id": "15001AMKBTPKPRJBCVBMQKCKPSNVVCTJT"
+        },
+        "event": {
+          "id": "5401AGJPGHQLLTTGLRDMRHSLBPRNDKDHR"
+        },
+        "start": "2026-09-06T14:00:00",
+        "startUtc": "2026-09-06T20:00:00",
+        "startSellingAtWeb": "2025-07-25T13:00:00",
+        "startSellingAtWebUtc": "2025-07-25T19:00:00Z",
+        "stopSellingAtWeb": "2026-09-06T14:00:00",
+        "stopSellingAtWebUtc": "2026-09-06T20:00:00Z",
+        "webInstanceId": null,
+        "cancelled": false,
+        "id": "63201ARQTHLBSGNTKBMQBJSPDDGGNLSLL",
+        "hasBestAvailableOverlay": false,
+        "attribute_TablesSoldOut": "",
+        "attribute_BarSoldOut": ""
+      }
+    ],
+    "thumbnailUrl": "https://system.spektrix.com/jazzaspensnowmass/files/605c59d5-468e-48cf-bf80-dc1e605f92f7-thumbnail.jpg",
+    "webEventId": null,
+    "id": "5401AGJPGHQLLTTGLRDMRHSLBPRNDKDHR",
+    "firstInstanceDateTime": "2026-09-04T17:00:00",
+    "firstInstanceDateTimeUtc": "2026-09-04T23:00:00Z",
+    "lastInstanceDateTime": "2026-09-06T14:00:00",
+    "lastInstanceDateTimeUtc": "2026-09-06T20:00:00Z",
+    "altText": "",
+    "attribute_EventType": "Labor Day Experience",
+    "attribute_IsSupplementaryEvent": false,
+    "attribute_Genre": "",
+    "attribute_CustomImage": "",
+    "attribute_Season": ""
   }
   ]
 }

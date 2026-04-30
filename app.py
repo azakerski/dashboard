@@ -182,6 +182,7 @@ def _build_full_dataset() -> list[dict]:
                 "cancelled":    inst.get("cancelled", False),
                 "planId":       inst.get("planId", ""),
                 "season":       season,
+                "eventType":    event.get("attribute_EventType", ""),
                 "fromSnapshot": inst_id in snapshots,
                 "areas":        areas,
                 "summary":      compute_summary(successful),

@@ -566,6 +566,35 @@
         </tbody>
       </table>
     </div>
+
+    <!-- ── VIP Passes section ──────────────────────────────────── -->
+    <div style="margin-top:44px">
+      <div style="font-family:var(--mono);font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--sub);padding:12px 0 4px;border-top:1px solid var(--border)">VIP Passes — Spektrix</div>
+      <div class="summary-row" style="margin-top:12px">
+        <div class="card events"><div class="card-label">VIP Events</div><div class="card-value" id="vip-s-events">—</div></div>
+        <div class="card sold"><div class="card-label">VIP Sold</div><div class="card-value" id="vip-s-sold">—</div></div>
+        <div class="card locked"><div class="card-label">VIP Locked</div><div class="card-value" id="vip-s-locked">—</div></div>
+        <div class="card available"><div class="card-label">VIP Available</div><div class="card-value" id="vip-s-available">—</div></div>
+      </div>
+      <div class="status-bar" id="vip-error-bar"></div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Event</th>
+              <th class="num">Sold</th>
+              <th class="num">Locked</th>
+              <th class="num">Available</th>
+              <th class="num">Capacity</th>
+            </tr>
+          </thead>
+          <tbody id="vip-table-body">
+            <tr><td colspan="5"><div class="skeleton-row"></div></td></tr>
+            <tr><td colspan="5"><div class="skeleton-row" style="opacity:.7"></div></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
 
   <footer>
@@ -582,13 +611,15 @@ let allInstances  = [];
 let seasons       = {};
 let currentSeason = null;
 let showUpcoming  = true;
-let expandedRows  = new Set();
+let expandedRows    = new Set();
+let vipExpandedRows = new Set();
 
 let activeTab     = 'spektrix';
 let axsLoaded     = false;
 let axsEvents     = [];
 let axsFilter          = null; // null = all, 'june', 'laborday'
 let axsFileModifiedAt  = null;
+let vipInstances       = [];
 
 // ─── Bootstrap ────────────────────────────────────────────────────────────
 window.addEventListener('DOMContentLoaded', async () => {
@@ -667,12 +698,19 @@ async function loadDashboard() {
 // ─── AXS load ──────────────────────────────────────────────────────────────
 async function loadAxsData() {
   hideError('axs-error-bar');
+  hideError('vip-error-bar');
   showSkeletons('axs-table-body', 4);
+  showSkeletons('vip-table-body', 5);
 
   try {
-    const resp = await fetch(`${API}/api/axs`, FETCH_OPTS);
-    if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
-    const data = await resp.json();
+    const [axsResp, instResp] = await Promise.all([
+      fetch(`${API}/api/axs`, FETCH_OPTS),
+      fetch(`${API}/api/instances`, FETCH_OPTS),
+    ]);
+    if (!axsResp.ok)  throw new Error(`AXS HTTP ${axsResp.status}`);
+    if (!instResp.ok) throw new Error(`Instances HTTP ${instResp.status}`);
+    const data     = await axsResp.json();
+    const instData = await instResp.json();
     if (data.error) throw new Error(data.error);
 
     axsLoaded = true;
@@ -685,11 +723,15 @@ async function loadAxsData() {
       if (dateDiff !== 0) return dateDiff;
       return (a['Event Name'] || '').localeCompare(b['Event Name'] || '');
     });
+    vipInstances = (instData.instances || []).filter(inst =>
+      inst.eventType === 'June Experience' || inst.eventType === 'Labor Day Experience'
+    );
     buildAxsFilters();
     applyAxsFilter();
   } catch (e) {
     showError('axs-error-bar', `Could not load AXS data: ${e.message}`);
     showSkeletons('axs-table-body', 4, false);
+    showSkeletons('vip-table-body', 5, false);
   }
 }
 
@@ -700,7 +742,7 @@ function buildAxsFilters() {
   const timestamp = axsFileModifiedAt
     ? `<span style="margin-left:auto;font-size:0.9rem;color:var(--text)">AXS data updated: ${new Date(axsFileModifiedAt).toLocaleString('en-US', { month: 'short', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit', timeZone: 'America/Denver' })}</span>`
     : '';
-  row.innerHTML = [btn('All', null), btn('June', 'june'), btn('Labor Day', 'laborday'), timestamp].join('');
+  row.innerHTML = [btn('All', null), btn('June', 'june'), btn('Labor Day', 'laborday'), btn('June/Labor Day VIP', 'vip'), timestamp].join('');
 }
 
 function setAxsFilter(val) {
@@ -710,12 +752,18 @@ function setAxsFilter(val) {
 }
 
 function applyAxsFilter() {
-  const filtered = axsFilter === null ? axsEvents : axsEvents.filter(ev => {
-    const date = ev['Event Date'] || '';
-    const mmdd = date.slice(5); // "MM-DD" portion of "YYYY-MM-DD"
+  const filtered = axsFilter === 'vip' ? [] : axsFilter === null ? axsEvents : axsEvents.filter(ev => {
+    const mmdd = (ev['Event Date'] || '').slice(5);
     return axsFilter === 'june' ? mmdd < '07-15' : mmdd >= '07-15';
   });
   renderAxsTable(filtered);
+
+  const filteredVip = axsFilter === 'vip' ? vipInstances : axsFilter === null ? vipInstances : vipInstances.filter(inst =>
+    axsFilter === 'june'
+      ? inst.eventType === 'June Experience'
+      : inst.eventType === 'Labor Day Experience'
+  );
+  renderVipTable(filteredVip);
 }
 
 function renderAxsTable(events) {
@@ -758,6 +806,62 @@ function renderAxsTable(events) {
   set('axs-s-total', totalTickets.toLocaleString());
 }
 
+function renderVipTable(instances) {
+  const tbody = document.getElementById('vip-table-body');
+  vipExpandedRows.clear();
+
+  if (!instances.length) {
+    tbody.innerHTML = `<tr><td colspan="5" style="padding:32px;text-align:center;font-family:var(--mono);color:var(--sub)">No VIP data found.</td></tr>`;
+    set('vip-s-events', 0);
+    set('vip-s-sold', '—');
+    set('vip-s-locked', '—');
+    set('vip-s-available', '—');
+    return;
+  }
+
+  let totalSold = 0, totalLocked = 0, totalAvailable = 0;
+
+  tbody.innerHTML = instances.map(inst => {
+    const s         = inst.summary || {};
+    const sold      = s.sold      || 0;
+    const locked    = s.locked    || 0;
+    const available = s.available || 0;
+    const capacity  = s.capacity  || 0;
+    const id        = inst.id;
+    const hasAreas  = (inst.areas || []).filter(a => !a.error).length > 1;
+    totalSold      += sold;
+    totalLocked    += locked;
+    totalAvailable += available;
+
+    const detailRow = hasAreas ? `
+    <tr class="area-detail-row" id="vip-detail-${id}">
+      <td colspan="5">
+        <div class="area-panel" id="vip-panel-${id}">
+          <div class="area-loading">Loading…</div>
+        </div>
+      </td>
+    </tr>` : '';
+
+    return `
+    <tr class="instance-row" id="vip-row-${id}" ${hasAreas ? `onclick="toggleVipDetail('${id}', this)"` : ''}>
+      <td>
+        ${hasAreas ? `<span class="expand-icon" id="vip-expand-${id}">▸</span>` : ''}
+        <span class="event-name">${esc(inst.eventName || '—')}</span>
+        <div class="event-date" style="${hasAreas ? 'padding-left:28px' : ''}">${fmtDate(inst.start)}</div>
+      </td>
+      <td class="num n-sold">${sold ? sold.toLocaleString() : '—'}</td>
+      <td class="num n-lock">${locked ? locked.toLocaleString() : '—'}</td>
+      <td class="num n-avail">${available ? available.toLocaleString() : '—'}</td>
+      <td class="num n-gold">${capacity ? capacity.toLocaleString() : '—'}</td>
+    </tr>${detailRow}`;
+  }).join('');
+
+  set('vip-s-events', instances.length);
+  set('vip-s-sold', totalSold.toLocaleString());
+  set('vip-s-locked', totalLocked.toLocaleString());
+  set('vip-s-available', totalAvailable.toLocaleString());
+}
+
 // ─── Filter controls ────────────────────────────────────────────────────────
 function buildSeasonFilters() {
   const row = document.getElementById('filter-row');
@@ -785,7 +889,9 @@ function toggleUpcoming() {
 
 function applyFilters() {
   const now = new Date();
+  const VIP_TYPES = new Set(['June Experience', 'Labor Day Experience']);
   const filtered = allInstances.filter(inst => {
+    if (VIP_TYPES.has(inst.eventType)) return false;
     if (currentSeason && inst.season !== currentSeason) return false;
     if (showUpcoming && new Date(inst.start) <= now) return false;
     return true;
@@ -894,6 +1000,33 @@ function toggleDetail(instanceId, rowEl) {
   expandedRows.add(instanceId);
 
   const inst = allInstances.find(i => i.id === instanceId);
+  if (inst && inst.areas && inst.areas.length) {
+    renderAreaPanel(panel, inst.areas);
+  } else {
+    panel.innerHTML = `<p style="font-family:var(--mono);font-size:0.78rem;color:var(--sub);padding:16px">No area data available.</p>`;
+  }
+}
+
+function toggleVipDetail(instanceId, rowEl) {
+  const detailRow = document.getElementById(`vip-detail-${instanceId}`);
+  const expandEl  = document.getElementById(`vip-expand-${instanceId}`);
+  const panel     = document.getElementById(`vip-panel-${instanceId}`);
+  const isOpen    = detailRow.classList.contains('visible');
+
+  if (isOpen) {
+    detailRow.classList.remove('visible');
+    rowEl.classList.remove('expanded');
+    expandEl.textContent = '▸';
+    vipExpandedRows.delete(instanceId);
+    return;
+  }
+
+  detailRow.classList.add('visible');
+  rowEl.classList.add('expanded');
+  expandEl.textContent = '▾';
+  vipExpandedRows.add(instanceId);
+
+  const inst = vipInstances.find(i => i.id === instanceId);
   if (inst && inst.areas && inst.areas.length) {
     renderAreaPanel(panel, inst.areas);
   } else {
