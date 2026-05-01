@@ -22,6 +22,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timedelta
 
 import requests
+from requests.adapters import HTTPAdapter
 from flask import Flask, jsonify, send_from_directory
 from flask_cors import CORS
 from flask_httpauth import HTTPBasicAuth
@@ -76,6 +77,9 @@ def _cache_valid() -> bool:
 
 
 # ─── Spektrix API ─────────────────────────────────────────────────────────────
+_session = requests.Session()
+_session.mount("https://", HTTPAdapter(pool_connections=1, pool_maxsize=25))
+
 def make_spektrix_request(path: str) -> dict | list:
     url  = f"https://system.spektrix.com/{CLIENT_NAME}{path}"
     date = datetime.utcnow().strftime("%a, %d %b %Y %H:%M:%S GMT")
@@ -86,7 +90,7 @@ def make_spektrix_request(path: str) -> dict | list:
             hashlib.sha1,
         ).digest()
     ).decode()
-    resp = requests.get(url, headers={
+    resp = _session.get(url, headers={
         "Authorization": f"SpektrixAPI3 {API_KEY}:{sig}",
         "Host":          "system.spektrix.com",
         "Date":          date,
