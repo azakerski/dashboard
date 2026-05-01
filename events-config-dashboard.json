@@ -1,16 +1,16 @@
 {
   "seasons": {
-    "Grand Opening": {
-      "label": "Grand Opening",
-      "year": 2025
+    "Summer 2026": {
+      "label": "Summer 2026",
+      "year": 2026
     },
     "Winter 2026": {
       "label": "Winter 2026",
       "year": 2026
     },
-    "Summer 2026": {
-      "label": "Summer 2026",
-      "year": 2026
+    "Grand Opening": {
+      "label": "Grand Opening",
+      "year": 2025
     }
   },
   "planConfigs": {

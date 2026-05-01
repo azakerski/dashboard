@@ -254,6 +254,9 @@
     white-space: nowrap;
   }
   thead th.num { text-align: right; }
+  thead th.sortable { cursor: pointer; user-select: none; }
+  thead th.sortable:hover { color: var(--fg); }
+  .sort-arrow { margin-left: 3px; }
 
   tbody tr.instance-row {
     cursor: pointer;
@@ -519,14 +522,14 @@
       <table>
         <thead>
           <tr>
-            <th>Event / Instance</th>
-            <th>Status</th>
-            <th class="num">Sold</th>
-            <th class="num">Reserved</th>
-            <th class="num">Locked</th>
-            <th class="num">Available</th>
-            <th class="num">Capacity</th>
-            <th>% Sold</th>
+            <th class="sortable" onclick="setSpektrixSort('date')">Event / Instance<span class="sort-arrow" id="s-arr-date"></span></th>
+            <th class="sortable" onclick="setSpektrixSort('status')">Status<span class="sort-arrow" id="s-arr-status"></span></th>
+            <th class="num sortable" onclick="setSpektrixSort('sold')">Sold<span class="sort-arrow" id="s-arr-sold"></span></th>
+            <th class="num sortable" onclick="setSpektrixSort('reserved')">Reserved<span class="sort-arrow" id="s-arr-reserved"></span></th>
+            <th class="num sortable" onclick="setSpektrixSort('locked')">Locked<span class="sort-arrow" id="s-arr-locked"></span></th>
+            <th class="num sortable" onclick="setSpektrixSort('available')">Available<span class="sort-arrow" id="s-arr-available"></span></th>
+            <th class="num sortable" onclick="setSpektrixSort('capacity')">Capacity<span class="sort-arrow" id="s-arr-capacity"></span></th>
+            <th class="sortable" onclick="setSpektrixSort('pct')">% Sold<span class="sort-arrow" id="s-arr-pct"></span></th>
           </tr>
         </thead>
         <tbody id="table-body">
@@ -552,11 +555,11 @@
       <table>
         <thead>
           <tr>
-            <th>Event</th>
-            <th>Venue</th>
-            <th class="num">Tickets Sold</th>
-            <th class="num">Tickets Comp</th>
-            <th class="num">Total Tickets</th>
+            <th class="sortable" onclick="setAxsSort('date')">Event<span class="sort-arrow" id="axs-arr-date"></span></th>
+            <th class="sortable" onclick="setAxsSort('venue')">Venue<span class="sort-arrow" id="axs-arr-venue"></span></th>
+            <th class="num sortable" onclick="setAxsSort('sold')">Tickets Sold<span class="sort-arrow" id="axs-arr-sold"></span></th>
+            <th class="num sortable" onclick="setAxsSort('comp')">Tickets Comp<span class="sort-arrow" id="axs-arr-comp"></span></th>
+            <th class="num sortable" onclick="setAxsSort('total')">Total Tickets<span class="sort-arrow" id="axs-arr-total"></span></th>
           </tr>
         </thead>
         <tbody id="axs-table-body">
@@ -581,11 +584,11 @@
         <table>
           <thead>
             <tr>
-              <th>Event</th>
-              <th class="num">Sold</th>
-              <th class="num">Locked</th>
-              <th class="num">Available</th>
-              <th class="num">Capacity</th>
+              <th class="sortable" onclick="setVipSort('date')">Event<span class="sort-arrow" id="vip-arr-date"></span></th>
+              <th class="num sortable" onclick="setVipSort('sold')">Sold<span class="sort-arrow" id="vip-arr-sold"></span></th>
+              <th class="num sortable" onclick="setVipSort('locked')">Locked<span class="sort-arrow" id="vip-arr-locked"></span></th>
+              <th class="num sortable" onclick="setVipSort('available')">Available<span class="sort-arrow" id="vip-arr-available"></span></th>
+              <th class="num sortable" onclick="setVipSort('capacity')">Capacity<span class="sort-arrow" id="vip-arr-capacity"></span></th>
             </tr>
           </thead>
           <tbody id="vip-table-body">
@@ -609,8 +612,12 @@ const FETCH_OPTS = { credentials: "same-origin" };
 
 let allInstances  = [];
 let seasons       = {};
+let seasonOrder   = [];
 let currentSeason = null;
-let showUpcoming  = true;
+let sSortKey = null; let sSortDir = 1;
+let axsSortKey = null; let axsSortDir = 1;
+let vipSortKey = null; let vipSortDir = 1;
+let showUpcoming  = false;
 let expandedRows    = new Set();
 let vipExpandedRows = new Set();
 
@@ -677,8 +684,10 @@ async function loadDashboard() {
     if (!resp.ok) throw new Error(`HTTP ${resp.status}. Is app.py running?`);
     const data = await resp.json();
 
-    allInstances = data.instances || [];
-    seasons      = data.seasons   || {};
+    allInstances = data.instances   || [];
+    seasons      = data.seasons     || {};
+    seasonOrder  = data.seasonOrder || Object.keys(seasons);
+    if (!currentSeason && seasonOrder.length) currentSeason = seasonOrder[0];
 
     document.getElementById('last-updated').textContent =
       new Date(data.fetchedAt).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit', timeZone: 'America/Denver' });
@@ -756,13 +765,38 @@ function applyAxsFilter() {
     const mmdd = (ev['Event Date'] || '').slice(5);
     return axsFilter === 'june' ? mmdd < '07-15' : mmdd >= '07-15';
   });
+  if (axsSortKey) {
+    const pn = s => parseInt((s || '0').replace(/,/g, ''), 10) || 0;
+    filtered.sort((a, b) => {
+      let va, vb;
+      switch (axsSortKey) {
+        case 'date':  va = a['Event Date']  || ''; vb = b['Event Date']  || ''; break;
+        case 'venue': va = a['Venue Name']  || ''; vb = b['Venue Name']  || ''; break;
+        case 'sold':  va = pn(a['Primary: Tickets Sold']);   vb = pn(b['Primary: Tickets Sold']);   break;
+        case 'comp':  va = pn(a['Tickets Comp']);            vb = pn(b['Tickets Comp']);            break;
+        case 'total': va = pn(a['Tickets Issued: Primary']); vb = pn(b['Tickets Issued: Primary']); break;
+        default: return 0;
+      }
+      return va < vb ? -axsSortDir : va > vb ? axsSortDir : 0;
+    });
+  }
   renderAxsTable(filtered);
 
-  const filteredVip = axsFilter === 'vip' ? vipInstances : axsFilter === null ? vipInstances : vipInstances.filter(inst =>
+  let filteredVip = axsFilter === 'vip' ? vipInstances : axsFilter === null ? vipInstances : vipInstances.filter(inst =>
     axsFilter === 'june'
       ? inst.eventType === 'June Experience'
       : inst.eventType === 'Labor Day Experience'
   );
+  if (vipSortKey) {
+    filteredVip = [...filteredVip].sort((a, b) => {
+      let va, vb;
+      switch (vipSortKey) {
+        case 'date': va = new Date(a.start); vb = new Date(b.start); break;
+        default:     va = a.summary?.[vipSortKey] || 0; vb = b.summary?.[vipSortKey] || 0;
+      }
+      return va < vb ? -vipSortDir : va > vb ? vipSortDir : 0;
+    });
+  }
   renderVipTable(filteredVip);
 }
 
@@ -867,7 +901,7 @@ function buildSeasonFilters() {
   const row = document.getElementById('filter-row');
   row.innerHTML = [
     `<button class="filter-btn ${!currentSeason ? 'active' : ''}" onclick="setSeason(null)">All Seasons</button>`,
-    ...Object.keys(seasons).map(s =>
+    ...seasonOrder.map(s =>
       `<button class="filter-btn ${currentSeason === s ? 'active' : ''}" data-season="${esc(s)}" onclick="setSeason(this.dataset.season)">${esc(s)}</button>`
     ),
     `<span class="filter-sep"></span>`,
@@ -887,6 +921,39 @@ function toggleUpcoming() {
   applyFilters();
 }
 
+const defaultSortDir = key => key === 'date' ? 1 : -1;
+const sortArrow = dir => dir === 1 ? ' ↑' : ' ↓';
+
+function setSpektrixSort(key) {
+  if (sSortKey === key) sSortDir = -sSortDir;
+  else { sSortKey = key; sSortDir = defaultSortDir(key); }
+  ['date','status','sold','reserved','locked','available','capacity','pct'].forEach(k => {
+    const el = document.getElementById(`s-arr-${k}`);
+    if (el) el.textContent = sSortKey === k ? sortArrow(sSortDir) : '';
+  });
+  applyFilters();
+}
+
+function setAxsSort(key) {
+  if (axsSortKey === key) axsSortDir = -axsSortDir;
+  else { axsSortKey = key; axsSortDir = defaultSortDir(key); }
+  ['date','venue','sold','comp','total'].forEach(k => {
+    const el = document.getElementById(`axs-arr-${k}`);
+    if (el) el.textContent = axsSortKey === k ? sortArrow(axsSortDir) : '';
+  });
+  applyAxsFilter();
+}
+
+function setVipSort(key) {
+  if (vipSortKey === key) vipSortDir = -vipSortDir;
+  else { vipSortKey = key; vipSortDir = defaultSortDir(key); }
+  ['date','sold','locked','available','capacity'].forEach(k => {
+    const el = document.getElementById(`vip-arr-${k}`);
+    if (el) el.textContent = vipSortKey === k ? sortArrow(vipSortDir) : '';
+  });
+  applyAxsFilter();
+}
+
 function applyFilters() {
   const now = new Date();
   const VIP_TYPES = new Set(['June Experience', 'Labor Day Experience']);
@@ -896,6 +963,20 @@ function applyFilters() {
     if (showUpcoming && new Date(inst.start) <= now) return false;
     return true;
   });
+  if (sSortKey) {
+    const parseNum = s => s.summary ? (s.summary[sSortKey] || 0) : 0;
+    filtered.sort((a, b) => {
+      let va, vb;
+      switch (sSortKey) {
+        case 'date':     va = new Date(a.start); vb = new Date(b.start); break;
+        case 'status':   va = a.isOnSale ? 1 : 0; vb = b.isOnSale ? 1 : 0; break;
+        case 'pct':      va = a.summary?.capacity ? (a.summary.sold||0)/a.summary.capacity : 0;
+                         vb = b.summary?.capacity ? (b.summary.sold||0)/b.summary.capacity : 0; break;
+        default:         va = a.summary?.[sSortKey] || 0; vb = b.summary?.[sSortKey] || 0;
+      }
+      return va < vb ? -sSortDir : va > vb ? sSortDir : 0;
+    });
+  }
   renderSummary(filtered);
   renderTable(filtered);
 

@@ -215,6 +215,7 @@ def api_instances():
         "fetchedAt":   datetime.utcnow().isoformat() + "Z",
         "cachedUntil": _cache["expires_at"].isoformat() + "Z" if _cache["expires_at"] else None,
         "seasons":     SEASONS,
+        "seasonOrder": list(SEASONS.keys()),
         "instances":   instances,
     })
 
