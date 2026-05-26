@@ -6574,6 +6574,52 @@
       "attribute_Season": "Summer 2026"
     },
     {
+    "description": "",
+    "htmlDescription": "<div id>\r\n\r\n</div>",
+    "duration": 90,
+    "imageUrl": "",
+    "isOnSale": true,
+    "name": "St. Paul & The Broken Bones - Discount",
+    "instanceDates": "June 18-June 18",
+    "instances": [
+      {
+        "isOnSale": true,
+        "planId": "7801ATTBPVLSHPLVGKMJNMMDGBTHMPBTK",
+        "priceList": {
+          "id": "23201APGCMPGJNLTBJBBRLRLRBCKNMGMV"
+        },
+        "event": {
+          "id": "24401ANRSMNVVNPTCKDHLSQSTGQBDDKHJ"
+        },
+        "start": "2026-06-18T21:00:00",
+        "startUtc": "2026-06-19T03:00:00",
+        "startSellingAtWeb": "2026-05-26T15:16:00",
+        "startSellingAtWebUtc": "2026-05-26T21:16:00Z",
+        "stopSellingAtWeb": "2026-06-18T21:00:00",
+        "stopSellingAtWebUtc": "2026-06-19T03:00:00Z",
+        "webInstanceId": null,
+        "cancelled": false,
+        "id": "76801AGCMTKQCHDRDHQRHCBJRBDMMGKLQ",
+        "hasBestAvailableOverlay": false,
+        "attribute_TablesSoldOut": "",
+        "attribute_BarSoldOut": ""
+      }
+    ],
+    "thumbnailUrl": "",
+    "webEventId": null,
+    "id": "24401ANRSMNVVNPTCKDHLSQSTGQBDDKHJ",
+    "firstInstanceDateTime": "2026-06-18T21:00:00",
+    "firstInstanceDateTimeUtc": "2026-06-19T03:00:00Z",
+    "lastInstanceDateTime": "2026-06-18T21:00:00",
+    "lastInstanceDateTimeUtc": "2026-06-19T03:00:00Z",
+    "altText": "",
+    "attribute_EventType": "JAS Center",
+    "attribute_Genre": "Soul",
+    "attribute_IsSupplementaryEvent": false,
+    "attribute_Season": "Summer 2026",
+    "attribute_CustomImage": ""
+    },
+    {
       "description": "",
       "htmlDescription": "<div id>\r\n\r\n</div>",
       "duration": 75,
