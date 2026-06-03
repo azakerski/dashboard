@@ -8513,6 +8513,142 @@
       "attribute_Genre": "",
       "attribute_CustomImage": "",
       "attribute_Season": ""
-    }
+    },
+    {
+    "description": "",
+    "htmlDescription": "<div id>\r\n\r\n</div>",
+    "duration": 75,
+    "imageUrl": "https://system.spektrix.com/jazzaspensnowmass/files/b34897ef-b00d-47a6-8ed2-d64311df468b.jpg",
+    "isOnSale": true,
+    "name": "Orquesta La Brava",
+    "instanceDates": "September 18-September 18",
+    "instances": [
+      {
+        "isOnSale": true,
+        "planId": "6601AQMNQNHRQGLJKCSPPPSGMQSBMDCJM",
+        "priceList": {
+          "id": "16801ANHJRBJLNRBNVQDKPGNSLJNKRTQV"
+        },
+        "event": {
+          "id": "24601AQBNLBQCHKVGDVHQJVMMGKLGNBDJ"
+        },
+        "start": "2026-09-18T18:30:00",
+        "startUtc": "2026-09-19T00:30:00",
+        "startSellingAtWeb": "2026-06-02T15:52:00",
+        "startSellingAtWebUtc": "2026-06-02T21:52:00Z",
+        "stopSellingAtWeb": "2026-09-18T18:30:00",
+        "stopSellingAtWebUtc": "2026-09-19T00:30:00Z",
+        "webInstanceId": null,
+        "cancelled": false,
+        "id": "77201ACHJGSDMKVSDQSJLPVNTKPPQRMCG",
+        "hasBestAvailableOverlay": false,
+        "attribute_TablesSoldOut": "",
+        "attribute_BarSoldOut": ""
+      },
+      {
+        "isOnSale": true,
+        "planId": "6601AQMNQNHRQGLJKCSPPPSGMQSBMDCJM",
+        "priceList": {
+          "id": "24201AQBJSCTMKBQRHSLCPQSBDTRMBNBT"
+        },
+        "event": {
+          "id": "24601AQBNLBQCHKVGDVHQJVMMGKLGNBDJ"
+        },
+        "start": "2026-09-18T21:00:00",
+        "startUtc": "2026-09-19T03:00:00",
+        "startSellingAtWeb": "2026-06-02T15:52:00",
+        "startSellingAtWebUtc": "2026-06-02T21:52:00Z",
+        "stopSellingAtWeb": "2026-09-18T21:00:00",
+        "stopSellingAtWebUtc": "2026-09-19T03:00:00Z",
+        "webInstanceId": null,
+        "cancelled": false,
+        "id": "77401ATDSDLQCDJCLVLHGVLTPSDBJPPBK",
+        "hasBestAvailableOverlay": false,
+        "attribute_TablesSoldOut": "",
+        "attribute_BarSoldOut": ""
+      }
+    ],
+    "thumbnailUrl": "https://system.spektrix.com/jazzaspensnowmass/files/b34897ef-b00d-47a6-8ed2-d64311df468b-thumbnail.jpg",
+    "webEventId": null,
+    "id": "24601AQBNLBQCHKVGDVHQJVMMGKLGNBDJ",
+    "firstInstanceDateTime": "2026-09-18T18:30:00",
+    "firstInstanceDateTimeUtc": "2026-09-19T00:30:00Z",
+    "lastInstanceDateTime": "2026-09-18T21:00:00",
+    "lastInstanceDateTimeUtc": "2026-09-19T03:00:00Z",
+    "altText": "",
+    "attribute_CustomImage": "https://jazzaspensnowmass.org/wp-content/uploads/2026/06/IMG_6989-scaled.png",
+    "attribute_EventType": "JAS Cafe",
+    "attribute_Genre": "World",
+    "attribute_IsSupplementaryEvent": false,
+    "attribute_Season": "Summer 2026"
+  },
+  {
+    "description": "",
+    "htmlDescription": "<div id>\r\n\r\n</div>",
+    "duration": 75,
+    "imageUrl": "https://system.spektrix.com/jazzaspensnowmass/files/b2e52ac7-51c3-498c-a413-25037f21bbce.jpg",
+    "isOnSale": true,
+    "name": "TAE & the Neighborly",
+    "instanceDates": "September 25-September 25",
+    "instances": [
+      {
+        "isOnSale": true,
+        "planId": "6601AQMNQNHRQGLJKCSPPPSGMQSBMDCJM",
+        "priceList": {
+          "id": "16801ANHJRBJLNRBNVQDKPGNSLJNKRTQV"
+        },
+        "event": {
+          "id": "24201AQBJSCTMKBQRHSLCPQSBDTRMBNBT"
+        },
+        "start": "2026-09-25T18:30:00",
+        "startUtc": "2026-09-26T00:30:00",
+        "startSellingAtWeb": "2026-05-26T09:32:00",
+        "startSellingAtWebUtc": "2026-05-26T15:32:00Z",
+        "stopSellingAtWeb": "2026-09-25T18:30:00",
+        "stopSellingAtWebUtc": "2026-09-26T00:30:00Z",
+        "webInstanceId": null,
+        "cancelled": false,
+        "id": "76201ANNTCLJDJJJGJSPTQBVRJLDQTKHL",
+        "hasBestAvailableOverlay": false,
+        "attribute_TablesSoldOut": "",
+        "attribute_BarSoldOut": ""
+      },
+      {
+        "isOnSale": true,
+        "planId": "6601AQMNQNHRQGLJKCSPPPSGMQSBMDCJM",
+        "priceList": {
+          "id": "24201AQBJSCTMKBQRHSLCPQSBDTRMBNBT"
+        },
+        "event": {
+          "id": "24201AQBJSCTMKBQRHSLCPQSBDTRMBNBT"
+        },
+        "start": "2026-09-25T21:00:00",
+        "startUtc": "2026-09-26T03:00:00",
+        "startSellingAtWeb": "2026-05-26T09:32:00",
+        "startSellingAtWebUtc": "2026-05-26T15:32:00Z",
+        "stopSellingAtWeb": "2026-09-25T21:00:00",
+        "stopSellingAtWebUtc": "2026-09-26T03:00:00Z",
+        "webInstanceId": null,
+        "cancelled": false,
+        "id": "76401ADQTCVSBMHNJBVTLKRDDQKCTSTRJ",
+        "hasBestAvailableOverlay": false,
+        "attribute_TablesSoldOut": "",
+        "attribute_BarSoldOut": ""
+      }
+    ],
+    "thumbnailUrl": "https://system.spektrix.com/jazzaspensnowmass/files/b2e52ac7-51c3-498c-a413-25037f21bbce-thumbnail.jpg",
+    "webEventId": null,
+    "id": "24201AQBJSCTMKBQRHSLCPQSBDTRMBNBT",
+    "firstInstanceDateTime": "2026-09-25T18:30:00",
+    "firstInstanceDateTimeUtc": "2026-09-26T00:30:00Z",
+    "lastInstanceDateTime": "2026-09-25T21:00:00",
+    "lastInstanceDateTimeUtc": "2026-09-26T03:00:00Z",
+    "altText": "",
+    "attribute_CustomImage": "https://jazzaspensnowmass.org/wp-content/uploads/2026/05/TAE-The-Neighborly.webp",
+    "attribute_EventType": "JAS Cafe",
+    "attribute_Genre": "Soul",
+    "attribute_IsSupplementaryEvent": false,
+    "attribute_Season": "Summer 2026"
+  }
   ]
 }
