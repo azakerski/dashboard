@@ -41,13 +41,15 @@ AXS_CACHE_TTL = 3600  # seconds (1 hour)
 
 AXS_S3_BUCKET = os.environ.get("AXS_S3_BUCKET", "jas-axs-s3-bucket")
 
-app  = Flask(__name__, static_folder=".")
+app  = Flask(__name__, static_folder=None)
 CORS(app)
 auth = HTTPBasicAuth()
 
 @auth.verify_password
 def verify_password(username, password):
-    return username == "jas" and password == DASHBOARD_PASSWORD
+    if not DASHBOARD_PASSWORD:
+        return False  # fail closed if the password was never configured
+    return username == "jas" and hmac.compare_digest(password, DASHBOARD_PASSWORD)
 
 # ─── Load events config ───────────────────────────────────────────────────────
 with open("events-config-dashboard.json") as f:
