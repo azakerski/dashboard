@@ -32,7 +32,8 @@ except ImportError:
     API_KEY     = os.environ.get("SPEKTRIX_API_KEY", "")
     API_SECRET  = os.environ.get("SPEKTRIX_API_SECRET", "")
 
-CONFIG_FILE = "events-config-dashboard.json"
+CONFIG_FILE      = "eventsToSnapshot.json"
+MAIN_CONFIG_FILE = "events-config-dashboard.json"
 
 
 # ─── Spektrix API ─────────────────────────────────────────────────────────────
@@ -104,7 +105,6 @@ def snapshot_instance(instance_id: str, plan_configs: dict, plan_id: str) -> dic
 
 def main():
     parser = argparse.ArgumentParser(description="Capture Spektrix sales snapshots for past events.")
-    parser.add_argument("--all",     action="store_true", help="Re-snapshot all past instances, overwriting existing snapshots")
     parser.add_argument("--dry-run", action="store_true", help="Show what would be updated without writing to the JSON")
     args = parser.parse_args()
 
@@ -112,32 +112,31 @@ def main():
     with open(CONFIG_FILE) as f:
         config = json.load(f)
 
+    with open(MAIN_CONFIG_FILE) as f:
+        main_config = json.load(f)
+
+    # Build instance ID → inst object lookup from main config for writing snapshots
+    inst_lookup = {}
+    for event in main_config["events"]:
+        for inst in event.get("instances", []):
+            if inst.get("id"):
+                inst_lookup[inst["id"]] = inst
+
     plan_configs = config["planConfigs"]
-    now          = datetime.now()
     updated      = 0
-    skipped      = 0
 
     for event in config["events"]:
         for inst in event.get("instances", []):
-            inst_id  = inst.get("id")
-            plan_id  = inst.get("planId")
-            start    = inst.get("start", "")
+            inst_id = inst.get("id")
+            plan_id = inst.get("planId")
+            start   = inst.get("start", "")
 
-            # Only process past instances
-            try:
-                inst_date = datetime.fromisoformat(start)
-            except (ValueError, TypeError):
+            if not inst_id or not plan_id:
                 continue
 
-            if inst_date >= now:
-                continue  # upcoming — skip
-
-            if not plan_id:
-                continue  # no seating plan (free event etc.)
-
-            # Skip if already has a snapshot (unless --all)
-            if "salesSnapshot" in inst and not args.all:
-                skipped += 1
+            main_inst = inst_lookup.get(inst_id)
+            if not main_inst:
+                print(f"\n⚠  Instance {inst_id} not found in {MAIN_CONFIG_FILE} — skipping")
                 continue
 
             print(f"\n{event['name']} — {start}")
@@ -149,21 +148,21 @@ def main():
 
             snapshot = snapshot_instance(inst_id, plan_configs, plan_id)
             if snapshot:
-                inst["salesSnapshot"] = snapshot
+                main_inst["salesSnapshot"] = snapshot
                 updated += 1
             else:
                 print("  ⚠  No data returned — snapshot not saved")
 
     print(f"\n{'─' * 50}")
     if args.dry_run:
-        print(f"Dry run complete. Would snapshot {updated} instance(s). ({skipped} already have snapshots)")
+        print(f"Dry run complete. Would snapshot {updated} instance(s).")
     else:
         if updated > 0:
-            with open(CONFIG_FILE, "w") as f:
-                json.dump(config, f, indent=2)
-            print(f"Done. Snapshots saved for {updated} instance(s). ({skipped} already had snapshots and were skipped)")
+            with open(MAIN_CONFIG_FILE, "w") as f:
+                json.dump(main_config, f, indent=2)
+            print(f"Done. Snapshots saved for {updated} instance(s) in {MAIN_CONFIG_FILE}.")
         else:
-            print(f"Nothing to update. ({skipped} instance(s) already have snapshots — use --all to overwrite)")
+            print(f"Nothing to update.")
 
 
 if __name__ == "__main__":
