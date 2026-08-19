@@ -55,9 +55,10 @@ def verify_password(username, password):
 with open("events-config-dashboard.json") as f:
     _config = json.load(f)
 
-SEASONS      = _config.get("seasons", {})
-PLAN_CONFIGS = _config["planConfigs"]
-EVENTS       = _config["events"]
+SEASONS               = _config.get("seasons", {})
+PLAN_CONFIGS          = _config["planConfigs"]
+EVENTS                = _config["events"]
+AFTER_DARK_CAPACITIES = _config.get("afterDarkCapacities", {})
 
 # instance id → planId lookup
 _instance_plan_map: dict[str, str] = {}
@@ -265,7 +266,24 @@ def clear_cache():
 @app.route("/api/config")
 @auth.login_required
 def api_config():
-    return jsonify({"clientName": CLIENT_NAME, "seasons": SEASONS})
+    return jsonify({"clientName": CLIENT_NAME, "seasons": SEASONS, "afterDarkCapacities": AFTER_DARK_CAPACITIES})
+
+
+AXS_FILE_PREFIXES = {
+    "events":   "Dashboard_Sales_By_Event_",
+    "sro":      "After_Dark_SRO_",
+    "reserved": "After_Dark_Reserved_",
+}
+
+
+def _latest_object(s3, bucket: str, contents: list, prefix: str):
+    matches = [o for o in contents if o["Key"].startswith(prefix)]
+    if not matches:
+        return None, None
+    latest = max(matches, key=lambda o: o["LastModified"])
+    obj    = s3.get_object(Bucket=bucket, Key=latest["Key"])
+    data   = json.loads(obj["Body"].read().decode("utf-8"))
+    return data, latest["LastModified"].isoformat()
 
 
 @app.route("/api/axs")
@@ -276,24 +294,30 @@ def api_axs():
             data = _axs_cache["data"]
         else:
             if not AXS_S3_BUCKET:
-                return jsonify({"fetchedAt": datetime.utcnow().isoformat() + "Z", "events": [], "note": "AXS_S3_BUCKET not configured"})
+                return jsonify({"fetchedAt": datetime.utcnow().isoformat() + "Z", "events": [], "afterDark": {"sro": [], "reserved": []}, "note": "AXS_S3_BUCKET not configured"})
             try:
                 import boto3
                 s3       = boto3.client("s3", region_name=os.environ.get("AWS_DEFAULT_REGION", "us-east-2"))
                 objects  = s3.list_objects_v2(Bucket=AXS_S3_BUCKET)
                 contents = objects.get("Contents", [])
                 if not contents:
-                    return jsonify({"fetchedAt": datetime.utcnow().isoformat() + "Z", "events": [], "note": "No files found in bucket"})
-                latest = max(contents, key=lambda o: o["LastModified"])
-                obj    = s3.get_object(Bucket=AXS_S3_BUCKET, Key=latest["Key"])
-                data   = json.loads(obj["Body"].read().decode("utf-8"))
+                    return jsonify({"fetchedAt": datetime.utcnow().isoformat() + "Z", "events": [], "afterDark": {"sro": [], "reserved": []}, "note": "No files found in bucket"})
+
+                events_data, events_modified = _latest_object(s3, AXS_S3_BUCKET, contents, AXS_FILE_PREFIXES["events"])
+                sro_data, sro_modified       = _latest_object(s3, AXS_S3_BUCKET, contents, AXS_FILE_PREFIXES["sro"])
+                reserved_data, _             = _latest_object(s3, AXS_S3_BUCKET, contents, AXS_FILE_PREFIXES["reserved"])
+
+                data = {
+                    "events":    events_data or [],
+                    "afterDark": {"sro": sro_data or [], "reserved": reserved_data or []},
+                }
             except Exception as e:
-                return jsonify({"error": str(e), "events": []}), 500
+                return jsonify({"error": str(e), "events": [], "afterDark": {"sro": [], "reserved": []}}), 500
             _axs_cache["data"]              = data
             _axs_cache["expires_at"]        = datetime.now() + timedelta(seconds=AXS_CACHE_TTL)
-            _axs_cache["file_modified_at"]  = latest["LastModified"].isoformat()
+            _axs_cache["file_modified_at"]  = events_modified or sro_modified
 
-    return jsonify({"fetchedAt": datetime.utcnow().isoformat() + "Z", "fileModifiedAt": _axs_cache.get("file_modified_at"), "events": data})
+    return jsonify({"fetchedAt": datetime.utcnow().isoformat() + "Z", "fileModifiedAt": _axs_cache.get("file_modified_at"), **data})
 
 
 @app.route("/")

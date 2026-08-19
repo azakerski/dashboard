@@ -1,4 +1,8 @@
 {
+  "afterDarkCapacities": {
+    "sro":      { "friSun": 190, "sat": 160 },
+    "reserved": { "friSun": 58,  "sat": 90 }
+  },
   "seasons": {
     "Summer 2026": {
       "label": "Summer 2026",

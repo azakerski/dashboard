@@ -570,6 +570,31 @@
       </table>
     </div>
 
+    <!-- ── After Dark SRO & Reserved section ──────────────────────── -->
+    <div style="margin-top:44px">
+      <div style="font-family:var(--mono);font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--sub);padding:12px 0 4px;border-top:1px solid var(--border)">After Dark — SRO &amp; Reserved</div>
+      <div class="status-bar" id="afterdark-error-bar"></div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th class="sortable" onclick="setAfterDarkSort('date')">Event<span class="sort-arrow" id="afterdark-arr-date"></span></th>
+              <th class="sortable" onclick="setAfterDarkSort('section')">Section<span class="sort-arrow" id="afterdark-arr-section"></span></th>
+              <th class="num sortable" onclick="setAfterDarkSort('sold')">Tickets Sold<span class="sort-arrow" id="afterdark-arr-sold"></span></th>
+              <th class="num sortable" onclick="setAfterDarkSort('comp')">Tickets Comp<span class="sort-arrow" id="afterdark-arr-comp"></span></th>
+              <th class="num sortable" onclick="setAfterDarkSort('total')">Total Tickets<span class="sort-arrow" id="afterdark-arr-total"></span></th>
+              <th class="num sortable" onclick="setAfterDarkSort('capacity')">Capacity<span class="sort-arrow" id="afterdark-arr-capacity"></span></th>
+              <th class="num sortable" onclick="setAfterDarkSort('pct')">% Sold<span class="sort-arrow" id="afterdark-arr-pct"></span></th>
+            </tr>
+          </thead>
+          <tbody id="afterdark-table-body">
+            <tr><td colspan="7"><div class="skeleton-row"></div></td></tr>
+            <tr><td colspan="7"><div class="skeleton-row" style="opacity:.7"></div></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
     <!-- ── VIP Passes section ──────────────────────────────────── -->
     <div style="margin-top:44px">
       <div style="font-family:var(--mono);font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--sub);padding:12px 0 4px;border-top:1px solid var(--border)">VIP Passes — Spektrix</div>
@@ -627,6 +652,9 @@ let axsEvents     = [];
 let axsFilter          = null; // null = all, 'june', 'laborday'
 let axsFileModifiedAt  = null;
 let vipInstances       = [];
+let afterDarkRows       = [];
+let afterDarkCapacities = {};
+let afterDarkSortKey = null; let afterDarkSortDir = 1;
 
 // ─── Bootstrap ────────────────────────────────────────────────────────────
 window.addEventListener('DOMContentLoaded', async () => {
@@ -635,6 +663,7 @@ window.addEventListener('DOMContentLoaded', async () => {
     const cfg = await r.json();
     document.querySelector('#subtitle').textContent =
       `${cfg.clientName || 'Spektrix'} — Live Sales Dashboard`;
+    afterDarkCapacities = cfg.afterDarkCapacities || {};
   } catch (e) {}
   loadDashboard();
 });
@@ -708,8 +737,10 @@ async function loadDashboard() {
 async function loadAxsData() {
   hideError('axs-error-bar');
   hideError('vip-error-bar');
+  hideError('afterdark-error-bar');
   showSkeletons('axs-table-body', 4);
   showSkeletons('vip-table-body', 5);
+  showSkeletons('afterdark-table-body', 2);
 
   try {
     const [axsResp, instResp] = await Promise.all([
@@ -735,12 +766,19 @@ async function loadAxsData() {
     vipInstances = (instData.instances || []).filter(inst =>
       inst.eventType === 'June Experience' || inst.eventType === 'Labor Day Experience'
     );
+
+    const sroRows      = (data.afterDark?.sro      || []).map(ev => ({ ...ev, section: 'SRO' }));
+    const reservedRows = (data.afterDark?.reserved || []).map(ev => ({ ...ev, section: 'Reserved' }));
+    afterDarkRows = [...sroRows, ...reservedRows];
+
     buildAxsFilters();
     applyAxsFilter();
+    applyAfterDarkSort();
   } catch (e) {
     showError('axs-error-bar', `Could not load AXS data: ${e.message}`);
     showSkeletons('axs-table-body', 4, false);
     showSkeletons('vip-table-body', 5, false);
+    showSkeletons('afterdark-table-body', 2, false);
   }
 }
 
@@ -838,6 +876,91 @@ function renderAxsTable(events) {
   set('axs-s-sold', totalSold.toLocaleString());
   set('axs-s-comp', totalComp.toLocaleString());
   set('axs-s-total', totalTickets.toLocaleString());
+}
+
+function afterDarkCapacityFor(section, eventDate) {
+  const cfg = afterDarkCapacities[section.toLowerCase()];
+  if (!cfg || !eventDate) return 0;
+  const day = new Date(`${eventDate}T00:00:00`).getDay(); // 6 = Saturday
+  return (day === 6 ? cfg.sat : cfg.friSun) || 0;
+}
+
+function setAfterDarkSort(key) {
+  if (afterDarkSortKey === key) afterDarkSortDir = -afterDarkSortDir;
+  else { afterDarkSortKey = key; afterDarkSortDir = defaultSortDir(key); }
+  ['date','section','sold','comp','total','capacity','pct'].forEach(k => {
+    const el = document.getElementById(`afterdark-arr-${k}`);
+    if (el) el.textContent = afterDarkSortKey === k ? sortArrow(afterDarkSortDir) : '';
+  });
+  applyAfterDarkSort();
+}
+
+function applyAfterDarkSort() {
+  const pn = s => parseInt((s || '0').replace(/,/g, ''), 10) || 0;
+  let rows = [...afterDarkRows];
+  if (afterDarkSortKey) {
+    rows.sort((a, b) => {
+      let va, vb;
+      switch (afterDarkSortKey) {
+        case 'date':     va = a['Event Date'] || ''; vb = b['Event Date'] || ''; break;
+        case 'section':  va = a.section || '';        vb = b.section || '';        break;
+        case 'sold':     va = pn(a['Primary: Tickets Sold']);   vb = pn(b['Primary: Tickets Sold']);   break;
+        case 'comp':     va = pn(a['Tickets Comp']);            vb = pn(b['Tickets Comp']);            break;
+        case 'total':    va = pn(a['Tickets Issued: Primary']); vb = pn(b['Tickets Issued: Primary']); break;
+        case 'capacity': va = afterDarkCapacityFor(a.section, a['Event Date']); vb = afterDarkCapacityFor(b.section, b['Event Date']); break;
+        case 'pct': {
+          const capA = afterDarkCapacityFor(a.section, a['Event Date']) || 1;
+          const capB = afterDarkCapacityFor(b.section, b['Event Date']) || 1;
+          va = pn(a['Primary: Tickets Sold']) / capA;
+          vb = pn(b['Primary: Tickets Sold']) / capB;
+          break;
+        }
+        default: return 0;
+      }
+      return va < vb ? -afterDarkSortDir : va > vb ? afterDarkSortDir : 0;
+    });
+  } else {
+    rows.sort((a, b) => (a['Event Date'] || '').localeCompare(b['Event Date'] || '') || (a.section || '').localeCompare(b.section || ''));
+  }
+  renderAfterDarkTable(rows);
+}
+
+function renderAfterDarkTable(rows) {
+  const tbody = document.getElementById('afterdark-table-body');
+
+  if (!rows.length) {
+    tbody.innerHTML = `<tr><td colspan="7" style="padding:32px;text-align:center;font-family:var(--mono);color:var(--sub)">No After Dark data found.</td></tr>`;
+    return;
+  }
+
+  tbody.innerHTML = rows.map(ev => {
+    const sold     = parseInt((ev['Primary: Tickets Sold']   || '0').replace(/,/g, ''), 10) || 0;
+    const comp     = parseInt((ev['Tickets Comp']            || '0').replace(/,/g, ''), 10) || 0;
+    const total    = parseInt((ev['Tickets Issued: Primary'] || '0').replace(/,/g, ''), 10) || 0;
+    const capacity = afterDarkCapacityFor(ev.section, ev['Event Date']);
+    const pct      = capacity ? Math.round((sold / capacity) * 100) : 0;
+    const cls      = pct >= 90 ? 'red' : pct >= 70 ? 'yellow' : 'green';
+
+    return `
+    <tr class="axs-row">
+      <td>
+        <span class="event-name">${esc(ev['Event Name'] || '—')}</span>
+        <div class="event-date">${fmtAxsDate(ev['Event Date'])}</div>
+      </td>
+      <td style="color:var(--sub);font-size:0.85rem">${esc(ev.section || '—')}</td>
+      <td class="num n-sold">${sold ? sold.toLocaleString() : '—'}</td>
+      <td class="num">${comp ? comp.toLocaleString() : '—'}</td>
+      <td class="num n-gold">${total ? total.toLocaleString() : '—'}</td>
+      <td class="num" style="color:var(--sub)">${capacity ? capacity.toLocaleString() : '—'}</td>
+      <td style="min-width:110px">
+        ${capacity ? `
+        <div class="prog-wrap">
+          <div class="prog-bar"><div class="prog-fill ${cls}" style="width:${pct}%"></div></div>
+          <span class="prog-pct ${cls}">${pct}%</span>
+        </div>` : '—'}
+      </td>
+    </tr>`;
+  }).join('');
 }
 
 function renderVipTable(instances) {
