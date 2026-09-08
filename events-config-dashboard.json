@@ -8368,6 +8368,53 @@
     "attribute_Genre": "Soul",
     "attribute_IsSupplementaryEvent": false,
     "attribute_Season": "Summer 2026"
+  },
+  {
+    "description": "",
+    "htmlDescription": "<div id>\r\n\r\n</div>",
+    "duration": 120,
+    "imageUrl": "https://system.spektrix.com/jazzaspensnowmass/files/6e4db988-f4c2-4d20-998a-f8f8230c9df3.jpeg",
+    "isOnSale": true,
+    "name": "Celebrating Prince feat. Members of NPG",
+    "instanceDates": "December 29-December 29",
+    "instances": [
+      {
+        "isOnSale": true,
+        "planId": "6602",
+        "priceList": {
+          "id": "25201ANDKMVTTJTBHCHVPRBNBQSNTLMKN"
+        },
+        "event": {
+          "id": "25001ADDVSKQBVSNBTBDPCMQTVGBHJDPN"
+        },
+        "start": "2026-12-29T20:00:00",
+        "startUtc": "2026-12-30T03:00:00",
+        "startSellingAtWeb": "2026-09-03T13:06:00",
+        "startSellingAtWebUtc": "2026-09-03T19:06:00Z",
+        "stopSellingAtWeb": "2026-12-29T20:00:00",
+        "stopSellingAtWebUtc": "2026-12-30T03:00:00Z",
+        "webInstanceId": null,
+        "cancelled": false,
+        "id": "79001ALMNHMLKHPPSKLMRGRNPHGQTCGQR",
+        "hasBestAvailableOverlay": false,
+        "attribute_TablesSoldOut": "",
+        "attribute_BarSoldOut": "",
+        "attribute_Description": "Bottle service options are available, please call our office at 970-920-4996 to inquire"
+      }
+    ],
+    "thumbnailUrl": "https://system.spektrix.com/jazzaspensnowmass/files/6e4db988-f4c2-4d20-998a-f8f8230c9df3-thumbnail.jpeg",
+    "webEventId": null,
+    "id": "25001ADDVSKQBVSNBTBDPCMQTVGBHJDPN",
+    "firstInstanceDateTime": "2026-12-29T20:00:00",
+    "firstInstanceDateTimeUtc": "2026-12-30T03:00:00Z",
+    "lastInstanceDateTime": "2026-12-29T20:00:00",
+    "lastInstanceDateTimeUtc": "2026-12-30T03:00:00Z",
+    "altText": "",
+    "attribute_CustomImage": "https://jazzaspensnowmass.org/wp-content/uploads/2026/08/NPG-scaled.jpeg",
+    "attribute_EventType": "JAS Cafe",
+    "attribute_Genre": "Soul",
+    "attribute_IsSupplementaryEvent": false,
+    "attribute_Season": "Winter 2027"
   }
   ]
 }
