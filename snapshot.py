@@ -37,7 +37,7 @@ MAIN_CONFIG_FILE = "events-config-dashboard.json"
 
 
 # ─── Spektrix API ─────────────────────────────────────────────────────────────
-def make_spektrix_request(path: str) -> dict | list:
+def make_spektrix_request(path: str, timeout: int = 15) -> dict | list:
     url  = f"https://system.spektrix.com/{CLIENT_NAME}{path}"
     date = datetime.utcnow().strftime("%a, %d %b %Y %H:%M:%S GMT")
     sig  = base64.b64encode(
@@ -52,7 +52,7 @@ def make_spektrix_request(path: str) -> dict | list:
         "Host":          "system.spektrix.com",
         "Date":          date,
         "Content-Type":  "application/json",
-    }, timeout=15)
+    }, timeout=timeout)
     resp.raise_for_status()
     return resp.json()
 

@@ -174,11 +174,13 @@ def _build_full_dataset() -> list[dict]:
 
     instances = []
     for event in EVENTS:
-        season = event.get("attribute_Season", "")
+        event_season = event.get("attribute_Season", "")
         for inst in event.get("instances", []):
             inst_id = inst.get("id")
             if not inst_id:
                 continue
+            # Instance-level season (Spektrix returns "" when unset) overrides the event's
+            season     = inst.get("attribute_Season") or event_season
             areas      = snapshots.get(inst_id) or live.get(inst_id, [])
             successful = [a for a in areas if "error" not in a]
             instances.append({

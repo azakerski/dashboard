@@ -13,7 +13,10 @@ to the full team via a password-protected URL.
 | `app.py` | Flask server — Spektrix auth, caching, API endpoints |
 | `dashboard.html` | Web dashboard UI |
 | `events-config-dashboard.json` | Events, seating plans, seasons, and sales snapshots |
-| `snapshot.py` | Script to capture final sales data for past events into the JSON |
+| `sync_events.py` | Script to add new Spektrix events and upcoming instances to the JSON |
+| `build_snapshot_list.py` | Script to fill `eventsToSnapshot.json` with past instances that need a snapshot |
+| `snapshot.py` | Script to capture final sales data for the instances in `eventsToSnapshot.json` |
+| `eventsToSnapshot.json` | Target list for `snapshot.py` |
 | `requirements.txt` | Python dependencies |
 | `config.py` | Local credentials — **never commit this file** |
 | `.env` | Local environment variables — **never commit this file** |
@@ -133,6 +136,49 @@ Add an entry to `seasons` and set `attribute_Season` on the relevant events:
 }
 ```
 
+Each key in `seasons` becomes a filter button, in the order listed. The first one is
+selected by default. A season that isn't in `seasons` gets no button, and its instances
+only show under **All Seasons**.
+
+### Season per instance
+
+Season is set per instance, so a returning artist's new dates can stay under the same
+event but belong to a different season. `app.py` uses the instance's `attribute_Season`
+(an instance-level attribute in Spektrix) and falls back to the event's `attribute_Season`
+when the instance value is empty.
+
+---
+
+## Adding New Events (`sync_events.py`)
+
+`sync_events.py` pulls `/api/v3/events?$expand=instances` from Spektrix and adds anything
+new to `events-config-dashboard.json`, so events don't need to be pasted in by hand.
+
+```bash
+# Preview what will be added
+python sync_events.py --dry-run
+
+# Add new events and instances to the JSON
+python sync_events.py
+```
+
+- **New events** are added with their upcoming instances only (today or later, not cancelled).
+- **Existing events** get any new upcoming instances added, matched by instance ID.
+- **Existing events and instances are never changed**, so snapshots and hand edits are safe.
+- **New events with no season are skipped.** An event is only added if its season (on the
+  event, or on one of its upcoming instances) matches a key in the `seasons` block. This keeps
+  test events, rentals and RSVP-only events out. Skipped events are listed at the end of the
+  output. To include one, set its Season in Spektrix to a season that's in the `seasons` block
+  and run the sync again.
+- **Instances on existing events are added whatever their season.** If a season isn't in the
+  `seasons` block (e.g. a season too far off to have a button yet), the script shows a warning
+  and the instance only appears under **All Seasons**.
+- **Other warnings** cover a missing `planId`, a plan that isn't in `planConfigs` (single-area
+  totals only), and a new instance on an existing event with no instance-level Season (it
+  inherits the event's season, which is usually wrong for a returning artist).
+
+Review the changes with `git diff`, then commit and push to deploy.
+
 ---
 
 ## Server-Side Caching
@@ -153,15 +199,19 @@ curl -X POST http://localhost:5000/api/cache/clear
 Once a show has passed, its ticket counts are final. Run `snapshot.py` to capture the
 final numbers into the JSON so the dashboard no longer needs to call the API for past events.
 
+Snapshots are per instance. `snapshot.py` snapshots the instances listed in
+`eventsToSnapshot.json` and always overwrites any existing snapshot for them. To fill that
+file with every past instance that doesn't have a snapshot yet, run `build_snapshot_list.py`
+first. It also copies over the `planConfigs` those instances use.
+
 ```bash
-# Preview what will be updated
+# Rebuild eventsToSnapshot.json from past, un-snapshotted instances
+python build_snapshot_list.py --dry-run
+python build_snapshot_list.py
+
+# Preview, then capture the snapshots into events-config-dashboard.json
 python snapshot.py --dry-run
-
-# Capture snapshots for all past instances
 python snapshot.py
-
-# Re-capture all past instances (overwrites existing snapshots)
-python snapshot.py --all
 ```
 
 Run this at the end of each season, then commit and push the updated JSON.

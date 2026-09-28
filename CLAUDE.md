@@ -15,6 +15,14 @@ pip install -r requirements.txt
 # Run locally (http://localhost:5000)
 python app.py
 
+# Add new Spektrix events + upcoming instances to events-config-dashboard.json
+python sync_events.py --dry-run
+python sync_events.py
+
+# Rebuild eventsToSnapshot.json from past instances that have no salesSnapshot yet
+python build_snapshot_list.py --dry-run
+python build_snapshot_list.py
+
 # Capture sales snapshots for targeted instances (eventsToSnapshot.json)
 python snapshot.py            # snapshot all instances in eventsToSnapshot.json
 python snapshot.py --dry-run  # preview without writing
@@ -48,6 +56,7 @@ Locally, AWS credentials come from `aws configure` — no need to add them to `.
 - Uses a shared `requests.Session` with `pool_maxsize=25` for connection pooling across parallel Spektrix calls
 - On `/api/instances`, fetches area status for all instances in parallel (`ThreadPoolExecutor`, 20 workers) and caches the result for 5 minutes. Each instance response includes `eventType` (from `attribute_EventType`)
 - Returns `seasonOrder` (a list of season keys in insertion order) alongside `seasons` in the `/api/instances` response — Flask's `jsonify` sorts dict keys alphabetically, so `seasonOrder` is the authoritative order for rendering filter buttons
+- Resolves each instance's `season` from the instance-level `attribute_Season` (a Spektrix instance attribute), falling back to the event-level `attribute_Season` when the instance value is missing or empty. This lets a returning artist's new instances live under the same event but belong to a different season
 - Skips the API entirely for instances that have a `salesSnapshot` in the JSON
 - Protects all routes with HTTP Basic Auth (username `jas`, password from config)
 - Credentials load from `config.py` locally, or from environment variables (`SPEKTRIX_CLIENT`, `SPEKTRIX_API_KEY`, `SPEKTRIX_API_SECRET`, `DASHBOARD_PASSWORD`) in production
@@ -100,6 +109,10 @@ Note: all numeric fields arrive as strings and may include commas. The frontend 
 }
 ```
 This is exposed to the frontend via `/api/config` (alongside `seasons`). The `% Sold` column reuses the same `prog-wrap`/`prog-bar`/`prog-fill`/`prog-pct` markup and green/yellow/red (≥90% red, ≥70% yellow) thresholds as the Spektrix tab's progress bar, for visual consistency.
+
+**`sync_events.py`** — Standalone script (run by hand, like `snapshot.py`). Calls `/api/v3/events?$expand=instances` and adds to `events-config-dashboard.json`: (1) new events, with only their upcoming (today or later, not cancelled) instances, and only if a season resolves to a key in the `seasons` block — which keeps test/rental events out, and the skipped ones are listed; (2) new upcoming instances on existing events, matched by instance ID. Never modifies existing events/instances, so snapshots are preserved. Warns about missing/unknown `planId`s and about instances added to existing events with no instance-level `attribute_Season` (they'd inherit the event's season).
+
+**`build_snapshot_list.py`** — Standalone script. Overwrites `eventsToSnapshot.json` with every instance in the main config that has no `salesSnapshot`, a start date before today, a `planId`, and isn't cancelled, plus the `planConfigs` those instances use. Run it, then `snapshot.py`.
 
 **`eventsToSnapshot.json`** — Config file for `snapshot.py`. Contains the `planConfigs` and `events`/`instances` you want to snapshot. Add events here when you want targeted snapshots without running against the full config.
 
