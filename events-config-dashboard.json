@@ -14047,6 +14047,106 @@
       "attribute_IsSupplementaryEvent": false,
       "attribute_Season": "Winter 2027",
       "attribute_SMBExclude": false
+    },
+    {
+      "description": "",
+      "htmlDescription": "<div id>\r\n\r\n</div>",
+      "duration": 75,
+      "imageUrl": "https://system.spektrix.com/jazzaspensnowmass/files/6f46b24a-6aa5-499a-b3c8-7c37c05fab7d.jpg",
+      "isOnSale": true,
+      "name": "Cory Henry's A Jam Good Time",
+      "instanceDates": "March 6-March 6",
+      "instances": [
+        {
+          "isOnSale": true,
+          "planId": "6601AQMNQNHRQGLJKCSPPPSGMQSBMDCJM",
+          "priceList": {
+            "id": "16801ANHJRBJLNRBNVQDKPGNSLJNKRTQV"
+          },
+          "event": {
+            "id": "28201ANLRQMDQPKBCRBQJSVDBPMCHQKNS"
+          },
+          "start": "2027-03-06T18:30:00",
+          "startUtc": "2027-03-07T01:30:00",
+          "startSellingAtWeb": "2026-10-22T09:22:00",
+          "startSellingAtWebUtc": "2026-10-22T15:22:00Z",
+          "startSellingAtAgents": null,
+          "startSellingAtAgentsUtc": null,
+          "startSellingAtFundraising": null,
+          "startSellingAtFundraisingUtc": null,
+          "startSellingAtSales": null,
+          "startSellingAtSalesUtc": null,
+          "stopSellingAtWeb": "2027-03-06T18:30:00",
+          "stopSellingAtWebUtc": "2027-03-07T01:30:00Z",
+          "stopSellingAtAgents": "2027-03-06T17:30:00",
+          "stopSellingAtAgentsUtc": "2027-03-07T00:30:00Z",
+          "stopSellingAtFundraising": "2027-03-06T21:30:00",
+          "stopSellingAtFundraisingUtc": "2027-03-07T04:30:00Z",
+          "stopSellingAtSales": "2027-03-13T18:30:00",
+          "stopSellingAtSalesUtc": "2027-03-14T01:30:00Z",
+          "webInstanceId": null,
+          "cancelled": false,
+          "id": "87001ATNHRQCRQHKBKPTBSRTPVHCMNHHK",
+          "hasBestAvailableOverlay": false,
+          "attribute_ExcludeFromOffers": false,
+          "attribute_TablesSoldOut": "",
+          "attribute_BarSoldOut": "",
+          "attribute_Description": "",
+          "attribute_Season": ""
+        },
+        {
+          "isOnSale": true,
+          "planId": "6601AQMNQNHRQGLJKCSPPPSGMQSBMDCJM",
+          "priceList": {
+            "id": "24201AQBJSCTMKBQRHSLCPQSBDTRMBNBT"
+          },
+          "event": {
+            "id": "28201ANLRQMDQPKBCRBQJSVDBPMCHQKNS"
+          },
+          "start": "2027-03-06T21:00:00",
+          "startUtc": "2027-03-07T04:00:00",
+          "startSellingAtWeb": "2026-10-22T09:22:00",
+          "startSellingAtWebUtc": "2026-10-22T15:22:00Z",
+          "startSellingAtAgents": null,
+          "startSellingAtAgentsUtc": null,
+          "startSellingAtFundraising": null,
+          "startSellingAtFundraisingUtc": null,
+          "startSellingAtSales": null,
+          "startSellingAtSalesUtc": null,
+          "stopSellingAtWeb": "2027-03-06T21:00:00",
+          "stopSellingAtWebUtc": "2027-03-07T04:00:00Z",
+          "stopSellingAtAgents": "2027-03-06T20:00:00",
+          "stopSellingAtAgentsUtc": "2027-03-07T03:00:00Z",
+          "stopSellingAtFundraising": "2027-03-07T00:00:00",
+          "stopSellingAtFundraisingUtc": "2027-03-07T07:00:00Z",
+          "stopSellingAtSales": "2027-03-13T21:00:00",
+          "stopSellingAtSalesUtc": "2027-03-14T04:00:00Z",
+          "webInstanceId": null,
+          "cancelled": false,
+          "id": "87201AJBBCVJSDDKPTDJQMGVSLBVHDVPM",
+          "hasBestAvailableOverlay": false,
+          "attribute_ExcludeFromOffers": false,
+          "attribute_TablesSoldOut": "",
+          "attribute_BarSoldOut": "",
+          "attribute_Description": "",
+          "attribute_Season": ""
+        }
+      ],
+      "thumbnailUrl": "https://system.spektrix.com/jazzaspensnowmass/files/6f46b24a-6aa5-499a-b3c8-7c37c05fab7d-thumbnail.jpg",
+      "webUrl": "",
+      "webEventId": null,
+      "id": "28201ANLRQMDQPKBCRBQJSVDBPMCHQKNS",
+      "firstInstanceDateTime": "2027-03-06T18:30:00",
+      "firstInstanceDateTimeUtc": "2027-03-07T01:30:00Z",
+      "lastInstanceDateTime": "2027-03-06T21:00:00",
+      "lastInstanceDateTimeUtc": "2027-03-07T04:00:00Z",
+      "altText": "",
+      "attribute_CustomImage": "https://jazzaspensnowmass.org/wp-content/uploads/2026/10/Cory-Henry-Press-Photo.jpg",
+      "attribute_EventType": "JAS Cafe",
+      "attribute_Genre": "Funk",
+      "attribute_IsSupplementaryEvent": false,
+      "attribute_Season": "Winter 2027",
+      "attribute_SMBExclude": false
     }
   ]
 }
