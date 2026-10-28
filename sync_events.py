@@ -108,7 +108,7 @@ def main():
     if skipped:
         print(f"\nSkipped {len(skipped)} new event(s) with no season from the seasons block:")
         for e in skipped:
-            print(f"  - {e['name']}  (season {e.get('attribute_Season', '')!r}, first {e.get('firstInstanceDateTime', '')[:10]})")
+            print(f"  - {e['name']}  (season {e.get('attribute_Season', '')!r}, first {(e.get('firstInstanceDateTime') or 'n/a')[:10]})")
 
     print(f"\n{'─' * 50}")
     print(f"{len(new_events)} new event(s), {new_inst_count} new instance(s) total.")
