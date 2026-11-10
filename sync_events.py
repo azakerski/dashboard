@@ -17,6 +17,20 @@ modified, so salesSnapshots and hand edits are left alone.
 Usage:
   python sync_events.py            # add new events/instances to the config
   python sync_events.py --dry-run  # show what would be added without writing
+
+  To publish:
+  1. Commit and push to staging (test first)
+  git add events-config-dashboard.json
+  git commit -m "Add new events via sync_events"
+  git push origin staging
+  Check the change on the staging Render service.
+
+  2. Promote to production (merge into main)
+  git checkout main
+  git pull origin main
+  git merge staging
+  git push origin main
+  git checkout staging
 """
 
 import argparse
